@@ -1,0 +1,3 @@
+[[context-view]]
+== Vista de Contexto
+La vista de contexto muestra el sistema como una caja negra ...
