@@ -6,10 +6,10 @@ Este repositorio contiene la documentación de la arquitectura del sistema de Re
 - docs/ --> Documentaciön en AsciiDoc
 - images/ --> Diagramas exportados desde EA
 - build/ --> Salida generada (ignorada en Git)
- 
+
 ## Requisitos
 - Ruby (con Asciidoctor y Asciidoctor PDF instalados) .
 - VS Code con el plugin [AsciiDoc by Asciidoctor] .
 ## Compilación local (bash)
-- asciidoctor -D build docs/indice . adoc
+- asciidoctor -D build docs/indice.adoc
 - asciidoctor-pdf -o build/ indice.pdf docs/indice.adoc
