@@ -3,39 +3,39 @@
 == Stakeholders
 
 Lista de stakeholders
--Clientes
--Administradores del sistema
--Operadores del sistema
--Proveedores de servicios de pago
--Equipo de desarrollo
--Equipo de soporte
--Equipo de marketing
--Equipo legal y de cumplimiento
--Equipo de ventas
--Equipo de finanzas
--Equipo de atención al cliente
--Equipo de producto
--Equipo de seguridad
--Equipo de infraestructura
--Equipo de calidad
--Equipo de operaciones
--Equipo de recursos humanos
--Equipo de gestión de proyectos
--Equipo de auditoría
--Equipo de análisis de datos
--Equipo de diseño
+- Clientes
+- Administradores del sistema
+- Operadores del sistema
+- Proveedores de servicios de pago
+- Equipo de desarrollo
+- Equipo de soporte
+- Equipo de marketing
+- Equipo legal y de cumplimiento
+- Equipo de ventas
+- Equipo de finanzas
+- Equipo de atención al cliente
+- Equipo de producto
+- Equipo de seguridad
+- Equipo de infraestructura
+- Equipo de calidad
+- Equipo de operaciones
+- Equipo de recursos humanos
+- Equipo de gestión de proyectos
+- Equipo de auditoría
+- Equipo de análisis de datos
+- Equipo de diseño
 
 == Preocupaciones de los stakeholders
 
 Lista de preocupaciones de los stakeholders
 
--Precios dinamicos
--Trazabilidad de las operaciones (Auditoria)
--Evitar dobles reservas
--Asegurar el pago una sola vez
--Respetar el precio mostrado al cliente[Transaccional]
--Proteger los datos sensibles de los clientes[Seguridad]
--Reservar en menos de cinco clics[Usabilidad]
+- Precios dinamicos
+- Trazabilidad de las operaciones (Auditoria)
+- Evitar dobles reservas
+- Asegurar el pago una sola vez
+- Respetar el precio mostrado al cliente[Transaccional]
+- Proteger los datos sensibles de los clientes[Seguridad]
+- Reservar en menos de cinco clics[Usabilidad]
 
 
 == Restricciones

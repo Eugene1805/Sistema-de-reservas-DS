@@ -1,17 +1,17 @@
 == Atributos calidad
 
 == Objetivos de calidad
--Rendimiento
--Disponibilidad
--Seguridad
--Usabilidad
+- Rendimiento
+- Disponibilidad
+- Seguridad
+- Usabilidad
 
 == Utility tree
 // TODO: Incluir diagrama
 
 == Escenarios de atriutos calidad
 
-[cols="1,1"]
+[cols="1,2"]
 |===
 | ID y descripción corta | EAC-01
 | Escenario | Garantizar la eficencia de uso al completar una tarea crítica del sistema
