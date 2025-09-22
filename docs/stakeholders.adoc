@@ -41,8 +41,8 @@ Lista de preocupaciones de los stakeholders
 == Restricciones
 
 == Restricciones tecnicas
--
--
+- Utilizar una base de datos relacional para gestionar las reservas y la información de los clientes.
+- Implementar un sistema web y móvil para facilitar el acceso a los servicios de reserva.
 == Restricciones organizacionales (Leyes y regulaciones)
 -
 -
