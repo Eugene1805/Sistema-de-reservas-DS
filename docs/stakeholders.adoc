@@ -3,6 +3,7 @@
 == Stakeholders
 
 Lista de stakeholders
+
 - Clientes
 - Administradores del sistema
 - Operadores del sistema
@@ -33,18 +34,22 @@ Lista de preocupaciones de los stakeholders
 - Trazabilidad de las operaciones (Auditoria)
 - Evitar dobles reservas
 - Asegurar el pago una sola vez
-- Respetar el precio mostrado al cliente[Transaccional]
-- Proteger los datos sensibles de los clientes[Seguridad]
-- Reservar en menos de cinco clics[Usabilidad]
+- Respetar el precio mostrado al cliente [Transaccional]
+- Proteger los datos sensibles de los clientes [Seguridad]
+- Reservar en menos de cinco clics [Usabilidad]
 
 
 == Restricciones
 
 == Restricciones tecnicas
+
 - Utilizar una base de datos relacional para gestionar las reservas y la información de los clientes.
 - Implementar un sistema web y móvil para facilitar el acceso a los servicios de reserva.
+
 == Restricciones organizacionales (Leyes y regulaciones)
+
 -
 -
+
 == Otras
 -
