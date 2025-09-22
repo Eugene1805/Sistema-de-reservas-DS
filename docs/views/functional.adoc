@@ -29,3 +29,6 @@
 
 == Reglas de negcio
 // agregar reglas de negocio
+- Overbooking 10%
+- Pago completo al hacer la reservacion
+- Una penalizacion por cancelacion
