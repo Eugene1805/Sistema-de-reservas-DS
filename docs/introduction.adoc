@@ -7,4 +7,4 @@ El propósito de este documento es proporcionar una visión general del Sistema 
 == Alcance
 El alcance del Sistema de reservas incluye el diseño de una plataforma centralizada y robusta que soporte su crecimiento y optimice las operaciones diarias en más de 5,000 hoteles y 1,000,000 de habitaciones. en línea que permita a los usuarios reservar servicios de manera eficiente. El sistema cubrirá funcionalidades como la gestión de usuarios, la disponibilidad de servicios, y la confirmación de reservas.
 
-== Referecencias
+== Referencias
