@@ -1,4 +1,4 @@
-= Descripciön de Ia Arquitectura de Software
+= Descripción de Ia Arquitectura de Software
 :doctype: book
 :toc: left
 :sectnums:
