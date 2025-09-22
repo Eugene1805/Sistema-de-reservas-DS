@@ -1,0 +1,65 @@
+[33mcommit fe4e9cc9b5f6877be681a67adcbc9720a308acc5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 10:28:26 2025 -0600
+
+    FIX typo in index.adoc title
+
+[33mcommit e9e977e79a0695930b4f93e0349d8d5d60b0daf0[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 10:27:25 2025 -0600
+
+    ADD decisiones
+
+[33mcommit aaae22284180224c0d1352f49df2f26e20837610[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 10:25:43 2025 -0600
+
+    ADD constraints
+
+[33mcommit 7b4fad6d230fa2207c248b7886abc67b35dc9aec[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 10:24:18 2025 -0600
+
+    ADD bussiness rules
+
+[33mcommit 49b0f559877779901617c3464fd9fcfdcb49f121[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 10:20:28 2025 -0600
+
+    ADD qualities
+
+[33mcommit 83ecbbb9d46c0a6d766b79b148e6147d6c1ce4b5[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 09:54:14 2025 -0600
+
+    ADD functional (Casos de uso, primera iteracion)
+
+[33mcommit 4d400d842dea6cfcdb0fdca85e342b96a7d4d0fb[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 08:16:58 2025 -0600
+
+    Add stakeholders
+
+[33mcommit 36319bfc06bf22e7b3eb7f5bd88ad7dc8392adc4[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 08:02:37 2025 -0600
+
+    Add context
+
+[33mcommit ed794c18350bbdadb6b2a5d8fe0e5c82f13e7f56[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 22 07:56:22 2025 -0600
+
+    Add introduction
+
+[33mcommit e2b8047df7901eaf2ed640334ed9006f569dc6d0[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Thu Sep 18 15:47:36 2025 -0600
+
+    Fix proyect structure
+
+[33mcommit cc1648e80a3a8079c523427a3b7dd33653f27fb0[m
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Thu Sep 18 15:41:51 2025 -0600
+
+    Create repository
