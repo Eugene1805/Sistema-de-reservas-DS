@@ -1,0 +1,8 @@
+== Vista de contexto
+
+== Contexto del sistema
+// Añadir diagrama de contexto del sistema aquí
+== Actores externos
+// Listar los actores con su descripionn aquí
+== Interacciones con sistemas externos
+// Listar las interacciones aquí
