@@ -1,0 +1,12 @@
+= Architectural Decisions
+
+== Registro de descioneses arquitectónicas
+
+[.table]
+[cols="1,2,2,2"]
+|===
+| ID | Decision | Rationale | Status
+// Plantilla a llenar
+| 1 | Usar base de datos MySQL | Compatible con infraestructura | Accepted
+| 2 | Usar arquitectura en capas | Mantener separación de responsabilidades | Proposed
+|===
