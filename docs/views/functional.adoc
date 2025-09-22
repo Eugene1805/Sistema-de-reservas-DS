@@ -25,3 +25,7 @@
 | CU-12 | Administracion de hoteles | Administrador | |
 | CU-13 | Administracion de habitaciones de un hotel | Operador | |
 |===
+
+
+== Reglas de negcio
+// agregar reglas de negocio
