@@ -1,34 +1,50 @@
-= Descripción de Ia Arquitectura de Software
+= Arquitectura del Sistema de gestion hotelera
 :doctype: book
 :toc: left
-:sectnums:
+:toclevels: 3
 :icons: font
-:source-highlighter : highlightjs
-:imagesdir: images
-:lang: es
+:sectnums:
+:source-highlighter: rouge
 
-:chapter-label: Capitulo
-:appendix-caption: Apéndice
-:part-signifier: Parte
-:figure-caption: Figura
-:table-caption: Tabla
-:example-caption: Ejemplo
-:listing-caption: Listado
-:caution-caption: Precaución
-:important-caption: Importante
-:note-caption: Nota
-:tip-caption: Consejo
-:warning-caption: Advertencia
+== Introducción
+include::architecture/4+1/introduction.adoc[]
 
-include::introduction.adoc[]
-include::stakeholders.adoc[]
-include::views/context.adoc[]
-include::views/functional.adoc[]
-include::views/information.adoc[]
-include::views/concurrency.adoc[]
-include::views/deployment.adoc[]
-include::views/development.adoc[]
-include::views/operational.adoc[]
-include::qualities.adoc[]
-include::decisions.adoc[]
-include::appendix.adoc[]
+== Contexto
+include::architecture/4+1/context.adoc[]
+
+== Stakeholders
+include::architecture/4+1/stakeholders.adoc[]
+
+== Vistas 4+1
+
+=== Vista Lógica
+include::architecture/4+1/logical-view.adoc[]
+
+=== Vista de Desarrollo
+include::architecture/4+1/development-view.adoc[]
+
+=== Vista de Procesos
+include::architecture/4+1/process-view.adoc[]
+
+=== Vista Física
+include::architecture/4+1/physical-view.adoc[]
+
+=== Vista de Escenarios
+include::architecture/4+1/scenarios-view.adoc[]
+
+== Requisitos
+
+=== Funcionales
+include::architecture/requirements/functional.adoc[]
+
+=== De Calidad
+include::architecture/requirements/qualities.adoc[]
+
+== Atributos de Calidad
+include::architecture\quality-attibutes\utility-tree.adoc[]
+
+== Decisiones Arquitectónicas
+include::architecture/decisions/decisions.adoc[]
+
+== Glosario
+include::architecture/glossary.adoc[]
