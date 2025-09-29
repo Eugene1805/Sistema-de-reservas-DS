@@ -184,6 +184,7 @@ a| *Fuente:* DevOps
 === 9. Testabilidad
 .Atributos de Testabilidad
 [cols="1,2,2", options="header"]
+|===
 | Sub-atributo | Pregunta | Escenario de Calidad
 | Automatización
 a| ¿El 90% de las pruebas pueden automatizarse?
@@ -200,7 +201,7 @@ a| *Fuente:* Desarrollador
 *Medida:* 100% de componentes testables individualmente
 |===
 
-|== Resumen de Métricas
+== Resumen de Métricas
 [cols="3,2,2", options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
@@ -222,4 +223,4 @@ a| *Fuente:* Desarrollador
 | Portabilidad | Nube/Híbrido | <8 horas migración
 | Testabilidad | Automatización | 90% cobertura
 | Testabilidad | Aislamiento | 100% componentes
-|==
+|===
