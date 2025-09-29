@@ -8,15 +8,15 @@
 [cols="1,3", options="header"]
 |===
 | Objetivo | Descripción
-| Performance | El sistema debe manejar cargas de trabajo esperadas con tiempos de respuesta aceptables
-| Seguridad | Protección de datos y prevención de accesos no autorizados
-| Escalabilidad | Capacidad de crecer para satisfacer demanda futura
-| Disponibilidad | Sistema accesible cuando los usuarios lo necesitan
-| Mantenibilidad | Facilidad de realizar cambios y mejoras
-| Interoperabilidad | Capacidad de integrarse con otros sistemas
-| Usabilidad | Facilidad de uso para los usuarios finales
-| Portabilidad | Capacidad de ejecutarse en diferentes entornos
-| Testabilidad | Facilidad de verificar el correcto funcionamiento
+| Performance | Grado en que un sistema o componente cumple sus funciones designadas dentro de unas limitaciones determinadas, tales como velocidad, precisión o uso de la memoria. (ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)
+| Seguridad |Capacidad de un producto para proteger la información y los datos, de modo que las personas u otros productos tengan el grado de acceso a los datos adecuado a su tipo y nivel de autorización, y para defenderse de los patrones de ataque de actores maliciosos. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)
+| Escalabilidad | Capacidad de un producto para gestionar cargas de trabajo crecientes o decrecientes, o para adaptar su capacidad con el fin de gestionar la variabilidad. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.8.2)
+| Disponibilidad | Capacidad de un producto para estar operativo y accesible cuando se requiere su uso. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)
+| Mantenibilidad | Capacidad de un producto para ser modificado por los responsables de su mantenimiento con eficacia y eficiencia. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7)
+| Interoperabilidad |  Capacidad de un producto para intercambiar información con otros productos y utilizar mutuamente la información que se ha intercambiado. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.3.2)
+| Usabilidad | Grado de eficacia, eficiencia y satisfacción con el que usuarios específicos pueden lograr objetivos específicos en contextos de uso específicos. (ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)
+| Portabilidad | Facilidad con la que un sistema o componente puede transferirse de un entorno de hardware o software a otro. (ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)
+| Testabilidad | Capacidad de un producto para permitir el diseño y la realización de una prueba objetiva y viable con el fin de determinar si se cumple un requisito. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7.5)
 |===
 
 == Atributos de Calidad
