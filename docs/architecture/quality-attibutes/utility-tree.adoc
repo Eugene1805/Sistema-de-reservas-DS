@@ -23,18 +23,16 @@
 
 === 1. Performance
 .Atributos de Performance
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Tiempo de Respuesta
-a| ¿El sistema responde en menos de 2 segundos para el 95% de las peticiones?
 a| *Fuente:* Usuario final
 *Estímulo:* Realizar una consulta
 *Respuesta:* Procesar y devolver resultados en <2s
 *Medida:* 95% de peticiones bajo carga normal
 
 | Throughput
-a| ¿El sistema puede procesar 1000 transacciones por minuto?
 a| *Fuente:* Sistema externo
 *Estímulo:* Envío masivo de transacciones
 *Respuesta:* Procesar todas las transacciones
@@ -43,18 +41,16 @@ a| *Fuente:* Sistema externo
 
 === 2. Seguridad
 .Atributos de Seguridad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Autenticación
-a| ¿El sistema verifica identidad con múltiples factores?
 a| *Fuente:* Usuario no autenticado
 *Estímulo:* Intentar acceder al sistema
 *Respuesta:* Solicitar credenciales múltiples
 *Medida:* 100% de accesos requieren MFA
 
 | Autorización
-a| ¿El sistema limita acceso según roles y permisos?
 a| *Fuente:* Usuario autenticado
 *Estímulo:* Intentar acceder a recurso
 *Respuesta:* Permitir/denegar basado en permisos
@@ -63,18 +59,16 @@ a| *Fuente:* Usuario autenticado
 
 === 3. Escalabilidad
 .Atributos de Escalabilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Escalabilidad Horizontal
-a| ¿El sistema puede agregar nodos sin downtime?
 a| *Fuente:* Administrador
 *Estímulo:* Añadir nuevo servidor
 *Respuesta:* Sistema incorpora nodo automáticamente
 *Medida:* 0 interrupción del servicio
 
 | Escalabilidad Vertical
-a| ¿El sistema aprovecha recursos adicionales?
 a| *Fuente:* Administrador
 *Estímulo:* Aumentar recursos de servidor
 *Respuesta:* Mejorar performance proporcionalmente
@@ -83,18 +77,16 @@ a| *Fuente:* Administrador
 
 === 4. Disponibilidad
 .Atributos de Disponibilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Tiempo de Actividad
-a| ¿El sistema tiene 99.9% de disponibilidad?
 a| *Fuente:* Cualquier usuario
 *Estímulo:* Solicitar servicio en cualquier momento
 *Respuesta:* Servicio disponible y funcional
 *Medida:* 99.9% uptime mensual
 
 | Recuperación
-a| ¿El sistema se recupera en menos de 30 minutos?
 a| *Fuente:* Falla del sistema
 *Estímulo:* Caída del servicio
 *Respuesta:* Restaurar operación normal
@@ -103,18 +95,16 @@ a| *Fuente:* Falla del sistema
 
 === 5. Mantenibilidad
 .Atributos de Mantenibilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Modificabilidad
-a| ¿Se pueden implementar cambios en menos de 4 horas?
 a| *Fuente:* Desarrollador
 *Estímulo:* Requerimiento de cambio
 *Respuesta:* Cambio implementado y probado
 *Medida:* <4 horas por cambio estándar
 
 | Debugging
-a| ¿El sistema provee logs detallados para troubleshooting?
 a| *Fuente:* Administrador
 *Estímulo:* Error en producción
 *Respuesta:* Identificar causa raíz rápidamente
@@ -123,18 +113,16 @@ a| *Fuente:* Administrador
 
 === 6. Interoperabilidad
 .Atributos de Interoperabilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Integración
-a| ¿El sistema se integra con APIs externas?
 a| *Fuente:* Sistema externo
 *Estímulo:* Llamada a API
 *Respuesta:* Procesar y responder correctamente
 *Medida:* 100% compatibilidad con estándares
 
 | Compatibilidad
-a| ¿Funciona con diferentes versiones de sistemas?
 a| *Fuente:* Sistema legacy
 *Estímulo:* Comunicación con versión anterior
 *Respuesta:* Manejar diferencias de versión
@@ -143,18 +131,16 @@ a| *Fuente:* Sistema legacy
 
 === 7. Usabilidad
 .Atributos de Usabilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Facilidad de Uso
-a| ¿Los usuarios completan tareas en menos de 3 intentos?
 a| *Fuente:* Usuario nuevo
 *Estímulo:* Realizar tarea por primera vez
 *Respuesta:* Completar tarea exitosamente
 *Medida:* <3 intentos para tareas principales
 
 | Documentación
-a| ¿La ayuda en línea resuelve dudas en 5 minutos?
 a| *Fuente:* Usuario con dudas
 *Estímulo:* Buscar ayuda para funcionalidad
 *Respuesta:* Encontrar solución clara
@@ -163,18 +149,16 @@ a| *Fuente:* Usuario con dudas
 
 === 8. Portabilidad
 .Atributos de Portabilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Multiplataforma
-a| ¿El sistema funciona en diferentes SO?
 a| *Fuente:* Administrador
 *Estímulo:* Desplegar en nuevo SO
 *Respuesta:* Ejecutar sin modificaciones
 *Medida:* Soporte para 3 SO diferentes
 
 | Nube/Híbrido
-a| ¿Puede desplegarse en diferentes entornos cloud?
 a| *Fuente:* DevOps
 *Estímulo:* Migrar entre proveedores cloud
 *Respuesta:* Funcionar en nuevo entorno
@@ -183,18 +167,16 @@ a| *Fuente:* DevOps
 
 === 9. Testabilidad
 .Atributos de Testabilidad
-[cols="1,2,2", options="header"]
+[cols="1,3", options="header"]
 |===
-| Sub-atributo | Pregunta | Escenario de Calidad
+| Sub-atributo | Escenario de Calidad
 | Automatización
-a| ¿El 90% de las pruebas pueden automatizarse?
 a| *Fuente:* QA Engineer
 *Estímulo:* Ejecutar suite de pruebas
 *Respuesta:* Generar reporte automático
 *Medida:* 90% cobertura automatizada
 
 | Aislamiento
-a| ¿Los componentes pueden probarse independientemente?
 a| *Fuente:* Desarrollador
 *Estímulo:* Probar módulo específico
 *Respuesta:* Ejecutar pruebas unitarias aisladas
@@ -202,7 +184,7 @@ a| *Fuente:* Desarrollador
 |===
 
 == Resumen de Métricas
-[cols="3,2,2", options="header"]
+[cols="3,2", options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
 | Performance | Tiempo de Respuesta | <2 segundos (95%)
