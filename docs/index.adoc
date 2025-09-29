@@ -41,7 +41,7 @@ include::architecture/requirements/functional.adoc[]
 include::architecture/requirements/qualities.adoc[]
 
 == Atributos de Calidad
-include::architecture\quality-attibutes\utility-tree.adoc[]
+include::architecture/quality-attibutes/utility-tree.adoc[]
 
 == Decisiones Arquitectónicas
 include::architecture/decisions/decisions.adoc[]
