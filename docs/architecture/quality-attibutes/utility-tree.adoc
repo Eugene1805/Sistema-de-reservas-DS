@@ -1,4 +1,4 @@
-= Utility Tree - Arquitectura del Sistema
+= Utility Tree - Arquitectura del Sistema de gestión hotelera
 :toc: left
 :toclevels: 3
 
@@ -26,17 +26,11 @@
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Tiempo de Respuesta
-a| *Fuente:* Usuario final
-*Estímulo:* Realizar una consulta
-*Respuesta:* Procesar y devolver resultados en <2s
-*Medida:* 95% de peticiones bajo carga normal
+| Placeholder
+a| Placeholder
 
-| Throughput
-a| *Fuente:* Sistema externo
-*Estímulo:* Envío masivo de transacciones
-*Respuesta:* Procesar todas las transacciones
-*Medida:* 1000 TPM manteniendo performance
+| Placeholder
+a| Placeholder
 |===
 
 === 2. Seguridad
@@ -44,17 +38,11 @@ a| *Fuente:* Sistema externo
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Autenticación
-a| *Fuente:* Usuario no autenticado
-*Estímulo:* Intentar acceder al sistema
-*Respuesta:* Solicitar credenciales múltiples
-*Medida:* 100% de accesos requieren MFA
+| Manejo de datos sensibles
+a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro
 
-| Autorización
-a| *Fuente:* Usuario autenticado
-*Estímulo:* Intentar acceder a recurso
-*Respuesta:* Permitir/denegar basado en permisos
-*Medida:* 0 accesos no autorizados
+| Placeholder
+a| Placeholder
 |===
 
 === 3. Escalabilidad
@@ -62,17 +50,11 @@ a| *Fuente:* Usuario autenticado
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Escalabilidad Horizontal
-a| *Fuente:* Administrador
-*Estímulo:* Añadir nuevo servidor
-*Respuesta:* Sistema incorpora nodo automáticamente
-*Medida:* 0 interrupción del servicio
+| Placeholder
+a| Placeholder
 
-| Escalabilidad Vertical
-a| *Fuente:* Administrador
-*Estímulo:* Aumentar recursos de servidor
-*Respuesta:* Mejorar performance proporcionalmente
-*Medida:* 80% utilización de recursos adicionales
+| Placerholder
+a| Placerholder
 |===
 
 === 4. Disponibilidad
@@ -80,17 +62,11 @@ a| *Fuente:* Administrador
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Tiempo de Actividad
-a| *Fuente:* Cualquier usuario
-*Estímulo:* Solicitar servicio en cualquier momento
-*Respuesta:* Servicio disponible y funcional
-*Medida:* 99.9% uptime mensual
+| Confiabilidad del registro de reservas
+a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente.
 
-| Recuperación
-a| *Fuente:* Falla del sistema
-*Estímulo:* Caída del servicio
-*Respuesta:* Restaurar operación normal
-*Medida:* <30 minutos de recuperación
+| Confiabilidad de las transacciones
+a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
 |===
 
 === 5. Mantenibilidad
@@ -98,17 +74,11 @@ a| *Fuente:* Falla del sistema
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Modificabilidad
-a| *Fuente:* Desarrollador
-*Estímulo:* Requerimiento de cambio
-*Respuesta:* Cambio implementado y probado
-*Medida:* <4 horas por cambio estándar
+| Placeholder
+a| Placeholder
 
-| Debugging
-a| *Fuente:* Administrador
-*Estímulo:* Error en producción
-*Respuesta:* Identificar causa raíz rápidamente
-*Medida:* <15 minutos para diagnóstico
+| Placeholder
+a| Placeholder
 |===
 
 === 6. Interoperabilidad
@@ -116,17 +86,11 @@ a| *Fuente:* Administrador
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Integración
-a| *Fuente:* Sistema externo
-*Estímulo:* Llamada a API
-*Respuesta:* Procesar y responder correctamente
-*Medida:* 100% compatibilidad con estándares
+| Placeholder
+a| Placeholder
 
-| Compatibilidad
-a| *Fuente:* Sistema legacy
-*Estímulo:* Comunicación con versión anterior
-*Respuesta:* Manejar diferencias de versión
-*Medida:* Soporte para 2 versiones anteriores
+| Placeholder
+a| Placeholder
 |===
 
 === 7. Usabilidad
@@ -134,17 +98,11 @@ a| *Fuente:* Sistema legacy
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Facilidad de Uso
-a| *Fuente:* Usuario nuevo
-*Estímulo:* Realizar tarea por primera vez
-*Respuesta:* Completar tarea exitosamente
-*Medida:* <3 intentos para tareas principales
+| Facilidad de aprendizaje del proceso de check-in
+a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%.
 
-| Documentación
-a| *Fuente:* Usuario con dudas
-*Estímulo:* Buscar ayuda para funcionalidad
-*Respuesta:* Encontrar solución clara
-*Medida:* <5 minutos de búsqueda
+| Eficiencia de uso en el tiempo en hacer el check-in
+a| El operador completa el check-in en menos de 10 minutos
 |===
 
 === 8. Portabilidad
@@ -152,17 +110,11 @@ a| *Fuente:* Usuario con dudas
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Multiplataforma
-a| *Fuente:* Administrador
-*Estímulo:* Desplegar en nuevo SO
-*Respuesta:* Ejecutar sin modificaciones
-*Medida:* Soporte para 3 SO diferentes
+| Placeholder
+a| Placeholder
 
-| Nube/Híbrido
-a| *Fuente:* DevOps
-*Estímulo:* Migrar entre proveedores cloud
-*Respuesta:* Funcionar en nuevo entorno
-*Medida:* <8 horas de migración
+| Placeholder
+a| Placeholder
 |===
 
 === 9. Testabilidad
@@ -170,39 +122,33 @@ a| *Fuente:* DevOps
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Automatización
-a| *Fuente:* QA Engineer
-*Estímulo:* Ejecutar suite de pruebas
-*Respuesta:* Generar reporte automático
-*Medida:* 90% cobertura automatizada
+| Placeholder
+a| Placeholder
 
-| Aislamiento
-a| *Fuente:* Desarrollador
-*Estímulo:* Probar módulo específico
-*Respuesta:* Ejecutar pruebas unitarias aisladas
-*Medida:* 100% de componentes testables individualmente
+| Placeholder
+a| Placeholder
 |===
 
 == Resumen de Métricas
-[cols="3,2", options="header"]
+[options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
-| Performance | Tiempo de Respuesta | <2 segundos (95%)
-| Performance | Throughput | 1000 TPM
-| Seguridad | Autenticación | 100% MFA
-| Seguridad | Autorización | 0 accesos no autorizados
-| Escalabilidad | Horizontal | 0 downtime
-| Escalabilidad | Vertical | 80% utilización
-| Disponibilidad | Tiempo de Actividad | 99.9% uptime
-| Disponibilidad | Recuperación | <30 minutos
-| Mantenibilidad | Modificabilidad | <4 horas/cambio
-| Mantenibilidad | Debugging | <15 minutos diagnóstico
-| Interoperabilidad | Integración | 100% estándares
-| Interoperabilidad | Compatibilidad | 2 versiones anteriores
-| Usabilidad | Facilidad de Uso | <3 intentos
-| Usabilidad | Documentación | <5 minutos búsqueda
-| Portabilidad | Multiplataforma | 3 SO diferentes
-| Portabilidad | Nube/Híbrido | <8 horas migración
-| Testabilidad | Automatización | 90% cobertura
-| Testabilidad | Aislamiento | 100% componentes
+| Performance |  P | P
+| Performance | P | P
+| Seguridad | Manejo de datos sensibles | P
+| Seguridad | P | P
+| Escalabilidad | P | P
+| Escalabilidad | P | P
+| Disponibilidad | Confiabilidad del registro de reservas | P
+| Disponibilidad | Confiabilidad de las transacciones | P
+| Mantenibilidad | P | P
+| Mantenibilidad | P | P
+| Interoperabilidad | P | P
+| Interoperabilidad | P | P
+| Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
+| Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
+| Portabilidad | P | P
+| Portabilidad | P | P
+| Testabilidad | P | P
+| Testabilidad | P | P
 |===

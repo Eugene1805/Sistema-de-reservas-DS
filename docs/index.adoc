@@ -40,11 +40,11 @@ include::architecture/4+1/scenarios-view.adoc[]
 === Funcionales
 include::architecture/requirements/functional.adoc[]
 
-=== De Calidad
-include::architecture/requirements/qualities.adoc[]
-
 == Atributos de Calidad
 include::architecture/quality-attibutes/utility-tree.adoc[]
+
+=== De Calidad
+include::architecture/requirements/qualities.adoc[]
 
 == Decisiones Arquitectónicas
 include::architecture/decisions/decisions.adoc[]
