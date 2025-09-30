@@ -1,0 +1,492 @@
+commit c7a6cc291896aedf7b21598d1b6b46f98f76db6a
+Merge: 43e991b 69d3e7c
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 12:52:04 2025 -0600
+
+    Merge branch 'main' of https://github.com/Eugene1805/Sistema-De-Reservas-DS
+
+commit 43e991b5065ecf7089650a96514efdd7b55a30a6
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 12:51:51 2025 -0600
+
+    ADD QAS for performance
+---
+ docs/architecture/quality-attibutes/utility-tree.adoc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index 6932b46..8478552 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -26,11 +26,11 @@
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Placeholder
+-a| Placeholder
++| Latencia en las consultas de disponibilidad de habitaciones
++a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas.
+ 
+-| Placeholder
+-a| Placeholder
++| Tiempo de cola de espera en la confirmacion de la reserva
++a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 transacciones por segundo sostenidos y rafagas de hasta 10 transacciones por segundo.
+ |===
+ 
+ === 2. Seguridad
+
+commit 8999db5e9db8561aa8ddedb479d512f8e279e482
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 12:17:37 2025 -0600
+
+    UPDATE stakeholders list
+---
+ docs/architecture/4+1/stakeholders.adoc | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/docs/architecture/4+1/stakeholders.adoc b/docs/architecture/4+1/stakeholders.adoc
+index 22cff05..94a047b 100644
+--- a/docs/architecture/4+1/stakeholders.adoc
++++ b/docs/architecture/4+1/stakeholders.adoc
+@@ -1,7 +1,3 @@
+-== Stakeholders & Concerns
+-
+-== Stakeholders
+-
+ Lista de stakeholders
+ 
+ - Clientes
+
+commit 40ea7e3b1d1867384e5d5f60ed06f03bdd129d32
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 12:15:20 2025 -0600
+
+    ADD external actors
+---
+ docs/architecture/4+1/context.adoc | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/docs/architecture/4+1/context.adoc b/docs/architecture/4+1/context.adoc
+index 00c9c62..6d813e7 100644
+--- a/docs/architecture/4+1/context.adoc
++++ b/docs/architecture/4+1/context.adoc
+@@ -3,6 +3,13 @@
+ == Contexto del sistema
+ // Añadir diagrama de contexto del sistema aquí
+ == Actores externos
+-// Listar los actores con su descripionn aquí
++
++- Huésped: Usuario que busca y reserva habitaciones en el sistema.
++- Recepcionista: Empleado del hotel que gestiona las reservas y la información de los huéspedes.
++- Gerente: Persona responsable de la configuración y mantenimiento del sistema por hotel.
++- Proveedor de servicios de pago: Entidad externa que maneja las transacciones financieras.
++- Auditor: Entidad que revisa y verifica la seguridad y cumplimiento del sistema.
++- Administrador de la cadena hotelera: Persona que supervisa múltiples hoteles y gestiona la configuración a nivel de cadena.
++
+ == Interacciones con sistemas externos
+ // Listar las interacciones aquí
+
+commit ca7d8bc26ea74641a2ae765d646b1ae77a22ba31
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 12:08:36 2025 -0600
+
+    UPDATE qa structure
+---
+ docs/architecture/quality-attibutes/utility-tree.adoc | 2 +-
+ docs/architecture/requirements/qualities.adoc         | 3 ---
+ docs/index.adoc                                       | 6 +++---
+ 3 files changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index e1c552e..6932b46 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -1,4 +1,4 @@
+-= Utility Tree - Arquitectura del Sistema
++= Utility Tree - Arquitectura del Sistema de gestión hotelera
+ :toc: left
+ :toclevels: 3
+ 
+diff --git a/docs/architecture/requirements/qualities.adoc b/docs/architecture/requirements/qualities.adoc
+index bda690a..fa18337 100644
+--- a/docs/architecture/requirements/qualities.adoc
++++ b/docs/architecture/requirements/qualities.adoc
+@@ -7,9 +7,6 @@
+ - Seguridad
+ - Usabilidad
+ 
+-== Utility tree
+-// TODO: Incluir diagrama
+-
+ == Escenarios de atriutos calidad
+ 
+ [cols="1,2"]
+diff --git a/docs/index.adoc b/docs/index.adoc
+index 745dbd6..b68c197 100644
+--- a/docs/index.adoc
++++ b/docs/index.adoc
+@@ -37,12 +37,12 @@ include::architecture/4+1/scenarios-view.adoc[]
+ === Funcionales
+ include::architecture/requirements/functional.adoc[]
+ 
+-=== De Calidad
+-include::architecture/requirements/qualities.adoc[]
+-
+ == Atributos de Calidad
+ include::architecture/quality-attibutes/utility-tree.adoc[]
+ 
++=== De Calidad
++include::architecture/requirements/qualities.adoc[]
++
+ == Decisiones Arquitectónicas
+ include::architecture/decisions/decisions.adoc[]
+ 
+
+commit 8bcae9ef9bd670fd302131b2da99da841d402644
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 11:58:55 2025 -0600
+
+    FIX typo in decisions
+---
+ docs/architecture/decisions/decisions.adoc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docs/architecture/decisions/decisions.adoc b/docs/architecture/decisions/decisions.adoc
+index 3289cf3..77e9d7e 100644
+--- a/docs/architecture/decisions/decisions.adoc
++++ b/docs/architecture/decisions/decisions.adoc
+@@ -1,6 +1,6 @@
+-= Architectural Decisions
++= Desiciones arquitectónicas
+ 
+-== Registro de descioneses arquitectónicas
++== Registro de decisiones arquitectónicas
+ 
+ [.table]
+ [cols="1,2,2,2"]
+
+commit 7031ecbb50a63e08c6f9dbd0f1bbb7de981cc244
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 11:58:09 2025 -0600
+
+    Add placeholders
+---
+ .../quality-attibutes/utility-tree.adoc            | 38 +++++++++++-----------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index 6ac7d43..e1c552e 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -130,25 +130,25 @@ a| Placeholder
+ |===
+ 
+ == Resumen de Métricas
+-[cols="3,2", options="header"]
++[options="header"]
+ |===
+ | Atributo | Sub-atributo | Métrica Objetivo
+-| Performance | Tiempo de Respuesta | <2 segundos (95%)
+-| Performance | Throughput | 1000 TPM
+-| Seguridad | Autenticación | 100% MFA
+-| Seguridad | Autorización | 0 accesos no autorizados
+-| Escalabilidad | Horizontal | 0 downtime
+-| Escalabilidad | Vertical | 80% utilización
+-| Disponibilidad | Tiempo de Actividad | 99.9% uptime
+-| Disponibilidad | Recuperación | <30 minutos
+-| Mantenibilidad | Modificabilidad | <4 horas/cambio
+-| Mantenibilidad | Debugging | <15 minutos diagnóstico
+-| Interoperabilidad | Integración | 100% estándares
+-| Interoperabilidad | Compatibilidad | 2 versiones anteriores
+-| Usabilidad | Facilidad de Uso | <3 intentos
+-| Usabilidad | Documentación | <5 minutos búsqueda
+-| Portabilidad | Multiplataforma | 3 SO diferentes
+-| Portabilidad | Nube/Híbrido | <8 horas migración
+-| Testabilidad | Automatización | 90% cobertura
+-| Testabilidad | Aislamiento | 100% componentes
++| Performance |  P | P
++| Performance | P | P
++| Seguridad | Manejo de datos sensibles | P
++| Seguridad | P | P
++| Escalabilidad | P | P
++| Escalabilidad | P | P
++| Disponibilidad | Confiabilidad del registro de reservas | P
++| Disponibilidad | Confiabilidad de las transacciones | P
++| Mantenibilidad | P | P
++| Mantenibilidad | P | P
++| Interoperabilidad | P | P
++| Interoperabilidad | P | P
++| Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
++| Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
++| Portabilidad | P | P
++| Portabilidad | P | P
++| Testabilidad | P | P
++| Testabilidad | P | P
+ |===
+
+commit ddb088d1c4f0c0c66d519dced81b3b2c2c11680f
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 11:46:13 2025 -0600
+
+    Add placeholders for QAS
+---
+ .../quality-attibutes/utility-tree.adoc            | 86 +++++++---------------
+ 1 file changed, 25 insertions(+), 61 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index fbf28cb..6ac7d43 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -26,17 +26,11 @@
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Tiempo de Respuesta
+-a| *Fuente:* Usuario final
+-*Estímulo:* Realizar una consulta
+-*Respuesta:* Procesar y devolver resultados en <2s
+-*Medida:* 95% de peticiones bajo carga normal
++| Placeholder
++a| Placeholder
+ 
+-| Throughput
+-a| *Fuente:* Sistema externo
+-*Estímulo:* Envío masivo de transacciones
+-*Respuesta:* Procesar todas las transacciones
+-*Medida:* 1000 TPM manteniendo performance
++| Placeholder
++a| Placeholder
+ |===
+ 
+ === 2. Seguridad
+@@ -56,17 +50,11 @@ a| Placeholder
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Escalabilidad Horizontal
+-a| *Fuente:* Administrador
+-*Estímulo:* Añadir nuevo servidor
+-*Respuesta:* Sistema incorpora nodo automáticamente
+-*Medida:* 0 interrupción del servicio
++| Placeholder
++a| Placeholder
+ 
+-| Escalabilidad Vertical
+-a| *Fuente:* Administrador
+-*Estímulo:* Aumentar recursos de servidor
+-*Respuesta:* Mejorar performance proporcionalmente
+-*Medida:* 80% utilización de recursos adicionales
++| Placerholder
++a| Placerholder
+ |===
+ 
+ === 4. Disponibilidad
+@@ -86,17 +74,11 @@ a| Un servidor recibe más de una vez la misma petición, pero solo procesa una
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Modificabilidad
+-a| *Fuente:* Desarrollador
+-*Estímulo:* Requerimiento de cambio
+-*Respuesta:* Cambio implementado y probado
+-*Medida:* <4 horas por cambio estándar
++| Placeholder
++a| Placeholder
+ 
+-| Debugging
+-a| *Fuente:* Administrador
+-*Estímulo:* Error en producción
+-*Respuesta:* Identificar causa raíz rápidamente
+-*Medida:* <15 minutos para diagnóstico
++| Placeholder
++a| Placeholder
+ |===
+ 
+ === 6. Interoperabilidad
+@@ -104,17 +86,11 @@ a| *Fuente:* Administrador
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Integración
+-a| *Fuente:* Sistema externo
+-*Estímulo:* Llamada a API
+-*Respuesta:* Procesar y responder correctamente
+-*Medida:* 100% compatibilidad con estándares
++| Placeholder
++a| Placeholder
+ 
+-| Compatibilidad
+-a| *Fuente:* Sistema legacy
+-*Estímulo:* Comunicación con versión anterior
+-*Respuesta:* Manejar diferencias de versión
+-*Medida:* Soporte para 2 versiones anteriores
++| Placeholder
++a| Placeholder
+ |===
+ 
+ === 7. Usabilidad
+@@ -134,17 +110,11 @@ a| El operador completa el check-in en menos de 10 minutos
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Multiplataforma
+-a| *Fuente:* Administrador
+-*Estímulo:* Desplegar en nuevo SO
+-*Respuesta:* Ejecutar sin modificaciones
+-*Medida:* Soporte para 3 SO diferentes
++| Placeholder
++a| Placeholder
+ 
+-| Nube/Híbrido
+-a| *Fuente:* DevOps
+-*Estímulo:* Migrar entre proveedores cloud
+-*Respuesta:* Funcionar en nuevo entorno
+-*Medida:* <8 horas de migración
++| Placeholder
++a| Placeholder
+ |===
+ 
+ === 9. Testabilidad
+@@ -152,17 +122,11 @@ a| *Fuente:* DevOps
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Automatización
+-a| *Fuente:* QA Engineer
+-*Estímulo:* Ejecutar suite de pruebas
+-*Respuesta:* Generar reporte automático
+-*Medida:* 90% cobertura automatizada
+-
+-| Aislamiento
+-a| *Fuente:* Desarrollador
+-*Estímulo:* Probar módulo específico
+-*Respuesta:* Ejecutar pruebas unitarias aisladas
+-*Medida:* 100% de componentes testables individualmente
++| Placeholder
++a| Placeholder
++
++| Placeholder
++a| Placeholder
+ |===
+ 
+ == Resumen de Métricas
+
+commit 5946e5dba1700a5216f33e2c9f7d03ee5f2983a2
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Tue Sep 30 11:35:34 2025 -0600
+
+    ADD QA scenarios for Security, usability and availability
+---
+ .../quality-attibutes/utility-tree.adoc            | 44 +++++++---------------
+ 1 file changed, 13 insertions(+), 31 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index 42a04ec..fbf28cb 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -44,17 +44,11 @@ a| *Fuente:* Sistema externo
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Autenticación
+-a| *Fuente:* Usuario no autenticado
+-*Estímulo:* Intentar acceder al sistema
+-*Respuesta:* Solicitar credenciales múltiples
+-*Medida:* 100% de accesos requieren MFA
++| Manejo de datos sensibles
++a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro
+ 
+-| Autorización
+-a| *Fuente:* Usuario autenticado
+-*Estímulo:* Intentar acceder a recurso
+-*Respuesta:* Permitir/denegar basado en permisos
+-*Medida:* 0 accesos no autorizados
++| Placeholder
++a| Placeholder
+ |===
+ 
+ === 3. Escalabilidad
+@@ -80,17 +74,11 @@ a| *Fuente:* Administrador
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Tiempo de Actividad
+-a| *Fuente:* Cualquier usuario
+-*Estímulo:* Solicitar servicio en cualquier momento
+-*Respuesta:* Servicio disponible y funcional
+-*Medida:* 99.9% uptime mensual
++| Confiabilidad del registro de reservas
++a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente.
+ 
+-| Recuperación
+-a| *Fuente:* Falla del sistema
+-*Estímulo:* Caída del servicio
+-*Respuesta:* Restaurar operación normal
+-*Medida:* <30 minutos de recuperación
++| Confiabilidad de las transacciones
++a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
+ |===
+ 
+ === 5. Mantenibilidad
+@@ -134,17 +122,11 @@ a| *Fuente:* Sistema legacy
+ [cols="1,3", options="header"]
+ |===
+ | Sub-atributo | Escenario de Calidad
+-| Facilidad de Uso
+-a| *Fuente:* Usuario nuevo
+-*Estímulo:* Realizar tarea por primera vez
+-*Respuesta:* Completar tarea exitosamente
+-*Medida:* <3 intentos para tareas principales
+-
+-| Documentación
+-a| *Fuente:* Usuario con dudas
+-*Estímulo:* Buscar ayuda para funcionalidad
+-*Respuesta:* Encontrar solución clara
+-*Medida:* <5 minutos de búsqueda
++| Facilidad de aprendizaje del proceso de check-in
++a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%.
++
++| Eficiencia de uso en el tiempo en hacer el check-in
++a| El operador completa el check-in en menos de 10 minutos
+ |===
+ 
+ === 8. Portabilidad
+
+commit 8d5886a4108deaadd8852074cab7c978892e6be0
+Author: Eugenio <eugeniosalvadorgonzalez@gmail.com>
+Date:   Mon Sep 29 16:53:32 2025 -0600
+
+    Add QA definitions
+---
+ docs/architecture/quality-attibutes/utility-tree.adoc | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/docs/architecture/quality-attibutes/utility-tree.adoc b/docs/architecture/quality-attibutes/utility-tree.adoc
+index 280d2a6..42a04ec 100644
+--- a/docs/architecture/quality-attibutes/utility-tree.adoc
++++ b/docs/architecture/quality-attibutes/utility-tree.adoc
+@@ -8,15 +8,15 @@
+ [cols="1,3", options="header"]
+ |===
+ | Objetivo | Descripción
+-| Performance | El sistema debe manejar cargas de trabajo esperadas con tiempos de respuesta aceptables
+-| Seguridad | Protección de datos y prevención de accesos no autorizados
+-| Escalabilidad | Capacidad de crecer para satisfacer demanda futura
+-| Disponibilidad | Sistema accesible cuando los usuarios lo necesitan
+-| Mantenibilidad | Facilidad de realizar cambios y mejoras
+-| Interoperabilidad | Capacidad de integrarse con otros sistemas
+-| Usabilidad | Facilidad de uso para los usuarios finales
+-| Portabilidad | Capacidad de ejecutarse en diferentes entornos
+-| Testabilidad | Facilidad de verificar el correcto funcionamiento
++| Performance | Grado en que un sistema o componente cumple sus funciones designadas dentro de unas limitaciones determinadas, tales como velocidad, precisión o uso de la memoria. (ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)
++| Seguridad |Capacidad de un producto para proteger la información y los datos, de modo que las personas u otros productos tengan el grado de acceso a los datos adecuado a su tipo y nivel de autorización, y para defenderse de los patrones de ataque de actores maliciosos. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)
++| Escalabilidad | Capacidad de un producto para gestionar cargas de trabajo crecientes o decrecientes, o para adaptar su capacidad con el fin de gestionar la variabilidad. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.8.2)
++| Disponibilidad | Capacidad de un producto para estar operativo y accesible cuando se requiere su uso. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)
++| Mantenibilidad | Capacidad de un producto para ser modificado por los responsables de su mantenimiento con eficacia y eficiencia. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7)
++| Interoperabilidad |  Capacidad de un producto para intercambiar información con otros productos y utilizar mutuamente la información que se ha intercambiado. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.3.2)
++| Usabilidad | Grado de eficacia, eficiencia y satisfacción con el que usuarios específicos pueden lograr objetivos específicos en contextos de uso específicos. (ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)
++| Portabilidad | Facilidad con la que un sistema o componente puede transferirse de un entorno de hardware o software a otro. (ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)
++| Testabilidad | Capacidad de un producto para permitir el diseño y la realización de una prueba objetiva y viable con el fin de determinar si se cumple un requisito. (ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7.5)
+ |===
+ 
+ == Atributos de Calidad
