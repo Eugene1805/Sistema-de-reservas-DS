@@ -26,17 +26,11 @@
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Tiempo de Respuesta
-a| *Fuente:* Usuario final
-*Estímulo:* Realizar una consulta
-*Respuesta:* Procesar y devolver resultados en <2s
-*Medida:* 95% de peticiones bajo carga normal
+| Placeholder
+a| Placeholder
 
-| Throughput
-a| *Fuente:* Sistema externo
-*Estímulo:* Envío masivo de transacciones
-*Respuesta:* Procesar todas las transacciones
-*Medida:* 1000 TPM manteniendo performance
+| Placeholder
+a| Placeholder
 |===
 
 === 2. Seguridad
@@ -56,17 +50,11 @@ a| Placeholder
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Escalabilidad Horizontal
-a| *Fuente:* Administrador
-*Estímulo:* Añadir nuevo servidor
-*Respuesta:* Sistema incorpora nodo automáticamente
-*Medida:* 0 interrupción del servicio
+| Placeholder
+a| Placeholder
 
-| Escalabilidad Vertical
-a| *Fuente:* Administrador
-*Estímulo:* Aumentar recursos de servidor
-*Respuesta:* Mejorar performance proporcionalmente
-*Medida:* 80% utilización de recursos adicionales
+| Placerholder
+a| Placerholder
 |===
 
 === 4. Disponibilidad
@@ -86,17 +74,11 @@ a| Un servidor recibe más de una vez la misma petición, pero solo procesa una 
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Modificabilidad
-a| *Fuente:* Desarrollador
-*Estímulo:* Requerimiento de cambio
-*Respuesta:* Cambio implementado y probado
-*Medida:* <4 horas por cambio estándar
+| Placeholder
+a| Placeholder
 
-| Debugging
-a| *Fuente:* Administrador
-*Estímulo:* Error en producción
-*Respuesta:* Identificar causa raíz rápidamente
-*Medida:* <15 minutos para diagnóstico
+| Placeholder
+a| Placeholder
 |===
 
 === 6. Interoperabilidad
@@ -104,17 +86,11 @@ a| *Fuente:* Administrador
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Integración
-a| *Fuente:* Sistema externo
-*Estímulo:* Llamada a API
-*Respuesta:* Procesar y responder correctamente
-*Medida:* 100% compatibilidad con estándares
+| Placeholder
+a| Placeholder
 
-| Compatibilidad
-a| *Fuente:* Sistema legacy
-*Estímulo:* Comunicación con versión anterior
-*Respuesta:* Manejar diferencias de versión
-*Medida:* Soporte para 2 versiones anteriores
+| Placeholder
+a| Placeholder
 |===
 
 === 7. Usabilidad
@@ -134,17 +110,11 @@ a| El operador completa el check-in en menos de 10 minutos
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Multiplataforma
-a| *Fuente:* Administrador
-*Estímulo:* Desplegar en nuevo SO
-*Respuesta:* Ejecutar sin modificaciones
-*Medida:* Soporte para 3 SO diferentes
+| Placeholder
+a| Placeholder
 
-| Nube/Híbrido
-a| *Fuente:* DevOps
-*Estímulo:* Migrar entre proveedores cloud
-*Respuesta:* Funcionar en nuevo entorno
-*Medida:* <8 horas de migración
+| Placeholder
+a| Placeholder
 |===
 
 === 9. Testabilidad
@@ -152,17 +122,11 @@ a| *Fuente:* DevOps
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Automatización
-a| *Fuente:* QA Engineer
-*Estímulo:* Ejecutar suite de pruebas
-*Respuesta:* Generar reporte automático
-*Medida:* 90% cobertura automatizada
+| Placeholder
+a| Placeholder
 
-| Aislamiento
-a| *Fuente:* Desarrollador
-*Estímulo:* Probar módulo específico
-*Respuesta:* Ejecutar pruebas unitarias aisladas
-*Medida:* 100% de componentes testables individualmente
+| Placeholder
+a| Placeholder
 |===
 
 == Resumen de Métricas
