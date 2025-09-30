@@ -130,25 +130,25 @@ a| Placeholder
 |===
 
 == Resumen de Métricas
-[cols="3,2", options="header"]
+[options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
-| Performance | Tiempo de Respuesta | <2 segundos (95%)
-| Performance | Throughput | 1000 TPM
-| Seguridad | Autenticación | 100% MFA
-| Seguridad | Autorización | 0 accesos no autorizados
-| Escalabilidad | Horizontal | 0 downtime
-| Escalabilidad | Vertical | 80% utilización
-| Disponibilidad | Tiempo de Actividad | 99.9% uptime
-| Disponibilidad | Recuperación | <30 minutos
-| Mantenibilidad | Modificabilidad | <4 horas/cambio
-| Mantenibilidad | Debugging | <15 minutos diagnóstico
-| Interoperabilidad | Integración | 100% estándares
-| Interoperabilidad | Compatibilidad | 2 versiones anteriores
-| Usabilidad | Facilidad de Uso | <3 intentos
-| Usabilidad | Documentación | <5 minutos búsqueda
-| Portabilidad | Multiplataforma | 3 SO diferentes
-| Portabilidad | Nube/Híbrido | <8 horas migración
-| Testabilidad | Automatización | 90% cobertura
-| Testabilidad | Aislamiento | 100% componentes
+| Performance |  P | P
+| Performance | P | P
+| Seguridad | Manejo de datos sensibles | P
+| Seguridad | P | P
+| Escalabilidad | P | P
+| Escalabilidad | P | P
+| Disponibilidad | Confiabilidad del registro de reservas | P
+| Disponibilidad | Confiabilidad de las transacciones | P
+| Mantenibilidad | P | P
+| Mantenibilidad | P | P
+| Interoperabilidad | P | P
+| Interoperabilidad | P | P
+| Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
+| Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
+| Portabilidad | P | P
+| Portabilidad | P | P
+| Testabilidad | P | P
+| Testabilidad | P | P
 |===
