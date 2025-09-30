@@ -1,10 +1,40 @@
-= Introducción
+== Vision del Sistema
+El presente documento establece el marco conceptual para el desarrollo de un sistema centralizado de reservaciones dirigido a una cadena hotelera de gran escala. Actualmente, la organización enfrenta dificultades derivadas del uso de soluciones locales en cada hotel, lo que provoca inconsistencias en los registros de inventario, duplicidad de cobros y reservas, y una incapacidad para implementar políticas homogéneas en toda la red. Dicha situación no solo genera pérdidas económicas y riesgos reputacionales, sino que también limita la posibilidad de innovar en la experiencia del cliente.
 
-== Propósito
+La visión del sistema consiste en proveer una plataforma integral, confiable y escalable que unifique la gestión de reservas, tarifas e inventarios de más de 5,000 hoteles y aproximadamente 1,000,000 de habitaciones. El sistema permitirá que los huéspedes realicen reservaciones en tiempo real de manera segura y sencilla, mientras que el personal operativo contará con herramientas intuitivas que reduzcan su curva de aprendizaje y mejoren la eficiencia en procesos de recepción como check-in, check-out y cambios de habitación.
 
-El propósito de este documento es proporcionar una visión general del Sistema de reservas y sus objetivos principales. Aquí se describen los aspectos clave que guiarán el diseño de dicho sistema. El Sistema busca principalmnete transformar la gestión de resrvaciones de un costro operativo a una ventaja competitiva. Un sistema unificado permitira implementar precios dinamicos y politicas de ocupacion avanzadas, incrementando los ingresos y la satisfaccion del cliente.
+Desde una perspectiva de negocio, este sistema no se concibe únicamente como una herramienta de apoyo, sino como un activo estratégico que permitirá transformar la gestión hotelera en una ventaja competitiva. Mediante la centralización, se facilitará la implementación de precios dinámicos, políticas de overbooking controladas y estrategias de ocupación orientadas a maximizar ingresos. De igual forma, el sistema garantizará la trazabilidad y consistencia en cada transacción, incrementando la confianza tanto de los clientes como de los administradores.
+
 
 == Alcance
-El alcance del Sistema de reservas incluye el diseño de una plataforma centralizada y robusta que soporte su crecimiento y optimice las operaciones diarias en más de 5,000 hoteles y 1,000,000 de habitaciones. en línea que permita a los usuarios reservar servicios de manera eficiente. El sistema cubrirá funcionalidades como la gestión de usuarios, la disponibilidad de servicios, y la confirmación de reservas.
+El alcance del sistema se centra en el desarrollo de una plataforma centralizada de reservaciones para la cadena hotelera, garantizando confiabilidad, trazabilidad y facilidad de uso. Buscamos  entregar un sistema que cubra las necesidades esenciales de la cadena hotelera y de los huéspedes, dejando fuera funcionalidades complementarias que podrán evaluarse en fases posteriores.
 
-== Referencias
+=== Funcionalidades a construir
+- Reservación con pago completo y opción de cancelación con penalización definida por la política de negocio.
+- Consulta de disponibilidad mínima, asegurando información precisa y en tiempo real sobre habitaciones y tarifas.
+- Gestión de estancias mediante operaciones de check-in, check-out y cambios de habitación.
+- Registro de consumos y servicios adicionales durante la estancia del huésped.
+- Administración de inventario y tarifas (altas, bajas y modificaciones), incluyendo la gestión centralizada de políticas de overbooking (10%).
+- La aplicación de precios dinámicos como mecanismo de optimización del negocio y factor diferenciador frente a sistemas tradicionales.
+- Backoffice básico para gestión de hoteles, habitaciones, tipos de habitación y reglas de negocio.
+- Trazabilidad de todas las operaciones relevantes, garantizando seguridad, control y cumplimiento normativo.
+
+=== Funcionales que no se van a construir
+- Reporte de problemas y registro de sanciones.
+- Integración con otros sistemas hoteleros en caso de falta de disponibilidad.
+- Módulos de descuentos o promociones personalizadas para clientes.
+- Programas de fidelidad, tales como membresías, puntos o beneficios.
+
+=== Limitaciones y Restricciones
+- El sistema se implementará únicamente en su web oficial y la aplicación móvil de la cadena.
+- La base de datos relacional será obligatoriamente escalable de forma horizontal para soportar concurrencia.
+- La política de overbooking será del 10% por tipo de habitación y fecha.
+- El pago se realiza completo al reservar, sin modalidades de anticipos parciales.
+- La experiencia de reservación deberá realizarse en un máximo de cinco pasos (≤5 clics), asegurando la usabilidad y reduciendo fricciones para el cliente final.
+
+== Audiencia del documento
+El presente documento va dirigido a los diversos grupos de interesados que participen en la definición, uso o supervisión del sistema
+- Administración de la cadena hotelera:
+-- Hola
+
+== Glosario.

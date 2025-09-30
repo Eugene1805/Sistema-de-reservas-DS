@@ -1,4 +1,4 @@
-= Arquitectura del Sistema de gestion hotelera
+= Arquitectura del Sistema de Gestión Hotelera
 :doctype: book
 :toc: left
 :toclevels: 3
@@ -6,7 +6,10 @@
 :sectnums:
 :source-highlighter: rouge
 
-== Introducción
+== Integrantes
+include::architecture/4+1/cover.adoc[]
+
+== Contexto y Alcance del Sistema
 include::architecture/4+1/introduction.adoc[]
 
 == Contexto
