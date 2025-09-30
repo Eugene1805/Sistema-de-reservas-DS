@@ -44,17 +44,11 @@ a| *Fuente:* Sistema externo
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Autenticación
-a| *Fuente:* Usuario no autenticado
-*Estímulo:* Intentar acceder al sistema
-*Respuesta:* Solicitar credenciales múltiples
-*Medida:* 100% de accesos requieren MFA
+| Manejo de datos sensibles
+a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro
 
-| Autorización
-a| *Fuente:* Usuario autenticado
-*Estímulo:* Intentar acceder a recurso
-*Respuesta:* Permitir/denegar basado en permisos
-*Medida:* 0 accesos no autorizados
+| Placeholder
+a| Placeholder
 |===
 
 === 3. Escalabilidad
@@ -80,17 +74,11 @@ a| *Fuente:* Administrador
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Tiempo de Actividad
-a| *Fuente:* Cualquier usuario
-*Estímulo:* Solicitar servicio en cualquier momento
-*Respuesta:* Servicio disponible y funcional
-*Medida:* 99.9% uptime mensual
+| Confiabilidad del registro de reservas
+a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente.
 
-| Recuperación
-a| *Fuente:* Falla del sistema
-*Estímulo:* Caída del servicio
-*Respuesta:* Restaurar operación normal
-*Medida:* <30 minutos de recuperación
+| Confiabilidad de las transacciones
+a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
 |===
 
 === 5. Mantenibilidad
@@ -134,17 +122,11 @@ a| *Fuente:* Sistema legacy
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Facilidad de Uso
-a| *Fuente:* Usuario nuevo
-*Estímulo:* Realizar tarea por primera vez
-*Respuesta:* Completar tarea exitosamente
-*Medida:* <3 intentos para tareas principales
+| Facilidad de aprendizaje del proceso de check-in
+a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%.
 
-| Documentación
-a| *Fuente:* Usuario con dudas
-*Estímulo:* Buscar ayuda para funcionalidad
-*Respuesta:* Encontrar solución clara
-*Medida:* <5 minutos de búsqueda
+| Eficiencia de uso en el tiempo en hacer el check-in
+a| El operador completa el check-in en menos de 10 minutos
 |===
 
 === 8. Portabilidad
