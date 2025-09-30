@@ -34,5 +34,7 @@ El alcance del sistema se centra en el desarrollo de una plataforma centralizada
 
 == Audiencia del documento
 El presente documento va dirigido a los diversos grupos de interesados que participen en la definición, uso o supervisión del sistema
-- Administración de la cadena hotelara
+- Administración de la cadena hotelera:
+-- Hola
+
 == Glosario.
