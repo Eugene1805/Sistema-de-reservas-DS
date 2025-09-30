@@ -33,8 +33,42 @@ El alcance del sistema se centra en el desarrollo de una plataforma centralizada
 - La experiencia de reservación deberá realizarse en un máximo de cinco pasos (≤5 clics), asegurando la usabilidad y reduciendo fricciones para el cliente final.
 
 == Audiencia del documento
-El presente documento va dirigido a los diversos grupos de interesados que participen en la definición, uso o supervisión del sistema
+El presente documento va dirigido a los diversos grupos de interesados que participen en la definición, uso o supervisión del sistema:
+
 - Administración de la cadena hotelera:
--- Hola
+ * Requieren un sistema centralizado que permita controlar inventario, definir políticas de overbooking y aplicar tarifas dinámicas.
+ * Su objetivo principal es maximizar ingresos, reducir riesgos de errores operativos y asegurar la satisfacción de los huéspedes
+
+- Huéspedes / Clientes
+ * Son los usuarios finales de la plataforma, quienes utilizarán la web o la aplicación móvil para reservar, pagar y cancelar reservaciones.
+ * Exigen una experiencia confiable, segura y con una interfaz sencilla que les permita completar la reservación en pocos pasos
+
+- Personal operativo (Recepcionistas y staff de hotel)
+ * Usarán el sistema para ejecutar procesos de check-in, check-out, cambios de habitación y registro de consumos.
+ * Su interés principal es contar con una herramienta intuitiva que reduzca la curva de aprendizaje y minimice errores en la operación diaria.
+
+- Administradores del Sistema
+ * Son los encargados de configurar y mantener inventario, tarifas y políticas globales.
+ * Requieren herramientas con trazabilidad y control robusto para la correcta gestión del sistema.
+
+- Equipo de desarrollo y soporte técnico
+ * Serán responsables de implementar, dar mantenimiento y garantizar la siponibilidad y escalabilidad de la solución
+ * Requieren especificaciones claras y métricas de calidad para diseñar una arquitectura robusta y sostenible.
 
 == Glosario.
+- Reservación: Proceso por el cual un huésped aparta una habitación para un periodo determinado, con confirmación inmediata al realizar el pago completo.
+- Check-in: Registro formal de entrada de un huésped en el hotel.
+- Check-out: Proceso de salida de un huésped, incluyendo la liquidación de algún consumo adicional durante su estadia.
+- Overbooking: Estrategia que permite aceptar un número de reservaciones superior al inventario disponible (con un máximo de 10%) para compensar cancelaciones o inasistencias.
+- Pago completo al reservar: Regla de negocio que obliga al cliente a liquidar el total de su estancia en el momento de confirmar la reservación.
+- Penalización por cancelación: Cobro parcial que se aplica al cliente en caso de cancelar una reservación confirmada, conforme a las políticas definidas por la administración.
+- Precios dinámicos: Estrategia de negocio que ajusta las tarifas de habitaciones en función de la demanda, temporada, ocupación y otras variables.
+- Exclusión mutua: Principio de consistencia que asegura que una habitación no pueda ser reservada simultáneamente por más de un cliente.
+- Cliente / Huésped: En este contexto, ambos términos se refieren al usuario final que realiza la reservación y consume los servicios del hotel.
+- Inventario: Conjunto de habitaciones y servicios disponibles para reservación en cada hotel.
+- Backoffice: Interfaz administrativa utilizada por los gestores para controlar inventario, tarifas y políticas de negocio.
+- Latencia: Tiempo de respuesta del sistema ante una operación realizada por el usuario.
+- TPS (Transactions Per Second): Métrica que indica la cantidad de transacciones procesadas por segundo.
+- QPS (Queries Per Second): Métrica que mide el número de consultas de disponibilidad realizadas por segundo.
+- RDBMS (Relational Database Management System): Sistema de gestión de bases de datos relacionales utilizado para garantizar consistencia y confiabilidad en operaciones de reserva y pago.
+- guConstraint: Restricción tecnológica u operativa que limita las decisiones de diseño, como la obligatoriedad de usar una base de datos relacional o la implementación exclusiva en web y móvil.
