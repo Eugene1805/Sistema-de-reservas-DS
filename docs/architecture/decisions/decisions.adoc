@@ -1,6 +1,6 @@
-= Architectural Decisions
+= Desiciones arquitectónicas
 
-== Registro de descioneses arquitectónicas
+== Registro de decisiones arquitectónicas
 
 [.table]
 [cols="1,2,2,2"]
