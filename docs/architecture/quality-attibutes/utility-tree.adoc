@@ -1,4 +1,4 @@
-= Utility Tree - Arquitectura del Sistema
+= Utility Tree - Arquitectura del Sistema de gestión hotelera
 :toc: left
 :toclevels: 3
 
