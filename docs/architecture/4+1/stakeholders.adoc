@@ -1,7 +1,3 @@
-== Stakeholders & Concerns
-
-== Stakeholders
-
 Lista de stakeholders
 
 - Clientes

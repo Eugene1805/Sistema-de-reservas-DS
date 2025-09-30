@@ -3,6 +3,13 @@
 == Contexto del sistema
 // Añadir diagrama de contexto del sistema aquí
 == Actores externos
-// Listar los actores con su descripionn aquí
+
+- Huésped: Usuario que busca y reserva habitaciones en el sistema.
+- Recepcionista: Empleado del hotel que gestiona las reservas y la información de los huéspedes.
+- Gerente: Persona responsable de la configuración y mantenimiento del sistema por hotel.
+- Proveedor de servicios de pago: Entidad externa que maneja las transacciones financieras.
+- Auditor: Entidad que revisa y verifica la seguridad y cumplimiento del sistema.
+- Administrador de la cadena hotelera: Persona que supervisa múltiples hoteles y gestiona la configuración a nivel de cadena.
+
 == Interacciones con sistemas externos
 // Listar las interacciones aquí

@@ -26,11 +26,11 @@
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Latencia en las consultas de disponibilidad de habitaciones
+a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas.
 
-| Placeholder
-a| Placeholder
+| Tiempo de cola de espera en la confirmacion de la reserva
+a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 transacciones por segundo sostenidos y rafagas de hasta 10 transacciones por segundo.
 |===
 
 === 2. Seguridad
