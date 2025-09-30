@@ -7,9 +7,6 @@
 - Seguridad
 - Usabilidad
 
-== Utility tree
-// TODO: Incluir diagrama
-
 == Escenarios de atriutos calidad
 
 [cols="1,2"]
