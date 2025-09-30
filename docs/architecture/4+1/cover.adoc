@@ -1,0 +1,24 @@
+== Integrantes
+Arturo Agustín Cuevas Pérez
+Eugenio Salvador González Sánchez
+Erickmel Vázquez López
+
+== Curso
+Diseño de Software (17788)
+
+== Periodo Escolar
+Agosto 2024 – Enero 2025
+
+== Fecha
+
+== Enlace de Repositorio
+https://github.com/Eugene1805/Sistema-de-reservas-DS
+
+== Historial de Versiones
+[cols="1,2,3,4"]
+|===
+| Version | Fecha | Autores | Resumen de cambios significatiovs |
+
+| 1 | | | |
+
+|===
