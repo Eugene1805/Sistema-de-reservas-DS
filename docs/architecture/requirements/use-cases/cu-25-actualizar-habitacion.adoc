@@ -1,0 +1,37 @@
+== CU-25 Actualizar Habitación
+
+|===
+| ID | CU-25
+| Nombre | Actualizar Habitación USABILIDAD Y SEGURIDAD (QUIZAS PARA LOS ROLES)
+| Autor | Arturo Agustín Cuevas Pérez
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | Permite al Gerente modificar los datos de una habitación previamente registrada.
+| Actor | Gerente
+| Disparador | El Gerente selecciona  la opción de "Actualizar Habitación" en el sistema
+| Precondiciones | - La habitación a actualizar debe existir previamente en el sistema.
+- Debe existir al menos una habitación registrada en el sistema
+- ¿? El Gerente este autenticado
+| Flujo normal | 1.- El sistema muestra el mapa de habitaciones del hotel y un campo de búsqueda. (VER EX-2)
+2.- El Gerente selecciona la habitación que desea consultar en el mapa o ingresa en el campo de busqueda el número de habitación.
+3.- El sistema valida los datos ingresados. (VER FA 3.1)
+4.- El Gerente da clic en el botón "Actualizar". (VER FA 4.1)
+5.- El sistema despliega un formulario con la información de la habitacción seleccionada o encontrada. (VER EX-1 )
+6.- El Gerente edita los campos que desee actualizar
+7.- El sistema valida que los nuevos datos sean validos (VER FA 7.1)
+8.- El Gerente da clic en el botón "Actualizar Habitación"
+9.- El sistema guarda la nueva información en la base de datos y muestra un mensaje de éxito (VER EX-1)
+| Flujo Alterno | FA 3.1; FA 7.1: Datos Inválidos o Incompletos.
+1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente corregir los datos incorrectos.
+FA 4.1: El Gerente cancela el registro de la habitación
+1.- El Gerente da clic en el botón "Cancelar"
+2.- El sistema muestra un mensaje de confirmación de cancelación
+| Excepciones | EX-1: No se pudo conectar con la base de datos
+1.- El sistema muestra un mensaje de error y solicita al actor intentarlo más tarde
+EX-2: Sin Conexión a Internet
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red
+¿?EX-3 Consulta exceda el tiempo
+| Postcondiciones | Los datos de la habitación quedan actualizados en el sistema
+| Reglas de Negocio |
+¿? RN Solo los Gerentes o ¿Administradores? pueden actualizar una habitación. RN No se permite actualizar el numero de habitación una vez registrada
+¿? No se p
+|===
