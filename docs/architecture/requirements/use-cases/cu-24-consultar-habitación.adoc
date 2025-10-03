@@ -1,0 +1,32 @@
+== CU-24 Consultar Habitación
+
+|===
+| ID | CU-23
+| Nombre | Registrar Habitación USABILIDAD Y RENDIMIENTO (POR LAS CONSULTAS)
+| Autor | Arturo Agustín Cuevas Pérez
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | Permite al Gerente consultar la información de una habitación ya registrada en el sistema
+| Actor | Gerente
+| Disparador | El Gerente selecciona  la opción de "Consultar Habitación" en el sistema
+| Precondiciones | - La habitación a consultar debe existir previamente en el sistema.
+- Debe existir al menos una habitación registrada en el sistema
+- ¿? El Gerente este autenticado
+| Flujo normal | 1.- El sistema muestra el mapa de habitaciones del hotel y un campo de búsqueda. (VER EX-2)
+2.- El Gerente selecciona la habitación que desea consultar en el mapa o ingresa en el campo de busqueda el número de habitación.
+3.- El sistema valida los datos ingresados. (VER FA 3.1)
+4.- El Gerente da clic en el botón "Consultar". (VER FA 4.1)
+5.- El sistema despliega la información de la habitacción seleccionada o encontrada. (VER EX-1 )
+| Flujo Alterno | FA 3.1: Datos Inválidos o Incompletos.
+1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente corregir los datos incorrectos.
+FA 4.1: El Gerente cancela el registro de la habitación
+1.- El Gerente da clic en el botón "Cancelar"
+2.- El sistema muestra un mensaje de confirmación de cancelación
+| Excepciones | EX-1: No se pudo conectar con la base de datos
+1.- El sistema muestra un mensaje de error y solicita al actor intentarlo más tarde
+EX-2: Sin Conexión a Internet
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red
+¿?EX-3 Consulta exceda el tiempo
+| Postcondiciones | El sistema muestra la información registrada de la habitación seleccionada
+| Reglas de Negocio |
+¿? RN Solo los Gerentes o ¿Administradores? pueden consultar una habitación. RN Las habitaciones no podrán consultarse si no se selecciona o ll todos sus campos
+|===
