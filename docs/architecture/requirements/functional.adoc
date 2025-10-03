@@ -10,37 +10,43 @@
 |===
 | ID | Nombre del Caso de Uso | Actores | Descripción | Atributos de calidad relevantes
 
-| CU-01 | Consultar página | Huésped | El huésped consulta la página/aplicación móvil para consultar el catálogo de hoteles. | Disponibilidad, Usabilidad
-| CC-02 | Reservar Habitación | Huésped | El huésped hace una reservación de una habitación. | Disponibilidad, Usabilidad, Seguridad
-| CU-03 | Realizar pago | Huésped | El huésped realiza el pago completo de la habitación. | Seguridad, Disponibilidad
-| CU-04 | Consultar reservación| Huésped |El huésped consulta una reservación ya hecha. | Disponibilidad, Usabilidad
-| CU-05 | Cancelar reservación | Huésped | El huésped consulta su reservación previamente hecha para cancelarla. | Disponibilidad, Usabilidad, Seguridad
-| CU-06 | Hacer check-in | Operativo | El Operativo del sistema indica en el sistema que el huésped ha llegado al hotel en cuestión y da de alta su habitación | Usabilidad
-| CU-07 | Hacer check-out | Operativo | El Operativo del sistema indica en el sistema que el huésped ya marcó su salida del hotel en cuestión y da de baja su habitación | Usabilidad
-| CU-08 | Cambiar habitación del huésped | Operativo | El operativo hace un cambio de habitación para el huésped. |
-| CU-09 | Registrar consumos extras | Operativo | El operativo registrará en la cuenta del huésped cualquier consumo extra que haya tenido a lo largo de su estancia en su habitación (por ejemplo, sacar algún producto del frigobar) |
-| CU-10 | Modificar tarifas | Administrador | |
-| CU-11 | Modificar tarifas de insumos | Administrador | |
-| CU-12 | Modificar tarifas de cuotas | Administrador | |
-| CU-13 | Modificar políticas | Administrador | El administrador modificará los términos y condiciones de la empresa, enviando un correo a huéspedes que tengan una cuenta |
-| CU-14 | Registrar hotel | Administrador | |
-| CU-15 | Consultar hotel | Administrador | |
-| CU-16 | Actualizar hotel | Administrador | |
-| CU-17 | Dar de baja hotel | Administrador | |
-| CU-18 | Registrar habitación de un hotel | Administrador | |
-| CU-19 | Consultar habitación | Administrador | |
-| CU-20 | Actualizar habitación | Administrador | |
-| CU-21 | Dar de baja habitación | Administrador | |
-| CU-22 | Iniciar Sesión en el sistema | | |
-| CU-23 | Registrar Recepcionista | Operativo | |
-| CU-24 | Registrar Gerente | Administrador | |
-| CU-25 | Consultar Recepcionistas de Hotel | | |
-| CU-26 | Consultar Gerentes | | |
-| CU-27 | Dar de Baja a Gerente | | |
-| CU-28 | Dar de Baja a Recepcionista | | |
-| CU-29 | Registrar Tipo de habitación | | |
-| CU-30 | Hacer mapa ded habitaciones | | |
+| CU-01 | Hacer reservación | Huésped | El huésped selecciona hotel, fechas y tipo de habitación para realizar una reservación. | Disponibilidad, Usabilidad, Seguridad
+| CU-02 | Consultar disponibilidad | Huésped | El huésped consulta la disponibilidad de habitaciones en tiempo real. | Rendimiento, Disponibilidad
+| CU-03 | Hacer pago con tarjeta de crédito/débito | Huésped | El huésped realiza el pago de su reservación con tarjeta bancaria. | Seguridad, Disponibilidad
+| CU-04 | Hacer pago con PayPal | Huésped | El huésped realiza el pago de su reservación a través de PayPal. | Seguridad, Disponibilidad
+| CU-05 | Hacer pago con otro método | Huésped | El huésped realiza el pago de su reservación con un método alternativo (transferencia, etc.). | Seguridad, Disponibilidad
+| CU-06 | Hacer check-in | Recepcionista | El recepcionista registra la llegada del huésped y asigna habitación. | Usabilidad
+| CU-07 | Hacer check-out | Recepcionista | El recepcionista registra la salida del huésped y libera la habitación. | Usabilidad
+| CU-08 | Cambiar habitación del huésped | Recepcionista | El recepcionista realiza un cambio de habitación durante la estancia del huésped. | Disponibilidad, Usabilidad
+| CU-09 | Registrar consumo extra | Recepcionista | El recepcionista registra consumos adicionales (minibar, servicios). | Usabilidad
+| CU-10 | Iniciar sesión en el sistema | Administrador, Recepcionista, Gerente, Huésped | Permite a los actores ingresar al sistema con credenciales. | Seguridad, Usabilidad
+| CU-11 | Registrar política | Administrador | Permite registrar nuevas políticas (ej. cancelaciones, overbooking). | Flexibilidad, Seguridad
+| CU-12 | Actualizar política | Administrador | Permite modificar políticas vigentes. | Flexibilidad
+| CU-13 | Registrar tarifa | Administrador | Permite crear nuevas tarifas de hospedaje. | Disponibilidad, Rendimiento
+| CU-14 | Actualizar tarifa | Administrador | Permite modificar tarifas existentes. | Disponibilidad
+| CU-15 | Actualizar tarifa de cuota | Administrador | Permite modificar tarifas relacionadas con cuotas adicionales. | Disponibilidad
+| CU-16 | Actualizar tarifa de insumo | Administrador | Permite modificar tarifas asociadas a insumos (ej. desayuno, servicios extra). | Disponibilidad
+| CU-17 | Registrar hotel | Administrador | Permite dar de alta un nuevo hotel en la cadena. | Disponibilidad
+| CU-18 | Consultar hotel | Administrador | Permite consultar información detallada de un hotel. | Rendimiento
+| CU-19 | Actualizar hotel | Administrador | Permite modificar los datos de un hotel registrado. | Disponibilidad
+| CU-20 | Dar de baja hotel | Administrador | Permite eliminar un hotel de la cadena. | Seguridad, Disponibilidad
+| CU-21 | Registrar tipo de habitación | Administrador | Permite crear un nuevo tipo de habitación (suite, doble, sencilla, etc.). | Flexibilidad
+| CU-22 | Actualizar tipo de habitación | Administrador | Permite modificar un tipo de habitación existente. | Disponibilidad
+| CU-23 | Registrar habitación | Administrador | Permite dar de alta habitaciones individuales en un hotel. | Disponibilidad
+| CU-24 | Consultar habitación | Administrador | Permite consultar información de una habitación registrada. | Rendimiento
+| CU-25 | Actualizar habitación | Administrador | Permite modificar los datos de una habitación. | Disponibilidad
+| CU-26 | Dar de baja habitación | Administrador | Permite eliminar una habitación registrada. | Seguridad
+| CU-27 | Hacer mapa del hotel | Administrador | Permite generar un mapa de las habitaciones del hotel. | Usabilidad
+| CU-28 | Registrar huésped | Administrador | Permite registrar datos de un nuevo huésped. | Seguridad, Disponibilidad
+| CU-29 | Consultar huésped | Administrador | Permite consultar información de huéspedes registrados. | Rendimiento
+| CU-30 | Registrar gerente | Administrador | Permite dar de alta a un gerente. | Seguridad
+| CU-31 | Consultar gerente | Administrador | Permite consultar información de gerentes. | Rendimiento
+| CU-32 | Dar de baja gerente | Administrador | Permite eliminar el registro de un gerente. | Seguridad
+| CU-33 | Registrar recepcionista | Administrador | Permite dar de alta a un recepcionista. | Seguridad
+| CU-34 | Consultar recepcionistas | Administrador | Permite consultar información de recepcionistas. | Rendimiento
+| CU-35 | Dar de baja recepcionista | Administrador | Permite eliminar el registro de un recepcionista. | Seguridad
 |===
+
 
 == Diagramas
 
