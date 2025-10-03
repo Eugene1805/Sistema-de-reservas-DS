@@ -45,7 +45,7 @@
 == Diagramas
 
 === Diagrama de Paquetes
-image::DiagramaPaquetesSistemaGestiónHotelera.png[Diagrama de Paquetes General, width=700, align=center]
+image::DiagramaPaquetesSistemaGestionHotelera.png[Diagrama de Paquetes General, width=700, align=center]
 
 === Actores del Sistema
 image::Actors.png[Actores del Sistema, width=600, align=center]

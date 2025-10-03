@@ -5,6 +5,8 @@
 :icons: font
 :sectnums:
 :source-highlighter: rouge
+:imagesdir: images
+
 
 == Integrantes
 include::architecture/4+1/cover.adoc[]
