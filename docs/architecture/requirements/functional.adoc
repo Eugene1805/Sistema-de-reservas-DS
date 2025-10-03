@@ -2,48 +2,68 @@
 
 == Overview
 
+== Casos de uso
+
 == Lista de casos de uso
 
 [cols="1,2,3,4,5"]
 |===
 | ID | Nombre del Caso de Uso | Actores | Descripción | Atributos de calidad relevantes
 
-| CU-01 | Hacer reservación | Huésped | El huésped realiza una reservación de una habitación en un hotel. | Disponibilidad, Usabilidad, Seguridad
-| CU-02 | Consultar disponibilidad | Huésped | El huésped consulta las habitaciones disponibles en el sistema. | Disponibilidad, Usabilidad
-| CU-03 | Hacer pago con tarjeta | Huésped | El huésped realiza el pago completo de la reservación mediante tarjeta. | Seguridad, Disponibilidad
-| CU-04 | Hacer pago con PayPal | Huésped | El huésped realiza el pago completo de la reservación mediante PayPal. | Seguridad, Disponibilidad
-| CU-05 | Hacer pago con otro método | Huésped | El huésped realiza el pago completo mediante otro método permitido (ej. transferencia bancaria). | Seguridad, Disponibilidad
-| CU-06 | Hacer check-in | Operativo | El Operativo registra la llegada del huésped al hotel y da de alta la habitación asignada. | Usabilidad
-| CU-07 | Hacer check-out | Operativo | El Operativo registra la salida del huésped y libera la habitación. | Usabilidad
-| CU-08 | Cambiar habitación | Operativo | El Operativo asigna una nueva habitación al huésped en caso de requerir cambio. |
-| CU-09 | Registrar servicio de consumo | Operativo | El Operativo registra consumos adicionales del huésped (ej. frigobar, restaurante, etc.). |
-| CU-10 | Iniciar sesión | Huésped, Operativo, Administrador | El Actor accede al sistema ingresando sus credenciales. | Seguridad
-| CU-11 | Registrar política | Administrador | El Administrador crea nuevas políticas del hotel. |
-| CU-12 | Actualizar política | Administrador | El Administrador modifica políticas ya existentes. |
-| CU-13 | Registrar tarifa | Administrador | El Administrador define nuevas tarifas de habitaciones. |
-| CU-14 | Actualizar tarifa | Administrador | El Administrador modifica las tarifas de habitaciones. |
-| CU-15 | Actualizar tarifa de cuota | Administrador | El Administrador modifica las cuotas del hotel. |
-| CU-16 | Actualizar tarifa de insumo | Administrador | El Administrador modifica los precios de insumos (ej. alimentos, bebidas, servicios). |
-| CU-17 | Registrar hotel | Administrador | El Administrador registra un nuevo hotel en el sistema. |
-| CU-18 | Consultar hotel | Administrador | El Administrador consulta información de un hotel registrado. |
-| CU-19 | Actualizar hotel | Administrador | El Administrador actualiza información de un hotel. |
-| CU-20 | Dar de baja hotel | Administrador | El Administrador elimina un hotel del sistema. |
-| CU-21 | Registrar tipo de habitación | Administrador | El Administrador define un nuevo tipo de habitación. |
-| CU-22 | Actualizar tipo de habitación | Administrador | El Administrador actualiza la información de un tipo de habitación. |
-| CU-23 | Registrar habitación | Gerente | El Gerente registra una habitación en un hotel. |
-| CU-24 | Consultar habitación | Gerente | El Gerente consulta información de habitaciones. |
-| CU-25 | Actualizar habitación | Gerente | El Gerente actualiza información de una habitación. |
-| CU-26 | Dar de baja habitación | Gerente | El Gerente elimina una habitación del sistema. |
-| CU-27 | Hacer mapa del hotel | Gerente | El Gerente crea un mapa visual de las habitaciones del hotel. |
-| CU-28 | Registrar huésped | Operativo, Huésped | El Actor registra los datos de un huésped en el sistema. |
-| CU-29 | Consultar huésped | Operativo, Huésped | El Actor consulta información de huéspedes registrados. |
-| CU-30 | Registrar gerente | Administrador | El Administrador registra los datos de un gerente. |
-| CU-31 | Consultar gerente | Administrador | El Administrador consulta información de gerentes registrados. |
-| CU-32 | Dar de baja gerente | Administrador | El Administrador elimina un gerente del sistema. |
-| CU-33 | Registrar recepcionista | Gerente | El Gerente registra los datos de un recepcionista. |
-| CU-34 | Consultar recepcionistas | Gerente | El Gerente consulta la lista de recepcionistas registrados. |
-| CU-35 | Dar de baja recepcionista | Gerente | El Gerente elimina un recepcionista del sistema. |
+| CU-01 | Consultar página | Huésped | El huésped consulta la página/aplicación móvil para consultar el catálogo de hoteles. | Disponibilidad, Usabilidad
+| CC-02 | Reservar Habitación | Huésped | El huésped hace una reservación de una habitación. | Disponibilidad, Usabilidad, Seguridad
+| CU-03 | Realizar pago | Huésped | El huésped realiza el pago completo de la habitación. | Seguridad, Disponibilidad
+| CU-04 | Consultar reservación| Huésped |El huésped consulta una reservación ya hecha. | Disponibilidad, Usabilidad
+| CU-05 | Cancelar reservación | Huésped | El huésped consulta su reservación previamente hecha para cancelarla. | Disponibilidad, Usabilidad, Seguridad
+| CU-06 | Hacer check-in | Operativo | El Operativo del sistema indica en el sistema que el huésped ha llegado al hotel en cuestión y da de alta su habitación | Usabilidad
+| CU-07 | Hacer check-out | Operativo | El Operativo del sistema indica en el sistema que el huésped ya marcó su salida del hotel en cuestión y da de baja su habitación | Usabilidad
+| CU-08 | Cambiar habitación del huésped | Operativo | El operativo hace un cambio de habitación para el huésped. |
+| CU-09 | Registrar consumos extras | Operativo | El operativo registrará en la cuenta del huésped cualquier consumo extra que haya tenido a lo largo de su estancia en su habitación (por ejemplo, sacar algún producto del frigobar) |
+| CU-10 | Modificar tarifas | Administrador | |
+| CU-11 | Modificar tarifas de insumos | Administrador | |
+| CU-12 | Modificar tarifas de cuotas | Administrador | |
+| CU-13 | Modificar políticas | Administrador | El administrador modificará los términos y condiciones de la empresa, enviando un correo a huéspedes que tengan una cuenta |
+| CU-14 | Registrar hotel | Administrador | |
+| CU-15 | Consultar hotel | Administrador | |
+| CU-16 | Actualizar hotel | Administrador | |
+| CU-17 | Dar de baja hotel | Administrador | |
+| CU-18 | Registrar habitación de un hotel | Administrador | |
+| CU-19 | Consultar habitación | Administrador | |
+| CU-20 | Actualizar habitación | Administrador | |
+| CU-21 | Dar de baja habitación | Administrador | |
+| CU-22 | Iniciar Sesión en el sistema | | |
+| CU-23 | Registrar Recepcionista | Operativo | |
+| CU-24 | Registrar Gerente | Administrador | |
+| CU-25 | Consultar Recepcionistas de Hotel | | |
+| CU-26 | Consultar Gerentes | | |
+| CU-27 | Dar de Baja a Gerente | | |
+| CU-28 | Dar de Baja a Recepcionista | | |
+| CU-29 | Registrar Tipo de habitación | | |
+| CU-30 | Hacer mapa ded habitaciones | | |
 |===
+
+== Diagramas
+
+=== Diagrama de Paquetes
+image::DiagramaPaquetesSistemaGestiónHotelera.png[Diagrama de Paquetes General, width=700, align=center]
+
+=== Actores del Sistema
+image::Actors.png[Actores del Sistema, width=600, align=center]
+
+=== Casos de Uso – Administración del Hotel
+image::PaqueteAdministracionDelHotel.png[Casos de Uso - Administración del Hotel, width=700, align=center]
+
+=== Casos de Uso – Gestión de Actores
+image::PaqueteGestionDeActores.png[Casos de Uso - Gestión de Actores, width=700, align=center]
+
+=== Casos de Uso – Operaciones de Estancia
+image::PaqueteOperacionesDeEstancia.png[Casos de Uso - Operaciones de Estancia, width=700, align=center]
+
+=== Casos de Uso – Reservaciones
+image::PaqueteReservaciones.png[Casos de Uso - Reservaciones, width=700, align=center]
+
+=== Casos de Uso – Gestión de Habitaciones
+image::PaquetesGestionDeHabitaciones.png[Casos de Uso - Gestión de Habitaciones, width=700, align=center]
 
 == Reglas de negcio
 // agregar reglas de negocio
