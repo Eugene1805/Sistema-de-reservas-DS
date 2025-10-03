@@ -1,11 +1,11 @@
 == CU-28 Registrar Huésped
 
 |===
-| ID | CU-XX
+| ID | CU-28
 | Nombre | Registrar Huésped
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 02 de octubre de 2025
-| Descripción | XX
+| Descripción | El Actor registra los datos de un huésped en el sistema.
 | Actor(es) | Recepcionista,
 | Disparador | El actor selecciona la opción de registrar un nuevo huésped en el sistema.
 | Precondiciones | El huésped no está registrado en el sistema.
