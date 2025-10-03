@@ -22,16 +22,11 @@ FA 2.1: Si el huésped no tiene tarjetas registradas o desea agregar otra tarjet
 2.- El huésped ingresa los datos de la tarjeta y da clic en "Agregar tarjeta". +
 3.- El sistema valida los datos de la tarjeta y, si son correctos, guarda la tarjeta en el perfil del huésped si este ha iniciado sesión y regresa al paso 2 del flujo normal. +
 FA 2.2 El huésped elige como método de pago PayPal. +
-1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. +
-2.- El huésped inicia sesión en su cuenta de PayPal y confirma el pago. +
-3.- El sistema procesa el pago mediante PayPal, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. +
-4.- Termina el caso de uso. +
+1.- Extiende al caso de uso CU-04 Hacer pago con PayPal. +
 FA 2.3 El huésped elige como método de pago Otro. +
-1.- El sistema muestra las instrucciones para completar el pago mediante el método seleccionado (ej. transferencia bancaria). +
-2.- El huésped sigue las instrucciones para completar el pago. +
-3.- El sistema espera la confirmación del pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico una vez recibido el pago. +
-4.- Termina el caso de uso.
-| Excepciones | EX 1 - El sistema no puede conectarse a la pasarela de pago +
+1.- Extiende al caso de uso CU-05 Hacer pago con otro método. +
+| Excepciones |
+EX 1 - El sistema no puede conectarse a la pasarela de pago +
 1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
 2.- Termina el caso de uso. +
 EX 2 - El pago es rechazado por la pasarela de pago (fondos insuficientes, tarjeta inválida, etc.) +
