@@ -1,0 +1,39 @@
+== CU-03 Hacer pago con tarjeta
+
+|===
+| ID | CU-03
+| Nombre | Hacer pago con tarjeta
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | El huésped realiza el pago completo de la reservación mediante tarjeta.
+| Actor(es) | Huésped
+| Disparador | El huésped selecciona una habitación y opta por pagar con tarjeta.
+| Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
+| Flujo normal |
+1.- El sistema verifica si el huésped tiene tarjetas registradas y muestra las opciones disponibles en caso de que el huésped este registrado y haya iniciado sesión, ademas de la opción de agregar una nueva tarjeta y pago con PayPal u Otros +
+2.- El huésped selecciona una tarjeta registrada. +
+3.- El sistema muestra los detalles de la reservación y el monto total a pagar. +
+4.- El huésped confirma el pago. +
+5.- El sistema procesa el pago mediante la pasarela de pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. +
+6.- Termina el caso de uso.
+| Flujos alternos |
+FA 2.1: Si el huésped no tiene tarjetas registradas o desea agregar otra tarjeta +
+1.- El sistema muestra el formulario para ingresar los datos de la tarjeta (número de tarjeta, fecha de expiración, código CVV, nombre del titular, etc.). +
+2.- El huésped ingresa los datos de la tarjeta y da clic en "Agregar tarjeta". +
+3.- El sistema valida los datos de la tarjeta y, si son correctos, guarda la tarjeta en el perfil del huésped si este ha iniciado sesión y regresa al paso 2 del flujo normal. +
+FA 2.2 El huésped elige como método de pago PayPal. +
+1.- Extiende al caso de uso CU-04 Hacer pago con PayPal. +
+FA 2.3 El huésped elige como método de pago Otro. +
+1.- Extiende al caso de uso CU-05 Hacer pago con otro método. +
+| Excepciones |
+EX 1 - El sistema no puede conectarse a la pasarela de pago +
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso. +
+EX 2 - El pago es rechazado por la pasarela de pago (fondos insuficientes, tarjeta inválida, etc.) +
+1.- El sistema muestra un mensaje de error y permite al huésped intentar con otra tarjeta o método de pago. +
+2.- Regresa al paso 1 del flujo normal. +
+EX 3 - El sistema no puede conectarse a la base de datos, muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+3.- Termina el caso de uso.
+| Postcondiciones | El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
+| Reglas de negocio | RN-XX
+|===

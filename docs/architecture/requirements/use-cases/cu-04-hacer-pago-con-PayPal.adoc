@@ -1,0 +1,29 @@
+== CU-04 Hacer pago con PayPal
+
+|===
+| ID | CU-04
+| Nombre | Hacer pago con PayPal
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | El huésped realiza el pago completo de la reservación mediante PayPal.
+| Actor(es) | Huésped
+| Disparador | El huésped da clic en la opción de pagar con "Paypal".
+| Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
+| Flujo normal |
+1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. +
+2.- El huésped inicia sesión en su cuenta de PayPal y confirma el pago. +
+3.- El sistema procesa el pago mediante PayPal, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. +
+4.- Termina el caso de uso. +
+| Flujos alternos |
+| Excepciones |
+EX 1 - El sistema no puede conectarse a PayPal +
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso. +
+EX 2 - El pago es rechazado por PayPal (fondos insuficientes, tarjeta inválida, etc.) +
+1.- El sistema muestra un mensaje de error y permite al huésped intentar con otro método de pago. +
+2.- Regresa al paso 1 del flujo normal del CU-03 Hacer pago con tarjeta. +
+EX 3 - El sistema no puede conectarse a la base de datos, muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+3.- Termina el caso de uso.
+| Postcondiciones | El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
+| Reglas de negocio |
+|===

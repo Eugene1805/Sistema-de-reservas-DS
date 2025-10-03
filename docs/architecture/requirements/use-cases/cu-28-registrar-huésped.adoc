@@ -1,22 +1,30 @@
 == CU-28 Registrar Huésped
 
 |===
-| ID | CU-XX
+| ID | CU-28
 | Nombre | Registrar Huésped
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 02 de octubre de 2025
-| Descripción | XX
+| Descripción | El Actor registra los datos de un huésped en el sistema.
 | Actor(es) | Recepcionista,
 | Disparador | El actor selecciona la opción de registrar un nuevo huésped en el sistema.
 | Precondiciones | El huésped no está registrado en el sistema.
-| Flujo normal | 1.- El sistema muestra el formulario de registro de huésped.
-2.- El actor ingresa los datos del huésped (nombre, apellido, documento de identidad, fecha de nacimiento, nacionalidad, etc.).
-3.- El sistema valida los datos ingresados.
-4.- El actor da clic en el botón "Registrar".
+| Flujo normal |
+1.- El sistema muestra el formulario de registro de huésped. +
+2.- El actor ingresa los datos del huésped (nombre, apellido, documento de identidad, fecha de nacimiento, nacionalidad, etc.). +
+3.- El sistema valida los datos ingresados. +
+4.- El actor da clic en el botón "Registrar". +
 5.- El sistema guarda la información del huésped en la base de datos y muestra un mensaje de exito.
-| Flujos alternos | FA 3a: Si los datos ingresados no son válidos, el sistema muestra un mensaje de error y permite al actor corregir los datos.
-| Excepciones | EX 1 - El sistema no puede conectarse a la base de datos, muestra un mensaje de error y solicita al actor intentar nuevamente más tarde.
-EX 2 - El sistema no puede acceder a internet, muestra un mensaje de error y solicita al actor intentar nuevamente más tarde.
+| Flujos alternos |
+FA 3.1: Los datos ingresados no son válidos +
+1.- El sistema muestra un mensaje de error y permite al actor corregir los datos. +
+2.- Regresa al paso 2 del flujo normal.
+| Excepciones | EX 1 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
+2.- Termina el caso de uso. +
+EX 2 - El sistema no puede acceder a internet +
+1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde.
+2.- Termina el caso de uso.
 | Postcondiciones | El huésped queda registrado en el sistema con un identificador único.
 | Reglas de negocio | RN-XX, RN-XX
 |===

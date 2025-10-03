@@ -1,0 +1,17 @@
+== CU-19 Actualizar hotel
+
+|===
+| ID |
+| Nombre |
+| Autor |
+| Fecha de actualización |
+| Descripción |
+| Actor(es) |
+| Disparador |
+| Precondiciones |
+| Flujo normal |
+| Flujos alternos |
+| Excepciones |
+| Postcondiciones |
+| Reglas de negocio |
+|===
