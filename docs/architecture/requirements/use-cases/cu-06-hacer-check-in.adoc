@@ -1,17 +1,58 @@
 == CU-06 Hacer check-in
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-06
+| Nombre | Hacer Check-in
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | El recepcionista hace check-in en el sistema para un huésped con una +
+reservación previa.
+| Actor(es) | Recepcionista
+| Disparador | Recepcionista da clic en la opción de "Hacer check-in de huésped".
+| Precondiciones | PRE-01.- El huésped ya debe contar con una reservación previa. +
+PRE-02.-El día del check-in debe coincidir con el día guardado en la reservación. +
+PRE-03.- Debe haber habitaciones del tipo de la reservación disponibles.
 | Flujo normal |
+1.- El sistema muestra la ventana "Check-in" con una barra de búsqueda para ingresar los datos +
+del huésped. +
+2.- El sistema muestra los botones "Buscar" y "Salir". +
+3.- El recepcionista ingresa los datos del huésped asociados a su reservación. +
+3.- El recepcionista da clic en buscar. (FA-01) (FA-03) +
+4.- El sistema recupera en la ventana la reservación del cliente. (EX-01) +
+5.- El recepcionista da clic en la reservación. +
+6.- El sistema recupera los datos de la reservación. (EX-01) +
+7.- El sistema muestra los datos en la ventana. +
+8.- El sistema muestra los botones para "Hacer check-in" y "Cancelar". +
+9.- El recepcionista da clic en "Hacer check-in". (FA-01) +
+10.- El sistema asigna una habitación del mapa de habitaciones. (EX-01) +
+11.- El sistema muestra los datos de la estancia del huésped incluyendo el número de +
+habitación y el día de check-out. +
+12.- El sistema muestra el botón "Aceptar". +
+13.- El recepcionista da clic en "Aceptar". +
+14.- El sistema devuelve al recepcionista a la ventana de "Check-in". +
+15.- Termina el Caso de Uso.
 | Flujos alternos |
+FA-01. El recepcionista da clic en "Salir". +
+    1.- El recepcionista da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal. +
+    3.- Termina Caso de Uso.
+FA-02 El recepcionista da clic en "Cancelar". +
+    1.- El recepcionista da clic en el botón "Cancelar". +
+    2.- El sistema regresa al usuario a la ventana "Check-in". +
+    3.- Termina Caso de Uso.
+FA-02 Datos inválidos. +
+    1.- El sistema valida los datos de la barra de búsqueda". +
+    2.- El sistema muestra al usuario a el mensaje "Datos inválidos. Por favor, inténtalo de nuevo.". +
+    3.- El sistema muestra el botón "Aceptar".
+    4.- El recepcionista da clic en "Aceptar".
+    3.- El sistema limpia la barra de búsqueda.
 | Excepciones |
-| Postcondiciones |
+EX-01 No hay conexión con la base de datos.
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar".
+    3.- El recepcionista da clic en el botón "Aceptar".
+    4.- El sistema regresa al usuario a la ventana "Check-in".
+| Postcondiciones | 
+POST-01.- El huésped debe tener una habitación asignada acorde al tipo de habitación en la reservación.
 | Reglas de negocio |
 |===
