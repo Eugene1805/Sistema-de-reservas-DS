@@ -1,7 +1,7 @@
 == CU-01 Hacer reservación
 
 |===
-| ID | 01
+| ID | CU-01
 | Nombre | Hacer reservación
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 02 de octubre de 2025
@@ -10,7 +10,7 @@
 | Disparador | El huésped selecciona la opción de hacer una reservación para alguna habitación seleccionada. // Checar flujo
 | Precondiciones |
 | Flujo normal |
-| Flujos alternos | // Include de CU-05 Hacer pago con otro método
+| Flujos alternos | // Include de CU-03 Hacer pago con tarjeta
 | Excepciones |
 | Postcondiciones |
 | Reglas de negocio |
