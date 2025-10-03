@@ -7,7 +7,7 @@
 | Fecha de actualización | 02 de octubre de 2025
 | Descripción | El huésped realiza el pago completo de la reservación mediante PayPal.
 | Actor(es) | Huésped
-| Disparador | El huésped da clic en la opción de pagar con Paypal.
+| Disparador | El huésped da clic en la opción de pagar con "Paypal".
 | Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
 | Flujo normal |
 1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. +
