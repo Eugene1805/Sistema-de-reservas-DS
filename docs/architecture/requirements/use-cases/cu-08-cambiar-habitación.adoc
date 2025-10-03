@@ -1,17 +1,27 @@
 == CU-08 Cambiar habitación
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-08
+| Nombre | Cambiar habitación
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | El recepcionista realiza un cambio de habitación durante la estancia del huésped.
+| Actor(es) | Recepcionista
+| Disparador | El recepcionista busca al huésped y da clic en cambiar
+| Precondiciones | El huésped ha hecho check-in en el hotel correspondiente
 | Flujo normal |
+1.- El sistema recupera y muestra las habitaciones disponibles +
+2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
+3.- Extiende al CU- Hacer check-out +
+4.- Extiende al CU- Hacer check-in +
 | Flujos alternos |
+FA 1.1 El sistema no cuenta con habitaciones disponibles +
+1.- El sistema muestra el mensaje "No quedan habitaciones disponbles"
+2.- Termina el caso de uso.
 | Excepciones |
-| Postcondiciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | El huésped hace check-out de la antigua habitación y hace check-in en la nueva
 | Reglas de negocio |
 |===
