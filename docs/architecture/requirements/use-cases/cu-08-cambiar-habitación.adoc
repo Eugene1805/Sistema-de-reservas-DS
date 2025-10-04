@@ -14,6 +14,7 @@
 2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
 3.- Extiende al CU- Hacer check-out +
 4.- Extiende al CU- Hacer check-in +
+5.- Termina el caso de uso.
 | Flujos alternos |
 FA 1.1 El sistema no cuenta con habitaciones disponibles +
 1.- El sistema muestra el mensaje "No quedan habitaciones disponbles"

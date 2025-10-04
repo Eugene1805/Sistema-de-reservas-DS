@@ -54,21 +54,3 @@ El presente documento va dirigido a los diversos grupos de interesados que parti
 - Equipo de desarrollo y soporte técnico
  * Serán responsables de implementar, dar mantenimiento y garantizar la siponibilidad y escalabilidad de la solución
  * Requieren especificaciones claras y métricas de calidad para diseñar una arquitectura robusta y sostenible.
-
-== Glosario.
-- Reservación: Proceso por el cual un huésped aparta una habitación para un periodo determinado, con confirmación inmediata al realizar el pago completo.
-- Check-in: Registro formal de entrada de un huésped en el hotel.
-- Check-out: Proceso de salida de un huésped, incluyendo la liquidación de algún consumo adicional durante su estadia.
-- Overbooking: Estrategia que permite aceptar un número de reservaciones superior al inventario disponible (con un máximo de 10%) para compensar cancelaciones o inasistencias.
-- Pago completo al reservar: Regla de negocio que obliga al cliente a liquidar el total de su estancia en el momento de confirmar la reservación.
-- Penalización por cancelación: Cobro parcial que se aplica al cliente en caso de cancelar una reservación confirmada, conforme a las políticas definidas por la administración.
-- Precios dinámicos: Estrategia de negocio que ajusta las tarifas de habitaciones en función de la demanda, temporada, ocupación y otras variables.
-- Exclusión mutua: Principio de consistencia que asegura que una habitación no pueda ser reservada simultáneamente por más de un cliente.
-- Cliente / Huésped: En este contexto, ambos términos se refieren al usuario final que realiza la reservación y consume los servicios del hotel.
-- Inventario: Conjunto de habitaciones y servicios disponibles para reservación en cada hotel.
-- Backoffice: Interfaz administrativa utilizada por los gestores para controlar inventario, tarifas y políticas de negocio.
-- Latencia: Tiempo de respuesta del sistema ante una operación realizada por el usuario.
-- TPS (Transactions Per Second): Métrica que indica la cantidad de transacciones procesadas por segundo.
-- QPS (Queries Per Second): Métrica que mide el número de consultas de disponibilidad realizadas por segundo.
-- RDBMS (Relational Database Management System): Sistema de gestión de bases de datos relacionales utilizado para garantizar consistencia y confiabilidad en operaciones de reserva y pago.
-- guConstraint: Restricción tecnológica u operativa que limita las decisiones de diseño, como la obligatoriedad de usar una base de datos relacional o la implementación exclusiva en web y móvil.
