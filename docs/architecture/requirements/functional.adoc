@@ -51,7 +51,7 @@
 include::use-cases/cu-01-hacer-reservación.adoc[]
 //include::use-cases/cu-02-consultar-disponibilidad.adoc[]
 include::use-cases/cu-03-hacer-pago-con-tarjeta.adoc[]
-include::use-cases/cu-04-hacer-pago-con-paypal.adoc[]
+include::use-cases/cu-04-hacer-pago-con-PayPal.adoc[]
 include::use-cases/cu-05-hacer-pago-con-otro-método.adoc[]
 include::use-cases/cu-06-hacer-check-in.adoc[]
 include::use-cases/cu-07-hacer-check-out.adoc[]

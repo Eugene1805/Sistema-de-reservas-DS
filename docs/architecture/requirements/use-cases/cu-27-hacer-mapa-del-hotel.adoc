@@ -5,8 +5,8 @@
 | Nombre |
 | Autor |
 | Fecha de actualización |
-| Descripción |
-| Actor(es) |
+| Descripción | Permite generar un mapa de las habitaciones del hotel.
+| Actor(es) | Administrador
 | Disparador |
 | Precondiciones |
 | Flujo normal |

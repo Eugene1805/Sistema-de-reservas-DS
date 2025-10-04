@@ -1,17 +1,31 @@
 == CU-12 Actualizar política
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-12
+| Nombre | Actualizar política
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | Permite modificar políticas vigentes.
+| Actor(es) | Administrador
+| Disparador | El administrador da clic en actualizar política.
+| Precondiciones | PRE-01 El administrador esta autenticado en el sistema. +
+PRE-02 La política a actualizar existe.
 | Flujo normal |
+1.- El sistema recupera y muestra la información de la políticas vigentes. (Ver EX 3) +
+2.- El administrador busca y selecciona la política que desea actualizar. +
+3.- El sistema recupera ymuestra la información de la política selecionada habilitando la edición de sus campos. (Ver EX 3) +
+4.- El administrador edita los campos que desea y da clic en "Actualizar política". (Ver FA 4.1) +
+5.- El sistema valida los nuevos valores de la política, actualiza la información en la base de datos y muestra un mensaje de éxito. (Ver EX 3) +
+6.- Termina el caso de uso
 | Flujos alternos |
+FA 4.1 El administrador desea cancelar la edición de la política.
+.- El sistema muestra un mensaje de confirmación de la cancelación
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal.
+3.- Termina el caso de uso.
 | Excepciones |
-| Postcondiciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al admiistrador intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | POST-01 La política seleccionada es actualizada en el sistema.
 | Reglas de negocio |
 |===

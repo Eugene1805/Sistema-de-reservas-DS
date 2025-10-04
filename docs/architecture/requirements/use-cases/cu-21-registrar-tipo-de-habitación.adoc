@@ -5,8 +5,8 @@
 | Nombre |
 | Autor |
 | Fecha de actualización |
-| Descripción |
-| Actor(es) |
+| Descripción | Permite crear un nuevo tipo de habitación (suite, doble, sencilla, etc.).
+| Actor(es) | Administrador
 | Disparador |
 | Precondiciones |
 | Flujo normal |

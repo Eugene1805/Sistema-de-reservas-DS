@@ -12,7 +12,7 @@
 | Flujo normal |
 1.- El sistema muestra el formulario para registrar una política. +
 2.- El administrador llena los campos correspondientes y elige el alcance de la política creada. (Ver FA 2.1) +
-3.- El sistema guarda la nueva política en la base de datos y la aplica de acuerdo a lo solicitado por el administrador. (Ver EX 3) +
+3.- El sistema guarda la nueva política en la base de datos, la aplica de acuerdo a lo solicitado por el administrador y muestra un mensaje de éxito. (Ver EX 3) +
 4.- Termina el caso de uso.
 | Flujos alternos |
 FA 2.1 El administrador cancela el registro
