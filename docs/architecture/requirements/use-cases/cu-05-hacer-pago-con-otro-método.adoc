@@ -11,16 +11,19 @@
 | Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
 | Flujo normal |
 1.- El sistema muestra las instrucciones para completar el pago mediante el método seleccionado (ej. transferencia bancaria). +
-2.- El huésped sigue las instrucciones para completar el pago. +
-3.- El sistema espera la confirmación del pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico una vez recibido el pago. +
+2.- El huésped sigue las instrucciones para completar el pago. (Ver FA 2.1) +
+3.- El sistema espera la confirmación del pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico una vez recibido el pago. (Ver EX 1) (Ver EX 3)+
 4.- Termina el caso de uso.
 | Flujos alternos |
+FA 2.1 El huésped cancela la operación +
+1.- Regresa al paso 1 del flujo normal del CU-03 Hacer pago con tarjeta.
 | Excepciones |
 EX 1 - El pago es rechazado por la institución financiera (fondos insuficientes, depósito sin fondos, etc.) +
 1.- El sistema muestra un mensaje de error y permite al huésped intentar con otro método de pago. +
 2.- Regresa al paso 1 del flujo normal del CU-03 Hacer pago con tarjeta. +
-EX 1 - El sistema no puede conectarse a la base de datos, muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
-3.- Termina el caso de uso.
+EX 3 - El sistema no puede conectarse a la base de datos
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
 | Postcondiciones | El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
 | Reglas de negocio |
 |===

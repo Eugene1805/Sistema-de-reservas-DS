@@ -10,7 +10,7 @@
 | Disparador | El recepcionista busca al huésped y da clic en cambiar
 | Precondiciones | El huésped ha hecho check-in en el hotel correspondiente
 | Flujo normal |
-1.- El sistema recupera y muestra las habitaciones disponibles +
+1.- El sistema recupera y muestra las habitaciones disponibles. (Ver FA 1.1) (Ver EX 3) +
 2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
 3.- Extiende al CU- Hacer check-out +
 4.- Extiende al CU- Hacer check-in +

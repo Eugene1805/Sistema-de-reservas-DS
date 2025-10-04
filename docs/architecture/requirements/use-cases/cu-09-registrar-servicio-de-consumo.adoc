@@ -1,17 +1,27 @@
 == CU-09 Registrar servicio de consumo
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-09
+| Nombre | Registrar servicio de consumo
+| Autor | Recepcionista
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | El recepcionista registra consumos adicionales (minibar, servicios).
+| Actor(es) | Recepcionista
+| Disparador | El recepcionista consulta al huésped y da clic en registrar consumo.
+| Precondiciones | El huésped ha hecho check-in en el hotel.
 | Flujo normal |
+1.- El sistema recupera y muestra los servicios disponibles en el hotel para la fecha actual. (Ver EX 3) +
+2.- El recepcionista selecciona un consumo (ejemplo: servicio de limpieza) de acuerdo con lo solicitado por el huésped. +
+3.- El sistema muestra el detalle del consumo, incluyendo el precio y sus características. (Ver EX 3) +
+4.- El recepcionista informa al huésped, solicita el servicio en el hotel para dicho huésped y registra el consumo en el sistema. (Ver FA 4.1)+
+5.- El sistema registra el consumo en la cuenta del huésped en la base de datos. (Ver EX 3)
 | Flujos alternos |
+FA 4.1 El huésped ya no quiere el servicio
+1.- Termina el caso de uso
 | Excepciones |
-| Postcondiciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | Un servicio de consumo es agregado a la cuenta del huésped.
 | Reglas de negocio |
 |===
