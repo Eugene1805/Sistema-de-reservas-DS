@@ -1,0 +1,16 @@
+
+
+[cols="1,2"]
+|===
+| ID y descripción corta | QAS-02
+| Escenario | Garantizar la satisfacción del cliente al reservar en la cadena de hoteles.
+| Atributo | Desempeño
+| Preocupación del atributo | Tiempo de cola de espera en la confirmacion de la reserva,
+| Refinamiento del escenario | El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 TPS sostenidos y rafagas de hasta 10 TPS.
+| Fuente del estímulo | 500 usuarios.
+| Estímulo | Realizan el CU-01 Hacer reservación en el intervalo de un segundo.
+| Ambiente | Picos de trafico (3 TPS) y ráfagas de 10 TPS en fechas de alta demanda.
+| Artefacto | El sistema entero.
+| Respuesta | El sistema responde y procesa todas las transacciones
+| Medida de respuesta | Tiempo de respuesta menor a 2.5 segundos en el 90% de las veces y menor a 4 segundos en el 99% de las veces.
+|===

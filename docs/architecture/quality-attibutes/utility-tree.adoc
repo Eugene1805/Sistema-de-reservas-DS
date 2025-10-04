@@ -38,7 +38,7 @@ _(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Qua
 a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas. (H,H)
 
 | Tiempo de cola de espera en la confirmacion de la reserva
-a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 transacciones por segundo sostenidos y rafagas de hasta 10 transacciones por segundo. (M,H)
+a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 TPS sostenidos y rafagas de hasta 10 TPS. (M,H)
 
 | Picos de trafico
 a| Cosa de arturo (H,H)
