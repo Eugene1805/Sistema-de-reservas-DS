@@ -1,17 +1,68 @@
 == CU-20 Dar de baja hotel
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-20
+| Nombre | Dar de baja hotel
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | El administrador da de baja un hotel del sistema, inhabilitándolo para nuevas operaciones, sin eliminar su información de la base de datos.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Dar de baja hotel".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- Debe existir al menos un hotel registrado en la base de datos. +
+PRE-03.- El administrador debe tener permisos para gestionar el estado de los hoteles. +
+PRE-04.- El hotel no debe tener reservaciones activas, huéspedes hospedados o procesos de check-in pendientes.
 | Flujo normal |
+1.- El sistema muestra la ventana "Hoteles" con el listado de hoteles existentes. +
+2.- El sistema muestra los botones "Registrar hotel", "Modificar", "Dar de baja" y "Salir". +
+3.- El administrador selecciona de la lista el hotel que desea dar de baja. (FA-01) (EX-01) +
+4.- El administrador da clic en el botón "Dar de baja". +
+5.- El sistema muestra una ventana de confirmación con el mensaje: +
+   `"¿Está seguro que desea dar de baja este hotel? Esta acción lo inhabilitará para futuras operaciones."` +
+6.- El sistema muestra los botones "Confirmar" y "Cancelar". +
+7.- El administrador da clic en "Confirmar". (FA-02) +
+8.- El sistema valida que el hotel no tenga operaciones activas. (EX-02) +
+9.- El sistema cambia el estado del hotel a **Inactivo** en la base de datos. +
+10.- El sistema actualiza el registro del hotel con la fecha y hora de baja. +
+11.- El sistema muestra el mensaje "El hotel se ha dado de baja exitosamente". +
+12.- El sistema muestra el botón "Aceptar". +
+13.- El administrador da clic en "Aceptar". +
+14.- El sistema regresa a la ventana principal de "Hoteles" y actualiza la lista mostrando el estado "Inactivo". +
+15.- Termina el Caso de Uso.
 | Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar" en la ventana de confirmación. +
+    2.- El sistema regresa al usuario a la ventana "Hoteles" sin realizar cambios. +
+    3.- Termina Caso de Uso.
 | Excepciones |
-| Postcondiciones |
+EX-01. No se ha seleccionado ningún hotel. +
+    1.- El sistema muestra el mensaje "Debe seleccionar un hotel para darlo de baja". +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa a la ventana "Hoteles". +
+EX-02. Hotel con operaciones activas. +
+    1.- El sistema detecta que el hotel tiene reservaciones, estancias o check-ins activos. +
+    2.- El sistema muestra el mensaje "No se puede dar de baja un hotel con operaciones activas". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana "Hoteles" sin modificar el estado. +
+EX-03. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa al usuario a la ventana principal de "Hoteles". +
+| Postcondiciones | 
+POST-01.- El estado del hotel cambia a **Inactivo** en la base de datos. +
+POST-02.- El hotel queda inhabilitado para nuevas reservaciones, asignaciones de habitaciones o gestión de tarifas. +
+POST-03.- La información del hotel permanece en el sistema para fines históricos y de auditoría. +
 | Reglas de negocio |
+RN-01.- Solo los administradores pueden dar de baja hoteles. +
+RN-02.- Un hotel inactivo no puede recibir nuevas reservaciones ni tener huéspedes registrados. +
+RN-03.- No se puede dar de baja un hotel con operaciones activas. +
+RN-04.- La baja debe registrar la fecha, hora y usuario que la realizó. +
+RN-05.- El estado “Inactivo” puede revertirse solo mediante una reactivación aprobada por el administrador general. +
 |===
