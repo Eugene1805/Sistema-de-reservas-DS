@@ -1,0 +1,59 @@
+== CU-13 Registrar tarifa
+
+|===
+| ID | CU-13
+| Nombre | Registrar tarifa
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 02 de octubre de 2025
+| Descripción | El administrador registra en el sistema una nueva tarifa para un tipo de habitación o servicio específico.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Registrar tarifa".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- Debe existir al menos un hotel y tipos de habitación previamente registrados. +
+PRE-03.- El administrador debe tener permisos para gestionar tarifas.
+| Flujo normal |
+1.- El sistema muestra la ventana "Tarifas" con el listado de tarifas existentes. +
+2.- El sistema muestra los botones "Nueva tarifa", "Modificar", "Eliminar" y "Salir". +
+3.- El administrador da clic en "Nueva tarifa". (FA-01) +
+4.- El sistema muestra un combobox con los tipos de tarifa existentes. +
+5.- El administrador selecciona "Tarifa de habitaciones".
+6.- El sistema abre una ventana para capturar los datos de la nueva tarifa. +
+7.- El administrador ingresa los datos requeridos: tipo de habitación/servicio, precio base, fecha de inicio y fin de vigencia, y reglas opcionales de ocupación. (EX-01) +
+6.- El sistema valida que los campos obligatorios estén completos. (EX-02) +
+8.- El sistema muestra los botones "Guardar" y "Cancelar". +
+9.- El administrador da clic en "Guardar". (FA-02) +
+10.- El sistema registra la nueva tarifa en la base de datos. +
+11.- El sistema muestra el mensaje "La tarifa se ha registrado exitosamente". +
+12.- El sistema muestra el botón "Aceptar". +
+13.- El administrador da clic en "Aceptar". +
+14.- El sistema regresa a la ventana principal de "Tarifas". +
+15.- Termina el Caso de Uso.
+| Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar". +
+    2.- El sistema regresa al usuario a la ventana "Tarifas". +
+    3.- Termina Caso de Uso.
+| Excepciones |
+EX-01. Datos inválidos. +
+    1.- El sistema detecta datos incorrectos en los campos (ej. precio negativo, fechas inconsistentes). +
+    2.- El sistema muestra el mensaje "Datos inválidos. Por favor, corríjalos e intente nuevamente". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de captura. +
+EX-02. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa a la ventana "Tarifas". +
+| Postcondiciones | 
+POST-01.- La nueva tarifa queda registrada en la base de datos. +
+POST-02.- La tarifa queda disponible para ser utilizada en futuras reservaciones.
+| Reglas de negocio |
+RN-01.- Una tarifa debe estar asociada a un tipo de habitación o servicio válido. +
+RN-02.- Toda tarifa debe tener un rango de fechas de vigencia. +
+RN-03.- Los precios deben ser valores positivos y expresados en la moneda configurada en el sistema. +
+|===
