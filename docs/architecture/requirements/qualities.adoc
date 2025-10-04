@@ -1,5 +1,4 @@
 
-== Atributos calidad
 
 == Objetivos de calidad
 

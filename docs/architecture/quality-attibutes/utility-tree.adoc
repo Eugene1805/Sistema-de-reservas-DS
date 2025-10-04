@@ -8,13 +8,13 @@
 |===
 | Objetivo | Definición | Importancia para el sistema
 | Desempeño | Grado en que un sistema o componente cumple sus funciones designadas dentro de unas limitaciones determinadas, tales como velocidad, precisión o uso de la memoria. +
- _(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ | El sistema debe ser capaz de soportar alta concurrencia sin dobles cobros o dobles reservas.
+ _(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ | El sistema debe ser capaz de soportar alta concurrencia sin dobles cobros o dobles reservas. Asegurar una experiencia fluida y rápida para los clientes.
 | Seguridad | Capacidad de un producto para proteger la información y los datos, de modo que las personas u otros productos tengan el grado de acceso a los datos adecuado a su tipo y nivel de autorización, y para defenderse de los patrones de ataque de actores maliciosos. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)_ | El sistema debe asegurar que solo los usuarios autorizados accedan a la mínima información necesaria para realizar sus funciones. PII es protegida asegurando que solo usuarios autorizados puedan ver su información privada, y con la tranquilidad de que se siguen las normas y regulaciones aplicables.
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)_ | El sistema debe asegurar que solo los usuarios autorizados accedan a la mínima información necesaria para realizar sus funciones. PII es protegida asegurando que solo usuarios autorizados puedan ver su información privada, y con la tranquilidad de que se siguen las normas y regulaciones aplicables. Además debe tomar registro de las operaciones para facilitar la auditoría, tanto interna como externa.
 | Escalabilidad | Capacidad de un producto para gestionar cargas de trabajo crecientes o decrecientes, o para adaptar su capacidad con el fin de gestionar la variabilidad. +
 _(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.8.2)_ | El sistema debe ser capaz de manejar el incremento y la volatilidad de la carga de trabajo según la demanda.
 | Disponibilidad | Capacidad de un producto para estar operativo y accesible cuando se requiere su uso. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)_ | El sistema debe estar disponible en tiempo real para los clientes para maximizar la ocupación.
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)_ | El sistema debe estar disponible el 99.99% del tiempo. Dar acceso en tiempo real a los clientes para maximizar la ocupación.
 | Mantenibilidad | Capacidad de un producto para ser modificado por los responsables de su mantenimiento con eficacia y eficiencia. +
 _(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7)_ | El sistema debe permitir una fácil extensión mejora y modificación para dar lugar a nuevas funcionalidades como facturación, programas de puntos, etc.
 | Interoperabilidad |  Capacidad de un producto para intercambiar información con otros productos y utilizar mutuamente la información que se ha intercambiado. +
@@ -22,9 +22,9 @@ _(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Qua
 | Usabilidad | Grado de eficacia, eficiencia y satisfacción con el que usuarios específicos pueden lograr objetivos específicos en contextos de uso específicos. +
 _(ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)_ | El sistema debe ser intuitivo y fácil de usar tanto para los huéspedes como para los empleados. De modo que se reduzcan los errores en las reservas, se mejore la eficiencia operativa y como consecuencia se logre una mayor satisfacción de los clientes maximizando los ingresos por ocupación.
 | Portabilidad | Facilidad con la que un sistema o componente puede transferirse de un entorno de hardware o software a otro. +
-_(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ | El sistema debe ser capaz de ejecutarse en ambientes web y mó viles para ampliar los canales de venta.
+_(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ | El sistema debe ser capaz de ejecutarse en ambientes web y móviles para ampliar los canales de venta.
 | Fiabilidad | Capacidad de un producto para realizar funciones específicas en condiciones específicas durante un período de tiempo específico sin interrupciones ni fallos. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5)_ | El sistema debe ser capaz de soportar picos de tráfico que puedan generar latencias elevadas.
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5)_ | El sistema debe ser capaz de soportar picos de tráfico que puedan generar latencias elevadas manteniendo el correcto funcionamiento.
 |===
 
 == Atributos de Calidad
@@ -68,11 +68,11 @@ a| Placeholder (H,L)
 |===
 | Sub-atributo | Escenario de Calidad
 | Escalabilidad elástica según la demanda de reservas
-a| Placeholder (M,H)
+a| Ocurre un aumento en la demanda de más de 3TPS durante operaciones normales por lo que el sistema asigna automaticamente los recursos necesarios para atender la demanda en menos de 30 segundos (M,H)
 
 
 | Escalabilidad elástica según la demanda de consultas
-a| Placerholder (M,H)
+a| Ocurre un pico de tráfico de más de 300 QPS por lo que el sistema rebalancea la carga a diferentes nodos para atender la demanda y mantener la calidad del servicio en un 90% (M,H)
 
 |===
 
@@ -120,10 +120,10 @@ a| Placeholder (M,L)
 |===
 | Sub-atributo | Escenario de Calidad
 | Facilidad de aprendizaje del proceso de check-in
-a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%. (H,L)
+a| Un operador novato completa el check-in con una tasa de éxito de 90% en 15 minutos o menos tras tener una capacitación de 10 minutos. (H,L)
 
 | Eficiencia de uso en el tiempo en hacer el check-in
-a| El operador completa el check-in en menos de 10 minutos (M,L)
+a| El operador completa el check-in en menos de 10 minutos gracias a que el sistema provee las características necesarias y se anticipa a las necesidades del usuario.(M,L)
 |===
 
 === 8. Portabilidad
