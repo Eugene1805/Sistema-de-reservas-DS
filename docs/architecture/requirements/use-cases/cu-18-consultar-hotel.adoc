@@ -1,1 +1,59 @@
-CU-18 Consultar hotel
+== CU-18 Consultar hotel
+
+|===
+| ID | CU-18
+| Nombre | Consultar hotel
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | El administrador consulta la información de un hotel previamente registrado, visualizando sus datos generales, ubicación y estado actual.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Consultar hotel".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- Debe existir al menos un hotel registrado en la base de datos. +
+PRE-03.- El administrador debe tener permisos para consultar información de hoteles.
+| Flujo normal |
+1.- El sistema muestra la ventana "Hoteles" con el listado de hoteles registrados. +
+2.- El sistema muestra los botones "Registrar hotel", "Modificar", "Eliminar", "Consultar" y "Salir". +
+3.- El administrador ingresa en la barra de búsqueda el nombre del hotel o selecciona uno de la lista desplegable. +
+4.- El administrador da clic en "Consultar". (FA-01) (FA-02) +
+5.- El sistema busca el registro correspondiente en la base de datos. (EX-01) +
+6.- El sistema muestra la ventana "Consultar hotel" con los datos generales del hotel seleccionado: +
+7.- El sistema muestra los botones "Aceptar" y "Cancelar". +
+8.- El administrador revisa la información y da clic en "Aceptar". (FA-03) +
+9.- El sistema regresa al administrador a la ventana principal de "Hoteles". +
+10.- Termina el Caso de Uso.
+| Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar" mientras visualiza los resultados. +
+    2.- El sistema regresa al usuario a la ventana principal de "Hoteles". +
+    3.- Termina Caso de Uso. +
+FA-03. El administrador selecciona otro hotel. +
+    1.- El administrador da clic en otro registro de la lista. +
+    2.- El sistema actualiza la ventana con la información del nuevo hotel seleccionado. +
+    3.- Termina Caso de Uso.
+| Excepciones |
+EX-01. Hotel no encontrado. +
+    1.- El sistema no encuentra coincidencias en la búsqueda. +
+    2.- El sistema muestra el mensaje "No se encontró ningún hotel con ese nombre o criterios". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de búsqueda. +
+EX-02. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa al usuario a la ventana principal de "Hoteles". +
+| Postcondiciones | 
+POST-01.- El administrador visualiza correctamente la información actual del hotel seleccionado. +
+POST-02.- No se modifica ningún dato durante la consulta. +
+POST-03.- El sistema registra la fecha y hora de la consulta para auditoría interna.
+| Reglas de negocio |
+RN-01.- Solo los administradores pueden consultar la información detallada de hoteles. +
+RN-02.- El sistema debe permitir búsquedas por nombre, ciudad o estado del hotel. +
+RN-03.- El sistema debe validar que exista al menos un registro coincidente antes de mostrar los resultados. +
+RN-04.- La información consultada se presenta de manera de solo lectura. +
+|===
