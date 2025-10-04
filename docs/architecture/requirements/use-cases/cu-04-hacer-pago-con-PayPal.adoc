@@ -23,10 +23,7 @@ EX 1 - El sistema no puede conectarse a PayPal +
 2.- Termina el caso de uso. +
 EX 2 - El pago es rechazado por PayPal (fondos insuficientes, tarjeta inválida, etc.) +
 1.- El sistema muestra un mensaje de error y permite al huésped intentar con otro método de pago. +
-2.- Regresa al paso 1 del flujo normal del CU-03 Hacer pago con tarjeta. +
-EX 3 - El sistema no puede conectarse a la base de datos
-1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
-2.- Termina el caso de uso.
-| Postcondiciones | El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
+2.- Regresa al paso 1 del flujo normal del CU-03 Hacer pago con tarjeta.
+| Postcondiciones | POST-01 El pago de la reservación es procesado por la pasarela de pago y registrado en el sistema.
 | Reglas de negocio |
 |===

@@ -8,10 +8,26 @@
 | Descripción | El huésped realiza una reservación de una habitación en un hotel.
 | Actor(es) | Huésped
 | Disparador | El huésped selecciona la opción de hacer una reservación para alguna habitación seleccionada.
-| Precondiciones | PRE-01
+| Precondiciones | PRE-01 El huésped ha seleccionado una habitación de un hotel de la cadena con disponibilidad para las fechas previamente seleccionadas en la consulta.
 | Flujo normal |
-| Flujos alternos | // Include de CU-03 Hacer pago con tarjeta
+1.- El sistema muestra la información detallada de la habitación seleccionada, verifica si el huésped está autenticado y carga su información personal (Ver FA 1.2) +
+2.- El huésped completa, corrige y/o verifica la información personal. +
+3.- El sistema valida los datos del huésped y lo dirige a completar el pago. (Ver FA 3.1) +
+4.- Include CU-03 Hacer pago con tarjeta. +
+5.- El sistema reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 3) +
+6.- Termina el caso de uso.
+| Flujos alternos |
+FA 1.2 El huésped no está autenticado
+1.- El sistema muestra un formulario para la información personal del huésped (Nombre completo, correro, dirección, etc).
+2.- El huésped llena sus datos personales. +
+3.- Vuelve al paso 3 del flujo normal.
+FA 3.1 Los datos ingresado no son válidos
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente. +
+2.- Regresa al paso 1 del flujo normal. +
 | Excepciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
 | Postcondiciones | POST-01 El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
 | Reglas de negocio |
 |===
