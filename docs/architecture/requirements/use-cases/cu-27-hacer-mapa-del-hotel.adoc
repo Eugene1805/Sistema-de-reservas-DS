@@ -1,17 +1,41 @@
 == CU-27 Hacer mapa del hotel
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
+| ID | CU-27
+| Nombre | Hacer mapa del hotel
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 03 de octubre de 2025
 | Descripción | Permite generar un mapa de las habitaciones del hotel.
 | Actor(es) | Administrador
-| Disparador |
-| Precondiciones |
+| Disparador | El administrador da clic en generar hacer mapa del hotel.
+| Precondiciones | PRE-01 El administrador esta autenticado en el sistema. +
+PRE-02 El mapa del hotel no ha sido creado.
+PRE-03 El hotel ya ha sido registrado en el sistema.
 | Flujo normal |
+1.- El sistema solicita al administrador por los datos del nuevo hotel (número de pisos, edificios, nombres, etc) y que seleccione el hotel al que va a corresponder el mapa recuperando los hoteles que aun no tienen un mapa. (Ver EX 3) +
+
+2.- El administrador selecciona el hotel correspondiente y rellena la información solicitada. +
+3.- El sistema genera un lienzo con un diseño en blanco con la estructura especificada y muestra una barra lateral con objetos para arrastrar al diseño. +
+4.- El administrador arrastra los objetos necesarios para el diseño del mapa. +
+5.- El sistema solicita al administrador los detalles de cada objeto colocado dentro del mapa (número de cuarto, tipo de cuarto, amenidades). +
+6.- El administrador configura cada propiedad de los objetos agregados al diseño. (Ver FA 6.1) +
+7.- El sistema valida los datos de los objetos agregados al diseño. (Ver FA 7.1) +
+8.- El administrador repite los paos del 4-7 hasta completar el diseño del mapa del hotel y seleciona la opción para guardar mapa. +
+9.- El sistema guarda el mapa generado, lo marca como activo, lo guarda en la base de datos y muestra un mensaje de éxito. (Ver EX 3) +
+10.- Termina el caso de uso.
+
 | Flujos alternos |
+FA 6.1 El administrador selecciona la opción de etiquetado automático. +
+1.- El sistema genera y asigna automáticamente los números de piso y habitación a los objetos del mapa. +
+2.- Regresa al paso 8 del flujo normal. +
+FA 7.1 El administrador ingresa un dato inválido (números de cuarto duplicados, caracteres inválidos, etc) +
+1.- El sistema muestra un mensaje de error y no guarda el objeto. +
+2.- El administrador ingresa información válida. +
+3.- Regresa al flujo normal.
 | Excepciones |
-| Postcondiciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al admiistrador intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | POST-01 Un nuevo mapa de hotel es registrado en el sistema y relacionado al hotel correspondiente
 | Reglas de negocio |
 |===
