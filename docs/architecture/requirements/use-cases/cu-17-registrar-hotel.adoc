@@ -1,17 +1,67 @@
 == CU-17 Registrar hotel
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-17
+| Nombre | Registrar hotel
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | El administrador registra un nuevo hotel en el sistema, ingresando sus datos generales como nombre, ciudad, dirección, número de habitaciones y otros datos administrativos.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Registrar hotel".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- El administrador debe tener permisos para gestionar la información de hoteles. +
+PRE-03.- No debe existir otro hotel registrado con el mismo nombre en la misma ciudad.
 | Flujo normal |
+1.- El sistema muestra la ventana "Hoteles" con el listado de hoteles existentes. +
+2.- El sistema muestra los botones "Registrar hotel", "Modificar", "Eliminar" y "Salir". +
+3.- El administrador da clic en "Registrar hotel". (FA-01) +
+4.- El sistema abre la ventana "Registrar hotel" con los campos de captura vacíos. +
+5.- El sistema muestra los campos obligatorios: Nombre del hotel, Ciudad, Dirección, Teléfono, Correo electrónico, Número de habitaciones, Categoría y Estado (Activo/Inactivo). +
+6.- El administrador llena los campos requeridos. (EX-01) (EX-02) +
+7.- El sistema valida que los campos obligatorios estén completos y que los datos sean válidos. +
+8.- El sistema muestra los botones "Guardar" y "Cancelar". +
+9.- El administrador da clic en "Guardar". (FA-02) +
+10.- El sistema registra el nuevo hotel en la base de datos. +
+11.- El sistema muestra el mensaje "El hotel se ha registrado exitosamente". +
+12.- El sistema muestra el botón "Aceptar". +
+13.- El administrador da clic en "Aceptar". +
+14.- El sistema regresa a la ventana principal de "Hoteles" y actualiza la lista de hoteles registrados. +
+15.- Termina el Caso de Uso.
 | Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar". +
+    2.- El sistema regresa al usuario a la ventana "Hoteles". +
+    3.- Termina Caso de Uso.
 | Excepciones |
-| Postcondiciones |
+EX-01. Datos inválidos. +
+    1.- El sistema detecta datos incorrectos (campos vacíos, formato de correo no válido, teléfono con caracteres no numéricos, etc.). +
+    2.- El sistema muestra el mensaje "Datos inválidos. Por favor, corríjalos e intente nuevamente". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de registro con los campos previamente llenados. +
+EX-02. Hotel duplicado. +
+    1.- El sistema detecta que ya existe un hotel con el mismo nombre en la misma ciudad. +
+    2.- El sistema muestra el mensaje "Ya existe un hotel con este nombre en la ciudad seleccionada". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de registro para permitir la corrección. +
+EX-03. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa al usuario a la ventana "Hoteles". +
+| Postcondiciones | 
+POST-01.- El nuevo hotel queda registrado en la base de datos y visible en la lista de hoteles del sistema. +
+POST-02.- El hotel queda disponible para asignarle habitaciones, tipos de habitación, tarifas y personal. +
+POST-03.- Los datos quedan almacenados con su respectiva ubicación (ciudad y dirección).
 | Reglas de negocio |
+RN-01.- Solo los administradores pueden registrar hoteles. +
+RN-02.- No se pueden registrar dos hoteles con el mismo nombre en la misma ciudad. +
+RN-03.- Todos los campos marcados como obligatorios deben ser completados para guardar la información. +
+RN-04.- Los datos de contacto (teléfono y correo) deben cumplir con formatos válidos. +
+RN-05.- Cada hotel debe pertenecer a una ciudad válida del catálogo de ubicaciones. +
 |===

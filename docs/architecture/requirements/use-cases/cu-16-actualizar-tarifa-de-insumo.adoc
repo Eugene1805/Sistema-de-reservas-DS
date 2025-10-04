@@ -1,17 +1,76 @@
 == CU-16 Actualizar tarifa de insumo
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-16
+| Nombre | Actualizar tarifa de insumo
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 03 de octubre de 2025
+| Descripción | El administrador actualiza la información de una tarifa de insumo existente, modificando el precio, descripción o fechas de vigencia de un servicio adicional.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Modificar tarifa de insumo".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- Debe existir al menos una tarifa de insumo registrada. +
+PRE-03.- El administrador debe tener permisos para modificar tarifas. +
+PRE-04.- No deben existir consumos activos o facturas pendientes asociados al insumo.
 | Flujo normal |
+1.- El sistema muestra la ventana "Tarifas" con las tarifas clasificadas por tipo. +
+2.- El sistema muestra los botones "Nueva tarifa", "Modificar", "Eliminar" y "Salir". +
+3.- El administrador selecciona el tipo de tarifa "Tarifa de insumo" en el combobox correspondiente. +
+4.- El sistema filtra y muestra las tarifas de insumos registradas. +
+5.- El administrador selecciona la tarifa de insumo que desea modificar de la lista. (FA-01) (EX-01) +
+6.- El administrador da clic en el botón "Modificar". +
+7.- El sistema abre la ventana "Modificar tarifa de insumo" mostrando los datos actuales. +
+8.- El sistema permite editar los campos: nombre del insumo, descripción, precio, fecha de inicio y fin de vigencia. +
+9.- El administrador actualiza los datos requeridos. (EX-02) +
+10.- El sistema muestra los botones "Guardar cambios" y "Cancelar". +
+11.- El administrador da clic en "Guardar cambios". (FA-02) +
+12.- El sistema valida que los datos sean correctos y consistentes. (EX-03) +
+13.- El sistema actualiza la información en la base de datos. +
+14.- El sistema muestra el mensaje "La tarifa de insumo se ha actualizado exitosamente". +
+15.- El sistema muestra el botón "Aceptar". +
+16.- El administrador da clic en "Aceptar". +
+17.- El sistema regresa a la ventana principal de "Tarifas". +
+18.- Termina el Caso de Uso.
 | Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar". +
+    2.- El sistema regresa al usuario a la ventana "Tarifas". +
+    3.- Termina Caso de Uso.
 | Excepciones |
-| Postcondiciones |
+EX-01. No se ha seleccionado ninguna tarifa de insumo. +
+    1.- El sistema muestra el mensaje "Debe seleccionar una tarifa de insumo para modificar". +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa a la ventana "Tarifas". +
+EX-02. Datos inválidos. +
+    1.- El sistema detecta datos incorrectos (precio negativo, fechas inconsistentes o campos vacíos). +
+    2.- El sistema muestra el mensaje "Datos inválidos. Por favor, corríjalos e intente nuevamente". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de modificación. +
+EX-03. Insumos asociados a consumos activos. +
+    1.- El sistema detecta que existen consumos o facturas activas vinculadas al insumo. +
+    2.- El sistema muestra el mensaje "No se puede modificar esta tarifa porque afecta consumos activos". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de modificación sin guardar cambios. +
+EX-04. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa al usuario a la ventana "Tarifas". +
+| Postcondiciones | 
+POST-01.- La tarifa de insumo seleccionada se actualiza correctamente en la base de datos. +
+POST-02.- Las nuevas tarifas de insumos se aplican únicamente a futuros consumos. +
+POST-03.- Los consumos previos conservan el valor de la tarifa con la que fueron registrados.
 | Reglas de negocio |
+RN-01.- Solo los administradores pueden modificar tarifas de insumo. +
+RN-02.- No se puede modificar una tarifa de insumo si existen consumos o facturas activas asociadas. +
+RN-03.- El precio del insumo debe ser un valor positivo. +
+RN-04.- Toda tarifa de insumo debe tener un rango de fechas de vigencia coherente. +
+RN-05.- La fecha de inicio debe ser anterior a la fecha de fin de vigencia. +
 |===
