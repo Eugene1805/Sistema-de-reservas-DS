@@ -1,0 +1,15 @@
+
+[cols="1,2"]
+|===
+| ID y descripción corta | QAS-01
+| Escenario | P
+| Atributo | Disponibilidad
+| Preocupación del atributo | P
+| Refinamiento del escenario | P
+| Fuente del estímulo | P
+| Estímulo |
+| Ambiente |
+| Artefacto |
+| Respuesta |
+| Medida de respuesta |
+|===

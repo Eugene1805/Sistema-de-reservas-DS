@@ -1,5 +1,5 @@
 
-== Glosario
+
 
 - Reservación: Proceso por el cual un huésped aparta una habitación para un periodo determinado, con confirmación inmediata al realizar el pago completo.
 - Check-in: Registro formal de entrada de un huésped en el hotel.

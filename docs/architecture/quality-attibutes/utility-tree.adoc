@@ -5,27 +5,26 @@
 == Utility Tree
 
 === Objetivos de Negocio
-[cols="1,3", options="header"]
 |===
-| Objetivo | Descripción
+| Objetivo | Definición | Importancia para el sistema
 | Desempeño | Grado en que un sistema o componente cumple sus funciones designadas dentro de unas limitaciones determinadas, tales como velocidad, precisión o uso de la memoria. +
- _(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_
+ _(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ |
 | Seguridad | Capacidad de un producto para proteger la información y los datos, de modo que las personas u otros productos tengan el grado de acceso a los datos adecuado a su tipo y nivel de autorización, y para defenderse de los patrones de ataque de actores maliciosos. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.6)_ |
 | Escalabilidad | Capacidad de un producto para gestionar cargas de trabajo crecientes o decrecientes, o para adaptar su capacidad con el fin de gestionar la variabilidad. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.8.2)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.8.2)_ |
 | Disponibilidad | Capacidad de un producto para estar operativo y accesible cuando se requiere su uso. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5.2)_ |
 | Mantenibilidad | Capacidad de un producto para ser modificado por los responsables de su mantenimiento con eficacia y eficiencia. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7)_ |
 | Interoperabilidad |  Capacidad de un producto para intercambiar información con otros productos y utilizar mutuamente la información que se ha intercambiado. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.3.2)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.3.2)_ |
 | Usabilidad | Grado de eficacia, eficiencia y satisfacción con el que usuarios específicos pueden lograr objetivos específicos en contextos de uso específicos. +
-_(ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)_
+_(ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)_ |
 | Portabilidad | Facilidad con la que un sistema o componente puede transferirse de un entorno de hardware o software a otro. +
-_(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_
+_(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_ |
 | Fiabilidad | Capacidad de un producto para realizar funciones específicas en condiciones específicas durante un período de tiempo específico sin interrupciones ni fallos. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5)_
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5)_ |
 |===
 
 == Atributos de Calidad

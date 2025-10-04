@@ -2,7 +2,14 @@
 == Atributos calidad
 
 == Objetivos de calidad
-- Rendimiento
+
+- Desempeño
 - Disponibilidad
 - Seguridad
 - Usabilidad
+- Escalabilidad
+- Mantenibilidad
+- Interoperabilidad
+- Portabilidad
+- Fiabilidad
+

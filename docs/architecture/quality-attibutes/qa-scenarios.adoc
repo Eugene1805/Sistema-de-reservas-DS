@@ -1,6 +1,7 @@
 
-== Escenarios de atriutos calidad especificados
+== Escenarios de atributos calidad especificados
 
+// Ejemplo a revisar
 [cols="1,2"]
 |===
 | ID y descripción corta | EAC-01
@@ -15,3 +16,5 @@
 | Respuesta | El sistema guía al operador por no más de 3 pantallas y 5 clics validando en tiempo real la reservación, asignando habitación y emitiendo la llave correspondiete
 | Medida de respuesta | El operador tarda menos de 10 minutos para completar el check-in de un huésped, desde que selecciona la opción de iniciar check-in hasta que se confirma la asignación de habitación y se emite la llave corespondiente
 |===
+
+include::qas-01.adoc[]
