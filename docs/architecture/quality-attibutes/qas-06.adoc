@@ -2,7 +2,7 @@
 
 [cols="1,2"]
 |===
-| ID y descripción corta | QAS-02
+| ID y descripción corta | QAS-06
 | Escenario | Garantizar la privacidad y tratamiento adecuado de la PII del huésped.
 | Atributo | Seguridad
 | Preocupación del atributo | Manejo de datos sensibles

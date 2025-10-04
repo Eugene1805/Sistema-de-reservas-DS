@@ -5,7 +5,7 @@
 | Escenario | Garantiza la respuesta rápida a las consultas de disponibilidad de habitaciones.
 | Atributo | Disponibilidad
 | Preocupación del atributo | Latencia en las consultas de disponibilidad de habitaciones
-| Refinamiento del escenario | El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas. (H,H)
+| Refinamiento del escenario | El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas.
 | Fuente del estímulo | 300 usuarios
 | Estímulo | Realizan el CU-02 Consultar disponibilidad de habitaciones en el intervalo de un segundo
 | Ambiente | Durante condiciones normales de operación

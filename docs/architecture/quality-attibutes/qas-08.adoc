@@ -1,0 +1,16 @@
+
+
+[cols="1,2"]
+|===
+| ID y descripción corta | QAS-08
+| Escenario | Garantizar la idempotencia de las transacciones de reservas y los pagos.
+| Atributo | Disponibilidad.
+| Preocupación del atributo | Confiabilidad de las transacciones de reservas y pagos.
+| Refinamiento del escenario | Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
+| Fuente del estímulo | El sistema cliente.
+| Estímulo | Envía por error más de una vez la misma petición.
+| Ambiente | Condiciones normales de operación.
+| Artefacto | El servidor.
+| Respuesta | Identifica la falla y procesa unicamente la primera petición descartando las demás.
+| Medida de respuesta | Lo maneja sin fallar el 99% de las veces.
+|===

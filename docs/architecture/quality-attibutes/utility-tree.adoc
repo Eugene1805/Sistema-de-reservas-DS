@@ -56,7 +56,7 @@ a| Eficiencia de desempeño  (M,M)
 |===
 | Sub-atributo | Escenario de Calidad
 | Manejo de datos sensibles
-a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro (H,H) //Eugenio
+a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro (H,H)
 
 | No repudio
 a| Placeholder (H,L)
@@ -84,8 +84,8 @@ a| Placerholder (M,H)
 | Confiabilidad del registro de reservas
 a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H) //Erick
 
-| Confiabilidad de las transacciones
-a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás. (H,H) //Eugenio
+| Confiabilidad de las transacciones de reservas y pagos
+a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás. (H,H)
 
 |===
 
