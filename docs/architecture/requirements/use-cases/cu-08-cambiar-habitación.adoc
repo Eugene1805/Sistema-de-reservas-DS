@@ -8,7 +8,7 @@
 | Descripción | El recepcionista realiza un cambio de habitación durante la estancia del huésped.
 | Actor(es) | Recepcionista
 | Disparador | El recepcionista busca al huésped y da clic en cambiar
-| Precondiciones | El huésped ha hecho check-in en el hotel correspondiente
+| Precondiciones | PRE-01 El huésped ha hecho check-in en el hotel correspondiente
 | Flujo normal |
 1.- El sistema recupera y muestra las habitaciones disponibles. (Ver FA 1.1) (Ver EX 3) +
 2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
@@ -17,12 +17,12 @@
 5.- Termina el caso de uso.
 | Flujos alternos |
 FA 1.1 El sistema no cuenta con habitaciones disponibles +
-1.- El sistema muestra el mensaje "No quedan habitaciones disponbles"
+1.- El sistema muestra el mensaje "No quedan habitaciones disponbles" +
 2.- Termina el caso de uso.
 | Excepciones |
 EX 3 - El sistema no puede conectarse a la base de datos +
 1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
-| Postcondiciones | El huésped hace check-out de la antigua habitación y hace check-in en la nueva
+| Postcondiciones | POST-01 El huésped hace check-out de la antigua habitación y hace check-in en la nueva
 | Reglas de negocio |
 |===

@@ -1,17 +1,29 @@
 == CU-21 Registrar tipo de habitación
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
+| ID | CU-21
+| Nombre | Registrar tipo de habitación
+| Autor | Eugenio Salvador González Sánchez
+| Fecha de actualización | 03 de octubre de 2025
 | Descripción | Permite crear un nuevo tipo de habitación (suite, doble, sencilla, etc.).
 | Actor(es) | Administrador
-| Disparador |
-| Precondiciones |
+| Disparador | El administrador de clic en registrar tipo de habitación.
+| Precondiciones | PRE-01 El administrador está autenticado en el sistema. +
+PRE_02 El tipo de habitación no está registrada en el sistema.
 | Flujo normal |
+1.- El sistema muestra el formulario para registrar un nuevo tipo de habitación. +
+2.- El administrador llena los campos correspondientes. (Ver FA 2.1) +
+3.- El sistema guarda el nuevo tipo de habitación en la base de datos y muestra un mensaje de éxito. (Ver EX 3) +
+4.- Termina el caso de uso.
 | Flujos alternos |
+FA 2.1 El administrador cancela el registro +
+1.- El sistema muestra un mensaje de confirmación de la cancelación +
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
+3.- Termina el caso de uso.
 | Excepciones |
-| Postcondiciones |
+EX 3 - El sistema no puede conectarse a la base de datos +
+1.- El sistema muestra un mensaje de error y solicita al admiistrador intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | POST-01 El nuevo tipo de habitación es registrado en la base de datos.
 | Reglas de negocio |
 |===

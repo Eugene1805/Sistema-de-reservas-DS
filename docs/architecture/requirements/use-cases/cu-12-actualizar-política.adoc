@@ -18,9 +18,9 @@ PRE-02 La política a actualizar existe.
 5.- El sistema valida los nuevos valores de la política, actualiza la información en la base de datos y muestra un mensaje de éxito. (Ver EX 3) +
 6.- Termina el caso de uso
 | Flujos alternos |
-FA 4.1 El administrador desea cancelar la edición de la política.
-.- El sistema muestra un mensaje de confirmación de la cancelación
-2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal.
+FA 4.1 El administrador desea cancelar la edición de la política. +
+1.- El sistema muestra un mensaje de confirmación de la cancelación +
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
 3.- Termina el caso de uso.
 | Excepciones |
 EX 3 - El sistema no puede conectarse a la base de datos +

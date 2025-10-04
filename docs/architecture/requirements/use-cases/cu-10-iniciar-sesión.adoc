@@ -8,23 +8,23 @@
 | Descripción | Permite a los actores ingresar al sistema con credenciales.
 | Actor(es) | Administrador, Recepcionista, Gerente, Huésped
 | Disparador | Clic en el botón de inicio de sesión
-| Precondiciones | El actor esta registrado en el sistema
+| Precondiciones | PRE-01 El actor esta registrado en el sistema
 | Flujo normal |
 1.- El sistema muestra el formulario de inicio de sesión. +
 2.- El actor ingresa sus credenciales y hace clic en el botón de inicio de sesión. +
 3.- El sistema encripta las credenciales y las valida en la base de datos y muestra el menú principal correspondiente. (Ver FA 3.1) (Ver FA 3.2) (Ver EX 3) +
 4.- Termina el caso de uso.
 | Flujos alternos |
-FA 3.1 Credenciales inválidas
+FA 3.1 Credenciales inválidas +
 1.- El sistema muestra el mensaje de credenciales inválidas. +
-2.- Regresa al paso 2 del flujo normal.
-FA 3.2 Credenciales incorrectas
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.2 Credenciales incorrectas +
 1.- El sistema muestra el mensaje de credenciales incorrectas. +
 2.- Regresa al paso 2 del flujo normal.
 | Excepciones |
 EX 3 - El sistema no puede conectarse a la base de datos +
 1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
-| Postcondiciones | El actor es autenticado y dirigido al menú principal correspondiente.
+| Postcondiciones | POST-01 El actor es autenticado y dirigido al menú principal correspondiente.
 | Reglas de negocio |
 |===

@@ -10,9 +10,9 @@
 | Disparador | El huésped da clic en la opción de pagar con "Paypal".
 | Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
 | Flujo normal |
-1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. (Ver EX 1)+
-2.- El huésped inicia sesión en su cuenta de PayPal y confirma el pago. (Ver FA 2.1)+
-3.- El sistema procesa el pago mediante PayPal, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 2)+
+1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. (Ver EX 1) +
+2.- El huésped inicia sesión en su cuenta de PayPal y confirma el pago. (Ver FA 2.1) +
+3.- El sistema procesa el pago mediante PayPal, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 2) +
 4.- Termina el caso de uso. +
 | Flujos alternos |
 FA 2.1 El huésped cancela la operación +

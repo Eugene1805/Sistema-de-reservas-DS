@@ -8,13 +8,13 @@
 | Descripción | El huésped realiza el pago completo de la reservación mediante tarjeta.
 | Actor(es) | Huésped
 | Disparador | El huésped selecciona una habitación y opta por pagar con tarjeta.
-| Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
+| Precondiciones | PRE-01 El huésped ha seleccionado una habitación de un hotel de la cadena.
 | Flujo normal |
 1.- El sistema verifica si el huésped tiene tarjetas registradas y muestra las opciones disponibles en caso de que el huésped este registrado y haya iniciado sesión, ademas de la opción de agregar una nueva tarjeta y pago con PayPal u Otros +
-2.- El huésped selecciona una tarjeta registrada. (Ver FA 2.1) ( Ver FA 2.2) (Ver FA 2.3)+
+2.- El huésped selecciona una tarjeta registrada. (Ver FA 2.1) ( Ver FA 2.2) (Ver FA 2.3) +
 3.- El sistema muestra los detalles de la reservación y el monto total a pagar. +
 4.- El huésped confirma el pago. +
-5.- El sistema procesa el pago mediante la pasarela de pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 1) (Ver EX 2) (Ver EX 3)+
+5.- El sistema procesa el pago mediante la pasarela de pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 1) (Ver EX 2) (Ver EX 3) +
 6.- Termina el caso de uso.
 | Flujos alternos |
 FA 2.1: Si el huésped no tiene tarjetas registradas o desea agregar otra tarjeta +
@@ -32,9 +32,9 @@ EX 1 - El sistema no puede conectarse a la pasarela de pago +
 EX 2 - El pago es rechazado por la pasarela de pago (fondos insuficientes, tarjeta inválida, etc.) +
 1.- El sistema muestra un mensaje de error y permite al huésped intentar con otra tarjeta o método de pago. +
 2.- Regresa al paso 1 del flujo normal. +
-EX 3 - El sistema no puede conectarse a la base de datos
+EX 3 - El sistema no puede conectarse a la base de datos +
 1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
-| Postcondiciones | El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
+| Postcondiciones | POST-01 El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
 | Reglas de negocio | RN-XX
 |===

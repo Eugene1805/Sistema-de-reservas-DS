@@ -8,21 +8,21 @@
 | Descripción | Permite registrar nuevas políticas (ej. cancelaciones, overbooking).
 | Actor(es) | Adminsitrador
 | Disparador | El administrador da clic en la opción de registrar nueva política.
-| Precondiciones | El administrador se ha autenticado en el sistema.
+| Precondiciones | PRE-01 El administrador se ha autenticado en el sistema.
 | Flujo normal |
 1.- El sistema muestra el formulario para registrar una política. +
 2.- El administrador llena los campos correspondientes y elige el alcance de la política creada. (Ver FA 2.1) +
 3.- El sistema guarda la nueva política en la base de datos, la aplica de acuerdo a lo solicitado por el administrador y muestra un mensaje de éxito. (Ver EX 3) +
 4.- Termina el caso de uso.
 | Flujos alternos |
-FA 2.1 El administrador cancela el registro
-1.- El sistema muestra un mensaje de confirmación de la cancelación
-2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal.
+FA 2.1 El administrador cancela el registro +
+1.- El sistema muestra un mensaje de confirmación de la cancelación +
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
 3.- Termina el caso de uso.
 | Excepciones |
 EX 3 - El sistema no puede conectarse a la base de datos +
 1.- El sistema muestra un mensaje de error y solicita al admiistrador intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
-| Postcondiciones | Una nueva política es registrada en la base de datos y entra en vigor según se haya definido.
+| Postcondiciones | POST-01 Una nueva política es registrada en la base de datos y entra en vigor según se haya definido.
 | Reglas de negocio | RN-XX El único actor autrizado para registrar una políticas es el administrador.
 |===
