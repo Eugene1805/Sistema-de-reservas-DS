@@ -17,11 +17,11 @@
 5.- El sistema reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 3) +
 6.- Termina el caso de uso.
 | Flujos alternos |
-FA 1.2 El huésped no está autenticado
-1.- El sistema muestra un formulario para la información personal del huésped (Nombre completo, correro, dirección, etc).
+FA 1.2 El huésped no está autenticado +
+1.- El sistema muestra un formulario para la información personal del huésped (Nombre completo, correro, dirección, etc). +
 2.- El huésped llena sus datos personales. +
-3.- Vuelve al paso 3 del flujo normal.
-FA 3.1 Los datos ingresado no son válidos
+3.- Vuelve al paso 3 del flujo normal. +
+FA 3.1 Los datos ingresado no son válidos +
 1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente. +
 2.- Regresa al paso 1 del flujo normal. +
 | Excepciones |

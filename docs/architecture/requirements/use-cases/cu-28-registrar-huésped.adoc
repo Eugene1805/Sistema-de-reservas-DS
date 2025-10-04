@@ -6,7 +6,7 @@
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 02 de octubre de 2025
 | Descripción | El Actor registra los datos de un huésped en el sistema.
-| Actor(es) | Recepcionista,
+| Actor(es) | Recepcionista, Huésped
 | Disparador | El actor selecciona la opción de registrar un nuevo huésped en el sistema.
 | Precondiciones | PRE-01 El huésped no está registrado en el sistema.
 | Flujo normal |
@@ -23,7 +23,7 @@ FA 3.1: Los datos ingresados no son válidos +
 1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
 2.- Termina el caso de uso. +
 EX 2 - El sistema no puede acceder a internet +
-1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde.
+1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
 | Postcondiciones | POST-01 El huésped queda registrado en el sistema con un identificador único.
 | Reglas de negocio | RN-XX, RN-XX

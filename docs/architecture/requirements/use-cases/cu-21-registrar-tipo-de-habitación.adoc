@@ -9,7 +9,7 @@
 | Actor(es) | Administrador
 | Disparador | El administrador de clic en registrar tipo de habitación.
 | Precondiciones | PRE-01 El administrador está autenticado en el sistema. +
-PRE_02 El tipo de habitación no está registrada en el sistema.
+PRE-02 El tipo de habitación no está registrada en el sistema.
 | Flujo normal |
 1.- El sistema muestra el formulario para registrar un nuevo tipo de habitación. +
 2.- El administrador llena los campos correspondientes. (Ver FA 2.1) +

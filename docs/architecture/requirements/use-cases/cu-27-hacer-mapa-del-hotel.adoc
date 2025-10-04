@@ -9,11 +9,10 @@
 | Actor(es) | Administrador
 | Disparador | El administrador da clic en generar hacer mapa del hotel.
 | Precondiciones | PRE-01 El administrador esta autenticado en el sistema. +
-PRE-02 El mapa del hotel no ha sido creado.
+PRE-02 El mapa del hotel no ha sido creado. +
 PRE-03 El hotel ya ha sido registrado en el sistema.
 | Flujo normal |
 1.- El sistema solicita al administrador por los datos del nuevo hotel (número de pisos, edificios, nombres, etc) y que seleccione el hotel al que va a corresponder el mapa recuperando los hoteles que aun no tienen un mapa. (Ver EX 3) +
-
 2.- El administrador selecciona el hotel correspondiente y rellena la información solicitada. +
 3.- El sistema genera un lienzo con un diseño en blanco con la estructura especificada y muestra una barra lateral con objetos para arrastrar al diseño. +
 4.- El administrador arrastra los objetos necesarios para el diseño del mapa. +

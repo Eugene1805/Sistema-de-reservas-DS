@@ -8,7 +8,7 @@
 | Descripción | El huésped realiza el pago completo de la reservación mediante PayPal.
 | Actor(es) | Huésped
 | Disparador | El huésped da clic en la opción de pagar con "Paypal".
-| Precondiciones | El huésped ha seleccionado una habitación de un hotel de la cadena.
+| Precondiciones | PRE-01 El huésped ha seleccionado una habitación de un hotel de la cadena.
 | Flujo normal |
 1.- El sistema redirige al huésped a la plataforma de PayPal para completar el pago. (Ver EX 1) +
 2.- El huésped inicia sesión en su cuenta de PayPal y confirma el pago. (Ver FA 2.1) +
