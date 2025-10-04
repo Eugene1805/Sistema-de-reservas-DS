@@ -1,14 +1,16 @@
-Arturo Agustín Cuevas Pérez
+Arturo Agustín Cuevas Pérez https://github.com/ArtCuevas[@ArtCuevas]
 
-Eugenio Salvador González Sánchez
 
-Erickmel Vázquez López
+Eugenio Salvador González Sánchez https://github.com/Eugene1805[@Eugene1805]
+
+Erickmel Vázquez López https://github.com/Erickvl22[@Erickvl22]
+
 
 == Curso
 Diseño de Software (17788)
 
 == Periodo Escolar
-Agosto 2024 – Enero 2025
+Agosto 2025 – Enero 2026
 
 == Fecha
 
