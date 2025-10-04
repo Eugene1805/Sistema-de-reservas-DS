@@ -1,17 +1,55 @@
 == CU-22 Actualizar tipo de habitación
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-22
+| Nombre | Actualizar tipo de habitación
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | Permite al administrador modificar la información de un tipo de habitación ya registrado, como su nombre, descripción, capacidad o servicios incluidos.
+| Actor(es) | Administrador
+| Disparador | El administrador da clic en "Modificar tipo de habitación".
+| Precondiciones | PRE-01 El administrador está autenticado en el sistema. +
+PRE-02 Debe existir al menos un tipo de habitación registrado en la base de datos. +
+PRE-03 El administrador debe tener permisos para modificar tipos de habitación.
 | Flujo normal |
+1.- El sistema muestra la ventana con el listado de tipos de habitación existentes. +
+2.- El administrador selecciona el tipo de habitación que desea modificar. (Ver FA-1) +
+3.- El sistema muestra el formulario de modificación con los datos actuales del tipo de habitación. +
+4.- El administrador edita los campos necesarios: nombre, descripción, capacidad, precio base o servicios incluidos. (Ver EX-1) (Ver EX-2) +
+5.- El administrador da clic en "Guardar cambios". (Ver FA-2) +
+6.- El sistema valida la información ingresada y actualiza el registro en la base de datos. (Ver EX-3) +
+7.- El sistema muestra el mensaje "El tipo de habitación se ha actualizado exitosamente". +
+8.- Termina el caso de uso.
 | Flujos alternos |
+FA-1 El administrador no selecciona ningún tipo de habitación. +
+1.- El sistema muestra el mensaje "Debe seleccionar un tipo de habitación para modificar". +
+2.- El sistema muestra el botón "Aceptar". +
+3.- El administrador da clic en "Aceptar" y el sistema regresa al listado de tipos de habitación. +
+4.- Termina el caso de uso. +
+FA-2 El administrador cancela la modificación. +
+1.- El administrador da clic en "Cancelar" antes de guardar los cambios. +
+2.- El sistema muestra un mensaje de confirmación de la cancelación. +
+3.- El administrador da clic en "Aceptar" para confirmar o "Cancelar" para volver al formulario. +
+4.- Si confirma, el sistema descarta los cambios y regresa al listado de tipos de habitación. +
+5.- Termina el caso de uso.
 | Excepciones |
-| Postcondiciones |
-| Reglas de negocio |
+EX-1 Datos inválidos. +
+1.- El sistema detecta que los campos están incompletos o tienen valores no válidos (por ejemplo, capacidad negativa o nombre vacío). +
+2.- El sistema muestra el mensaje "Datos inválidos. Por favor, corríjalos e intente nuevamente". +
+3.- El sistema muestra el botón "Aceptar". +
+4.- El administrador da clic en "Aceptar" y el sistema regresa al formulario de edición. +
+EX-2 Tipo de habitación duplicado. +
+1.- El sistema detecta que ya existe un tipo de habitación con el mismo nombre. +
+2.- El sistema muestra el mensaje "Ya existe un tipo de habitación con este nombre". +
+3.- El sistema muestra el botón "Aceptar". +
+4.- El administrador da clic en "Aceptar" y el sistema regresa al formulario de modificación. +
+EX-3 El sistema no puede conectarse a la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al administrador intentar nuevamente más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones | POST-01 El tipo de habitación seleccionado es actualizado en la base de datos. +
+POST-02 Los cambios quedan disponibles para futuras operaciones de reservación o consulta.
+| Reglas de negocio | RN-01 Solo los administradores pueden modificar tipos de habitación. +
+RN-02 No pueden existir dos tipos de habitación con el mismo nombre. +
+RN-03 Todos los campos obligatorios deben completarse antes de guardar los cambios. +
+RN-04 Los valores de capacidad y precio deben ser positivos. +
 |===
