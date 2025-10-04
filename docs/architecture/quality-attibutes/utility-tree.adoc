@@ -24,22 +24,31 @@ _(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Qua
 _(ISO TR 25060:2023 Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--General Framework for Common Industry Format (CIF) for usability-related information, 3.1.1)_
 | Portabilidad | Facilidad con la que un sistema o componente puede transferirse de un entorno de hardware o software a otro. +
 _(ISO/IEC/IEEE 24765:2017 Systems and software engineering-Vocabulary)_
-| Testabilidad | Capacidad de un producto para permitir el diseño y la realización de una prueba objetiva y viable con el fin de determinar si se cumple un requisito. +
-_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.7.5)_
+| Fiabilidad | Capacidad de un producto para realizar funciones específicas en condiciones específicas durante un período de tiempo específico sin interrupciones ni fallos. +
+_(ISO/IEC 25010:2023, Systems and software engineering--Systems and software Quality Requirements and Evaluation (SQuaRE)--Product quality model, 3.5)_
 |===
 
 == Atributos de Calidad
 
 === 1. Desempeño
-.Atributos de Performance
+.Atributos de Desempeño
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
 | Latencia en las consultas de disponibilidad de habitaciones
-a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas.
+a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas. (H,H) //Eugenio
 
 | Tiempo de cola de espera en la confirmacion de la reserva
-a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 transacciones por segundo sostenidos y rafagas de hasta 10 transacciones por segundo.
+a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 transacciones por segundo sostenidos y rafagas de hasta 10 transacciones por segundo. (M,H)
+
+| Picos de trafico
+a| Cosa de arturo (H,H)
+
+| Overbooking
+a| Cosa de arturo (H,H)
+
+| El de los 500ms arturo
+a| Eficiencia de desempeño  (M,M)
 |===
 
 === 2. Seguridad
@@ -48,10 +57,10 @@ a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y meno
 |===
 | Sub-atributo | Escenario de Calidad
 | Manejo de datos sensibles
-a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro
+a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro (H,H) //Eugenio
 
-| Placeholder
-a| Placeholder
+| No repudio
+a| Placeholder (H,L)
 |===
 
 === 3. Escalabilidad
@@ -59,11 +68,13 @@ a| Placeholder
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Escalabilidad elástica según la demanda de reservas
+a| Placeholder (M,H)
 
-| Placerholder
-a| Placerholder
+
+| Escalabilidad elástica según la demanda de consultas
+a| Placerholder (M,H)
+
 |===
 
 === 4. Disponibilidad
@@ -72,10 +83,11 @@ a| Placerholder
 |===
 | Sub-atributo | Escenario de Calidad
 | Confiabilidad del registro de reservas
-a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente.
+a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H) //Erick
 
 | Confiabilidad de las transacciones
-a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
+a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás. (H,H) //Eugenio
+
 |===
 
 === 5. Mantenibilidad
@@ -83,11 +95,14 @@ a| Un servidor recibe más de una vez la misma petición, pero solo procesa una 
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Modularidad
+a| Placeholder (H,M)
 
-| Placeholder
-a| Placeholder
+| Analizabilidad
+a| Placeholder (H,M) // podría ser hh
+
+| placeholder
+a| De las busquedas (M,M)
 |===
 
 === 6. Interoperabilidad
@@ -95,11 +110,9 @@ a| Placeholder
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Intercambio de datos
+a| Placeholder (M,L)
 
-| Placeholder
-a| Placeholder
 |===
 
 === 7. Usabilidad
@@ -108,10 +121,10 @@ a| Placeholder
 |===
 | Sub-atributo | Escenario de Calidad
 | Facilidad de aprendizaje del proceso de check-in
-a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%.
+a| El operador novato completa el check-in en 15 minutos o menos tras tener una capacitación de 10 minutos con una tasa de éxito de 90%. (H,L)
 
 | Eficiencia de uso en el tiempo en hacer el check-in
-a| El operador completa el check-in en menos de 10 minutos
+a| El operador completa el check-in en menos de 10 minutos (M,L)
 |===
 
 === 8. Portabilidad
@@ -119,23 +132,21 @@ a| El operador completa el check-in en menos de 10 minutos
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Adaptabilidad
+a| Placeholder (H,H) //Erick
 
-| Placeholder
-a| Placeholder
 |===
 
-=== 9. Testabilidad
-.Atributos de Testabilidad
+=== 9. Fiabilidad
+.Atributos de Fiabilidad
 [cols="1,3", options="header"]
 |===
 | Sub-atributo | Escenario de Calidad
-| Placeholder
-a| Placeholder
+| Accuracy
+a| Placeholder (H,M)
 
-| Placeholder
-a| Placeholder
+| Tolerancia a fallos
+a| Placeholder (H,H) //Erick
 |===
 
 == Resumen de Métricas

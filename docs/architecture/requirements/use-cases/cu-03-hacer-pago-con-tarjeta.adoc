@@ -14,7 +14,8 @@
 2.- El huésped selecciona una tarjeta registrada. (Ver FA 2.1) ( Ver FA 2.2) (Ver FA 2.3) +
 3.- El sistema muestra los detalles de la reservación y el monto total a pagar. +
 4.- El huésped confirma el pago. +
-5.- El sistema procesa el pago mediante la pasarela de pago, reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 1) (Ver EX 2) (Ver EX 3) +
+5.- El sistema procesa el pago mediante la pasarela de pago,
+// reserva la habitación en el sistema, genera un recibo de pago y envía una confirmación de pago al huésped por correo electrónico. (Ver EX 1) (Ver EX 2) (Ver EX 3) +
 6.- Termina el caso de uso.
 | Flujos alternos |
 FA 2.1: Si el huésped no tiene tarjetas registradas o desea agregar otra tarjeta +

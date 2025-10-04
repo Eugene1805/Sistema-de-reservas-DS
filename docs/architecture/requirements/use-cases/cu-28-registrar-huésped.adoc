@@ -8,7 +8,7 @@
 | Descripción | El Actor registra los datos de un huésped en el sistema.
 | Actor(es) | Recepcionista,
 | Disparador | El actor selecciona la opción de registrar un nuevo huésped en el sistema.
-| Precondiciones | El huésped no está registrado en el sistema.
+| Precondiciones | PRE-01 El huésped no está registrado en el sistema.
 | Flujo normal |
 1.- El sistema muestra el formulario de registro de huésped. +
 2.- El actor ingresa los datos del huésped (nombre, apellido, documento de identidad, fecha de nacimiento, nacionalidad, etc.). +
@@ -18,13 +18,13 @@
 | Flujos alternos |
 FA 3.1: Los datos ingresados no son válidos +
 1.- El sistema muestra un mensaje de error y permite al actor corregir los datos. +
-2.- Regresa al paso 2 del flujo normal.
-| Excepciones | EX 1 - El sistema no puede conectarse a la base de datos +
+2.- Regresa al paso 2 del flujo normal. +
+| Excepciones | EX 3 - El sistema no puede conectarse a la base de datos +
 1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
 2.- Termina el caso de uso. +
 EX 2 - El sistema no puede acceder a internet +
 1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde.
 2.- Termina el caso de uso.
-| Postcondiciones | El huésped queda registrado en el sistema con un identificador único.
+| Postcondiciones | POST-01 El huésped queda registrado en el sistema con un identificador único.
 | Reglas de negocio | RN-XX, RN-XX
 |===

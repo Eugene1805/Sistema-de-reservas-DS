@@ -7,11 +7,11 @@
 | Fecha de actualización | 02 de octubre de 2025
 | Descripción | El huésped realiza una reservación de una habitación en un hotel.
 | Actor(es) | Huésped
-| Disparador | El huésped selecciona la opción de hacer una reservación para alguna habitación seleccionada. // Checar flujo
-| Precondiciones |
+| Disparador | El huésped selecciona la opción de hacer una reservación para alguna habitación seleccionada.
+| Precondiciones | PRE-01
 | Flujo normal |
 | Flujos alternos | // Include de CU-03 Hacer pago con tarjeta
 | Excepciones |
-| Postcondiciones |
+| Postcondiciones | POST-01 El pago de la reservación queda registrado en el sistema y la habitación queda reservada para el huésped.
 | Reglas de negocio |
 |===

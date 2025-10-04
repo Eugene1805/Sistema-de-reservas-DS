@@ -3,7 +3,7 @@
 |===
 | ID | CU-09
 | Nombre | Registrar servicio de consumo
-| Autor | Recepcionista
+| Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 03 de octubre de 2025
 | Descripción | El recepcionista registra consumos adicionales (minibar, servicios).
 | Actor(es) | Recepcionista
