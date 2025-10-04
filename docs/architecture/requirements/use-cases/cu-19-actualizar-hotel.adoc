@@ -1,17 +1,73 @@
 == CU-19 Actualizar hotel
 
 |===
-| ID |
-| Nombre |
-| Autor |
-| Fecha de actualización |
-| Descripción |
-| Actor(es) |
-| Disparador |
-| Precondiciones |
+| ID | CU-19
+| Nombre | Actualizar hotel
+| Autor | Erickmel Vázquez López
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | El administrador actualiza la información de un hotel previamente registrado, modificando datos como nombre, dirección, ciudad, teléfono, correo o estado operativo.
+| Actor(es) | Administrador
+| Disparador | Administrador da clic en la opción "Modificar hotel".
+| Precondiciones | PRE-01.- El administrador debe estar autenticado en el sistema. +
+PRE-02.- Debe existir al menos un hotel registrado en la base de datos. +
+PRE-03.- El administrador debe tener permisos para modificar la información de hoteles. +
+PRE-04.- No debe haber operaciones críticas en curso (check-in, check-out o reservas activas) que dependan de los datos que se modificarán.
 | Flujo normal |
+1.- El sistema muestra la ventana "Hoteles" con el listado de hoteles existentes. +
+2.- El sistema muestra los botones "Registrar hotel", "Modificar", "Eliminar" y "Salir". +
+3.- El administrador selecciona el hotel que desea modificar de la lista. (FA-01) (EX-01) +
+4.- El administrador da clic en el botón "Modificar". +
+5.- El sistema abre la ventana "Modificar hotel" mostrando los campos actuales del hotel seleccionado: nombre, ciudad, dirección, teléfono, correo electrónico, número de habitaciones, categoría y estado. +
+6.- El administrador modifica uno o varios campos según corresponda. (EX-02) (EX-03) +
+7.- El sistema valida que los datos ingresados sean correctos y que no existan duplicados en nombre y ciudad. +
+8.- El sistema muestra los botones "Guardar cambios" y "Cancelar". +
+9.- El administrador da clic en "Guardar cambios". (FA-02) +
+10.- El sistema actualiza la información del hotel en la base de datos. +
+11.- El sistema muestra el mensaje "El hotel se ha actualizado exitosamente". +
+12.- El sistema muestra el botón "Aceptar". +
+13.- El administrador da clic en "Aceptar". +
+14.- El sistema regresa a la ventana principal de "Hoteles" y actualiza la lista. +
+15.- Termina el Caso de Uso.
 | Flujos alternos |
+FA-01. El administrador da clic en "Salir". +
+    1.- El administrador da clic en el botón "Salir". +
+    2.- El sistema regresa al usuario a la ventana principal del sistema. +
+    3.- Termina Caso de Uso. +
+FA-02. El administrador da clic en "Cancelar". +
+    1.- El administrador da clic en el botón "Cancelar". +
+    2.- El sistema regresa al usuario a la ventana "Hoteles". +
+    3.- Termina Caso de Uso.
 | Excepciones |
-| Postcondiciones |
+EX-01. No se ha seleccionado ningún hotel. +
+    1.- El sistema muestra el mensaje "Debe seleccionar un hotel para modificar". +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa a la ventana principal de "Hoteles". +
+EX-02. Datos inválidos. +
+    1.- El sistema detecta datos incorrectos (correo con formato no válido, teléfono con caracteres no numéricos, campos vacíos, etc.). +
+    2.- El sistema muestra el mensaje "Datos inválidos. Por favor, corríjalos e intente nuevamente". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de modificación con los datos previamente ingresados. +
+EX-03. Hotel duplicado. +
+    1.- El sistema detecta que ya existe un hotel con el mismo nombre en la misma ciudad. +
+    2.- El sistema muestra el mensaje "Ya existe un hotel con este nombre en la ciudad seleccionada". +
+    3.- El sistema muestra el botón "Aceptar". +
+    4.- El administrador da clic en "Aceptar". +
+    5.- El sistema regresa a la ventana de modificación para permitir la corrección. +
+EX-04. No hay conexión con la base de datos. +
+    1.- El sistema muestra el mensaje "No hay conexión con la base de datos, inténtelo más tarde." +
+    2.- El sistema muestra el botón "Aceptar". +
+    3.- El administrador da clic en "Aceptar". +
+    4.- El sistema regresa al usuario a la ventana "Hoteles". +
+| Postcondiciones | 
+POST-01.- Los datos del hotel seleccionado se actualizan correctamente en la base de datos. +
+POST-02.- El sistema refleja los cambios en consultas y operaciones futuras. +
+POST-03.- Las modificaciones quedan registradas en el historial de auditoría del sistema.
 | Reglas de negocio |
+RN-01.- Solo los administradores pueden modificar la información de hoteles. +
+RN-02.- No pueden existir dos hoteles con el mismo nombre en la misma ciudad. +
+RN-03.- Los campos obligatorios (nombre, ciudad, dirección, teléfono y correo) deben completarse correctamente. +
+RN-04.- Los datos de contacto deben cumplir con los formatos establecidos. +
+RN-05.- Cualquier modificación debe quedar registrada en el log de auditoría. +
 |===
