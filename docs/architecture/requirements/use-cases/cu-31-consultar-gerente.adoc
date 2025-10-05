@@ -1,0 +1,49 @@
+== CU-31 Cosultar Gerente
+
+|===
+| ID | CU-31
+| Nombre | Consultar Gerente
+| Autor | Arturo Agustín Cuevas Pérez
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | Permite al administrador consultar la información de los gerentes registrados en el sistema, incluyendo sus datos personales o su hotel asignado.
+| Actor(es) | Administrador
+| Disparador | El Administrador selecciona la opción "Consultar Gerente”.
+| Precondiciones |
+PRE-01 El administrador debe estar autenticado en el sistema. +
+PRE-02 Debe existir al menos un gerente registrado en el sistema.
+| Flujo normal |
+1.- El sistema muestra una sección de búsqueda con filtros (por nombre, por correo electrónico, por hotel asignado), además de los botones de "Buscar" y "Cancelar". (Ver EX-2) +
+2.- El administrador ingresa los criterios de búsqueda y da clic en el botón "Buscar". (Ver FA 2.1) +
+3.- El sistema valida los criterios, a partir de estos, recupera y muestra de la base de datos una lista con los gerentes coincidentes. (Ver FA 3.1) (Ver FA 3.2) (Ver EX-1) (Ver EX-3) +
+4.- El administrador selecciona al gerente del cual desea consultar su información de la lista y da clic en "Consultar gerente". +
+5.- El sistema recupera y muestra toda la información (datos personales, hotel asignado, etc.) del gerente seleccionado por el administrador. (Ver EX-1) +
+6.- Termina el caso de uso.
+
+| Flujos alternos |
+FA 2.1: El administrador da clic en "Cancelar". +
+1.- El sistema muestra un mensaje de confirmación de cancelación. +
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
+3.- Termina el caso de uso. +
+FA 3.1: El administrador ingresó criterios de búsqueda inválidos o vacios. +
+1.- El sistema muestra un mensaje de error correspondiente y permite al administrador corregir los datos incorrectos. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.2: No hay coincidencias. +
+1.- El sistema muestra un mensaje de información, indicando que no ha habido coincidencias con los criterios dados. +
+2.- Termina el caso de uso.
+
+| Excepciones |
+EX-1: El sistema no se pudo conectar con la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al administrador intentarlo más tarde. +
+2.- Termina el caso de uso. +
+EX-2: Sin Conexión a Internet. +
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red o comprobar su conexión. +
+2.- Termina el caso de uso. +
+EX-3: La consulta excedió el tiempo de espera. +
+1.- El sistema muestra un mensaje de error correspondiente y solicita al actor volverlo a intentar más tarde. +
+2.- Termina el caso de uso.
+
+| Postcondiciones |
+POST-01 Se muestra la información del gerente solicitado sin modificar sus datos.
+| Reglas de negocio |
+RN: Solo los administradores pueden consultar a los gerentes. +
+|===

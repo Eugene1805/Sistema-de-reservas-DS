@@ -2,28 +2,49 @@
 
 |===
 | ID | CU-23
-| Nombre | Registrar Habitación USABILIDAD Y SEGURIDAD (QUIZAS PARA LOS ROLES)
+| Nombre | Registrar Habitación
 | Autor | Arturo Agustín Cuevas Pérez
-| Fecha de actualización | 02 de octubre de 2025
-| Descripción | Permite al Gerente dar de alta una nueva habitación en el sistema, registrando sus características principales (DISCUTIR CARACTERISTICAS (Número de habitación, tipo de habitación, capacidad de la habitación, tarifa base, estado))
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | Permite al Gerente dar de alta una nueva habitación en su hotel corresponfiente, registrando sus características principales como número de habitación, tipo de habitación, capacidad de la habitación, tarifa base, y estado.
 | Actor | Gerente
 | Disparador | El Gerente selecciona la opción de "Registrar Habitación" en el sistema
-| Precondiciones | - La habitación a registrar no debe existir previamente en el sistema. - ¿? El Gerente este autenticado
-| Flujo normal | 1.- El sistema muestra el formulario de registro de habitación. (VER EX-2)
-2.- El Gerente ingresa los datos de la habitación que desea registrar (Número de habitación, tipo de habitación, capacidad de la habitación, tarifa base, estado).
-3.- El sistema valida los datos ingresados. (VER FA 3.1)
-4.- El Gerente da clic en el botón "Registrar". (VER FA 4.1)
-5.- El sistema guarda la información de la nueva habitación en la base de datos y muestra un mensaje de éxito. (VER EX-1 )
-| Flujo Alterno | FA 3.1: Datos Inválidos o Incompletos.
-1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente corregir los datos incorrectos.
-FA 4.1: El Gerente cancela el registro de la habitación
-1.- El Gerente da clic en el botón "Cancelar"
-2.- El sistema muestra un mensaje de confirmación de cancelación
-| Excepciones | EX-1: No se pudo conectar con la base de datos
-1.- El sistema muestra un mensaje de error y solicita al actor intentarlo más tarde
-EX-2: Sin Conexión a Internet
-1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red
-| Postcondiciones | La nueva habitación queda registrada con un identificador único
-| Reglas de Negocio | RN Cada número de habitación debe ser único dentro del hotel
-¿? RN Solo los Gerentes o ¿Administradores? pueden registrar una habitación. RN Las habitaciones no podrán registrarse si no se llenan todos sus campos
+| Precondiciones |
+PRE-01 El Gerente debe estar autenticado en el sistema. +
+PRE-02 El hotel al que se le registrará la habitación ya debe de existir en el sistema. +
+PRE-03 La habitación a registrar no debe existir previamente en el sistema. +
+PRE-04 El hotel al que se le registrará la habitación no debe de haber excedido su número de habitaciones. +
+PRE-05 Los tipos de habitaciones para el hotel ya deben de haber sido registradas en el sistema.
+
+| Flujo normal |
+1.- El sistema muestra el formulario de registro de habitaciones y los botones "Registrar" y "Cancelar" (Ver EX-2). +
+2.- El Gerente ingresa los datos de la habitación que desea registrar (Número de habitación, tipo de habitación, capacidad de la habitación, tarifa base, estado). +
+3.- El sistema valida los datos ingresados. (Ver FA 3.1) (Ver FA 3.2) +
+4.- El Gerente da clic en el botón "Registrar". (Ver FA 4.1) +
+5.- El sistema guarda la información de la nueva habitación en la base de datos y muestra un mensaje de éxito. (Ver EX-1) +
+6.- Termina el caso de uso.
+
+| Flujo Alterno |
+FA 3.1: Datos inválidos o vacios. +
+1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente corregir los datos incorrectos. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.2: Número de habitación existente. +
+1.- El sistema detecta que el número de habitación ingresado por el Gerente ya existe, por lo que muestra un mensaje de error indicando la duplicidad y permite al Gerente corregir la información. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 4.1: El Gerente da clic en "Cancelar". +
+1.- El sistema muestra un mensaje de confirmación de cancelación. +
+2.- El Gerente da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
+3.- Termina el caso de uso.
+| Excepciones |
+EX-1: El sistema no se pudo conectar con la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al gerente intentarlo más tarde. +
+2.- Termina el caso de uso. +
+EX-2: Sin Conexión a Internet. +
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red o comprobar su conexión. +
+2.- Termina el caso de uso.
+| Postcondiciones |
+POST-01 La nueva habitación queda registrada en el hotel.
+| Reglas de Negocio |
+RN Cada número de habitación debe ser único dentro del hotel. +
+RN Solo los Gerentes pueden registrar una habitación. +
+RN Las habitaciones no podrán registrarse si no se llenan todos sus campos.
 |===

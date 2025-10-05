@@ -1,0 +1,53 @@
+== CU-30 Registrar Gerente
+
+|===
+| ID | CU-30
+| Nombre | Registrar Gerente
+| Autor | Arturo Agustín Cuevas Pérez
+| Fecha de actualización | 04 de octubre de 2025
+| Descripción | Permite al administrador registrar en el sistema los datos de un nuevo gerente.
+| Actor(es) | Administrador
+| Disparador | El Administrador selecciona la opción “Registrar Gerente”.
+| Precondiciones |
+PRE-01 El administrador debe estar autenticado en el sistema. +
+PRE-02 El gerente a registrar no debe existir previamente en el sistema. +
+PRE-03 El hotel al que se asigne el gerente ya debe de estar previamente registrado en el sistema. +
+PRE-04 El hotel seleccionado no tenga ya un gerente asignado.
+| Flujo normal |
+1.- El sistema muestra el formulario de registro de gerentes, una lista que recupera de la base de datos aquellos hoteles que no tengan un gerente asignado y un campo de búsqueda para dicha lista, además de los botones de "Registrar" y "Cancelar" (Ver EX-1) (Ver EX-2). +
+2.- El administrador ingresa los datos personales del gerente (nombre, apellido, correo, teléfono), selecciona el hotel al que se va a asignar y da clic en el botón "Registrar". (Ver FA 2.1) +
+3.- El sistema valida y guarda la información del nuevo gerente en la base de datos, además genera las credenciales iniciales (usuario y contraseña temporal) del gerente y las envía a su correo electrónico, y muestra un mensaje de éxito. (Ver FA 3.1) (Ver FA 3.2) (Ver FA 3.3) (Ver EX-1) +
+4.- Termina el caso de uso
+
+| Flujos alternos |
+FA 2.1: El administrador da clic en "Cancelar". +
+1.- El sistema muestra un mensaje de confirmación de cancelación. +
+2.- El administrador da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
+3.- Termina el caso de uso. +
+FA 3.1: Datos inválidos o vacios. +
+1.- El sistema muestra un mensaje de error correspondiente y permite al administrador corregir los datos incorrectos. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.2: Gerente ya existente. +
+1.- El sistema detecta que el correo ingresado por el administrador ya existe, por lo que muestra un mensaje de error indicando la duplicidad y permite al administrador corregir la información. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.3: Error en el envío de credenciales por correo. +
+1.- El sistema registra el incidente y permite al administrador reenviar el correo posteriormente o mostrar las credenciales en pantalla. +
+2.- El administrador reenvia el correo o copia manualmente las credenciales. +
+3.- Termina el caso de uso.
+
+| Excepciones |
+EX-1: El sistema no se pudo conectar con la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al administrador intentarlo más tarde. +
+2.- Termina el caso de uso. +
+EX-2: Sin Conexión a Internet. +
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red o comprobar su conexión. +
+2.- Termina el caso de uso.
+| Postcondiciones |
+POST-01 El nuevo gerente queda registrado en el sistema y está asociado a su hotel.
+| Reglas de negocio |
+RN: Solo los administradores pueden registrar a los gerentes. +
+RN: Cada gerente debe tener un correo electrónico único en el sistema. +
+RN: Solo se puede asignar un gerente a un hotel. +
+RN: Las credenciales iniciales deben tener una contraseña temporal que expire en 24 horas. +
+RN: El sistema debe generar automáticamente un nombre de usuario único para cada gerente.
+|===
