@@ -1,4 +1,4 @@
-== CU-29 Consultar Huésped
+==== CU-29 Consultar Huésped
 
 |===
 | ID | CU-29

@@ -1,4 +1,4 @@
-== CU-26 Dar de baja Habitación
+==== CU-26 Dar de baja Habitación
 
 |===
 | ID | CU-26

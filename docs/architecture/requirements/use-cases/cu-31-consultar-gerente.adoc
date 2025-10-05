@@ -1,4 +1,4 @@
-== CU-31 Cosultar Gerente
+==== CU-31 Cosultar Gerente
 
 |===
 | ID | CU-31

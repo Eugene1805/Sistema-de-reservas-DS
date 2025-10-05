@@ -1,4 +1,4 @@
-== CU-30 Registrar Gerente
+==== CU-30 Registrar Gerente
 
 |===
 | ID | CU-30

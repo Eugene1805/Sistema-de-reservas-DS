@@ -1,4 +1,4 @@
-== CU-02 Cosultar Disponibilidad
+==== CU-02 Cosultar Disponibilidad
 
 |===
 | ID | CU-02

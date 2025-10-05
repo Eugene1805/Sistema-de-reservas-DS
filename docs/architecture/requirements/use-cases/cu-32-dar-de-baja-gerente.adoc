@@ -1,4 +1,4 @@
-== CU-32 Dar de baja Gerente
+==== CU-32 Dar de baja Gerente
 
 |===
 | ID | CU-32

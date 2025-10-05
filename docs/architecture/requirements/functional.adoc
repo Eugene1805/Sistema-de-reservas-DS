@@ -30,24 +30,24 @@
 | CU-20 | Dar de baja hotel | Administrador | Permite eliminar un hotel de la cadena. | Seguridad, Disponibilidad
 | CU-21 | Registrar tipo de habitación | Administrador | Permite crear un nuevo tipo de habitación (suite, doble, sencilla, etc.). | Flexibilidad
 | CU-22 | Actualizar tipo de habitación | Administrador | Permite modificar un tipo de habitación existente. | Disponibilidad
-| CU-23 | Registrar habitación | Administrador | Permite dar de alta habitaciones individuales en un hotel. | Disponibilidad
-| CU-24 | Consultar habitación | Administrador | Permite consultar información de una habitación registrada. | Rendimiento
-| CU-25 | Actualizar habitación | Administrador | Permite modificar los datos de una habitación. | Disponibilidad
-| CU-26 | Dar de baja habitación | Administrador | Permite eliminar una habitación registrada. | Seguridad
+| CU-23 | Registrar habitación | Gerente | Permite dar de alta habitaciones individuales en un hotel. | Disponibilidad
+| CU-24 | Consultar habitación | Gerente | Permite consultar información de una habitación registrada. | Rendimiento
+| CU-25 | Actualizar habitación | Gerente | Permite modificar los datos de una habitación. | Disponibilidad
+| CU-26 | Dar de baja habitación | Gerente | Permite eliminar una habitación registrada. | Seguridad
 | CU-27 | Hacer mapa del hotel | Administrador | Permite generar un mapa de las habitaciones del hotel. | Usabilidad
 | CU-28 | Registrar huésped | Administrador | Permite registrar datos de un nuevo huésped. | Seguridad, Disponibilidad
-| CU-29 | Consultar huésped | Administrador | Permite consultar información de huéspedes registrados. | Rendimiento
+| CU-29 | Consultar huésped | Recepcionista | Permite consultar información de huéspedes registrados. | Rendimiento
 | CU-30 | Registrar gerente | Administrador | Permite dar de alta a un gerente. | Seguridad
 | CU-31 | Consultar gerente | Administrador | Permite consultar información de gerentes. | Rendimiento
 | CU-32 | Dar de baja gerente | Administrador | Permite eliminar el registro de un gerente. | Seguridad
-| CU-33 | Registrar recepcionista | Administrador | Permite dar de alta a un recepcionista. | Seguridad
-| CU-34 | Consultar recepcionistas | Administrador | Permite consultar información de recepcionistas. | Rendimiento
-| CU-35 | Dar de baja recepcionista | Administrador | Permite eliminar el registro de un recepcionista. | Seguridad
+| CU-33 | Registrar recepcionista | Gerente | Permite dar de alta a un recepcionista. | Seguridad
+| CU-34 | Consultar recepcionistas | Gerente | Permite consultar información de recepcionistas. | Rendimiento
+| CU-35 | Dar de baja recepcionista | Gerente | Permite eliminar el registro de un recepcionista. | Seguridad
 |===
 
 ==== Detalles de los casos de uso
 include::use-cases/cu-01-hacer-reservación.adoc[]
-//include::use-cases/cu-02-consultar-disponibilidad.adoc[]
+include::use-cases/cu-02-consultar-disponibilidad.adoc[]
 include::use-cases/cu-03-hacer-pago-con-tarjeta.adoc[]
 include::use-cases/cu-04-hacer-pago-con-PayPal.adoc[]
 include::use-cases/cu-05-hacer-pago-con-otro-método.adoc[]
@@ -70,20 +70,20 @@ include::use-cases/cu-21-registrar-tipo-de-habitación.adoc[]
 //include::use-cases/cu-22-actualizar-tipo-de-habitación.adoc[]
 include::use-cases/cu-23-registrar-habitación.adoc[]
 include::use-cases/cu-24-consultar-habitación.adoc[]
-//include::use-cases/cu-25-actualizar-habitación.adoc[]
-//include::use-cases/cu-26-dar-de-baja-habitación.adoc[]
+include::use-cases/cu-25-actualizar-habitacion.adoc[]
+include::use-cases/cu-26-dar-de-baja-habitación.adoc[]
 include::use-cases/cu-27-hacer-mapa-del-hotel.adoc[]
 include::use-cases/cu-28-registrar-huésped.adoc[]
-////
+
 include::use-cases/cu-29-consultar-huésped.adoc[]
 include::use-cases/cu-30-registrar-gerente.adoc[]
 include::use-cases/cu-31-consultar-gerente.adoc[]
 include::use-cases/cu-32-dar-de-baja-gerente.adoc[]
 include::use-cases/cu-33-registrar-recepcionista.adoc[]
-include::use-cases/cu-34-consultar-recepcionistas.adoc[]
+include::use-cases/cu-34-consultar-recepcionista.adoc[]
 include::use-cases/cu-35-dar-de-baja-recepcionista.adoc[]
 
-////
+
 === Diagramas
 
 ==== Diagrama de Paquetes

@@ -1,4 +1,4 @@
-== CU-34 Cosultar Recepcionista
+==== CU-34 Cosultar Recepcionista
 
 |===
 | ID | CU-34

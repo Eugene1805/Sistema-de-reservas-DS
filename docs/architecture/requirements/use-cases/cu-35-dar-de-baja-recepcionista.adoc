@@ -1,4 +1,4 @@
-== CU-35 Dar de baja Recepcionista
+==== CU-35 Dar de baja Recepcionista
 
 |===
 | ID | CU-35

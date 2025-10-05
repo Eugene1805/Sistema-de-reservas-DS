@@ -1,4 +1,4 @@
-== CU-33 Registrar Recepcionista
+==== CU-33 Registrar Recepcionista
 
 |===
 | ID | CU-33
