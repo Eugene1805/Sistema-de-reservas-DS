@@ -1,4 +1,4 @@
-== CU-28 Registrar Huésped
+==== CU-28 Registrar Huésped
 
 |===
 | ID | CU-28

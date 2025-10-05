@@ -1,5 +1,5 @@
 
-[cols="1,2"]
+[cols="1,2", options="header"]
 |===
 | ID y descripción corta | QAS-01
 | Escenario | Garantiza la respuesta rápida a las consultas de disponibilidad de habitaciones.

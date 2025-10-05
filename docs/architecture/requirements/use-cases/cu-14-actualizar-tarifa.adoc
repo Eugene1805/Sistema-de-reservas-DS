@@ -1,4 +1,4 @@
-== CU-14 Actualizar tarifa
+==== CU-14 Actualizar tarifa
 
 |===
 | ID | CU-14
@@ -63,7 +63,7 @@ EX-04. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana "Tarifas". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- La tarifa seleccionada se actualiza correctamente en la base de datos. +
 POST-02.- Las modificaciones se reflejan en las operaciones futuras de reservación y cálculo de precios. +
 POST-03.- Las reservaciones previas mantienen las condiciones originales de la tarifa con la que fueron generadas.

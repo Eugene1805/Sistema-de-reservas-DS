@@ -1,4 +1,4 @@
-== CU-18 Consultar hotel
+==== CU-18 Consultar hotel
 
 |===
 | ID | CU-18
@@ -47,7 +47,7 @@ EX-02. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana principal de "Hoteles". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- El administrador visualiza correctamente la información actual del hotel seleccionado. +
 POST-02.- No se modifica ningún dato durante la consulta. +
 POST-03.- El sistema registra la fecha y hora de la consulta para auditoría interna.

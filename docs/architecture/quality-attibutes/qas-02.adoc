@@ -1,6 +1,6 @@
 
 
-[cols="1,2"]
+[cols="1,2", options="header"]
 |===
 | ID y descripción corta | QAS-02
 | Escenario | Garantizar la satisfacción del cliente al reservar en la cadena de hoteles.

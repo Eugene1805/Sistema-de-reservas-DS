@@ -1,4 +1,4 @@
-== CU-12 Actualizar política
+==== CU-12 Actualizar política
 
 |===
 | ID | CU-12

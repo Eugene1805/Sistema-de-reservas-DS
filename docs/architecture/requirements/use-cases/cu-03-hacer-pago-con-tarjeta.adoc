@@ -1,4 +1,4 @@
-== CU-03 Hacer pago con tarjeta
+==== CU-03 Hacer pago con tarjeta
 
 |===
 | ID | CU-03

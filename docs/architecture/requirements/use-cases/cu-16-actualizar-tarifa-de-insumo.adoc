@@ -1,4 +1,4 @@
-== CU-16 Actualizar tarifa de insumo
+==== CU-16 Actualizar tarifa de insumo
 
 |===
 | ID | CU-16
@@ -63,7 +63,7 @@ EX-04. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana "Tarifas". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- La tarifa de insumo seleccionada se actualiza correctamente en la base de datos. +
 POST-02.- Las nuevas tarifas de insumos se aplican únicamente a futuros consumos. +
 POST-03.- Los consumos previos conservan el valor de la tarifa con la que fueron registrados.

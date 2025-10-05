@@ -1,27 +1,26 @@
-Arturo Agustín Cuevas Pérez https://github.com/ArtCuevas[@ArtCuevas]
+*Integrantes del Equipo:*
 
+
+Arturo Agustín Cuevas Pérez https://github.com/ArtCuevas[@ArtCuevas]
 
 Eugenio Salvador González Sánchez https://github.com/Eugene1805[@Eugene1805]
 
 Erickmel Vázquez López https://github.com/Erickvl22[@Erickvl22]
 
 
-== Curso
-Diseño de Software (17788)
+*Curso:* Diseño de Software (17788)
 
-== Periodo Escolar
-Agosto 2025 – Enero 2026
+*Periodo Escolar:* Agosto 2025 – Enero 2026
 
-== Fecha
+*Fecha:* Primer Hito 05 de octubre de 2025
 
-== Enlace de Repositorio
-https://github.com/Eugene1805/Sistema-de-reservas-DS[Repositorio en Github, window=_blank]
+*Enlace de Repositorio:* https://github.com/Eugene1805/Sistema-de-reservas-DS[Repositorio en Github, window=_blank]
 
 == Historial de Versiones
 []
 |===
-| Version | Fecha | Autores | Resumen de cambios significatiovs |
+| Versión | Fecha | Autores | Resumen de cambios significatiovs
 
-| 1 | | | |
+| 1 | | |
 
 |===

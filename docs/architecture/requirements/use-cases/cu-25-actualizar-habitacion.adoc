@@ -1,4 +1,4 @@
-== CU-25 Actualizar Habitación
+==== CU-25 Actualizar Habitación
 
 |===
 | ID | CU-25

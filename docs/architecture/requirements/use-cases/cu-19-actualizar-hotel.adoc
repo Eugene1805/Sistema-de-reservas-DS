@@ -1,4 +1,4 @@
-== CU-19 Actualizar hotel
+==== CU-19 Actualizar hotel
 
 |===
 | ID | CU-19
@@ -60,7 +60,7 @@ EX-04. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana "Hoteles". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- Los datos del hotel seleccionado se actualizan correctamente en la base de datos. +
 POST-02.- El sistema refleja los cambios en consultas y operaciones futuras. +
 POST-03.- Las modificaciones quedan registradas en el historial de auditoría del sistema.

@@ -1,6 +1,6 @@
 
 
-[cols="1,2"]
+[cols="1,2", options="header"]
 |===
 | ID y descripción corta | QAS-08
 | Escenario | Garantizar la idempotencia de las transacciones de reservas y los pagos.

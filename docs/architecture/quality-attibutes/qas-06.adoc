@@ -1,6 +1,6 @@
 
 
-[cols="1,2"]
+[cols="1,2", options="header"]
 |===
 | ID y descripción corta | QAS-06
 | Escenario | Garantizar la privacidad y tratamiento adecuado de la PII del huésped.
