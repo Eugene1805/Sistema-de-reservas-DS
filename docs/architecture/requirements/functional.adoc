@@ -1,7 +1,5 @@
 == Vista funcional
 
-== Overview
-
 == Casos de uso
 
 == Lista de casos de uso
