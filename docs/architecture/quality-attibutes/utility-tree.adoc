@@ -15,14 +15,14 @@ a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de
 | Tiempo de cola de espera en la confirmacion de la reserva
 a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 TPS sostenidos y rafagas de hasta 10 TPS. (M,H)
 
-| Picos de trafico
-a| Cosa de arturo (H,H)
+| Latencia durante picos de trafico no previstos
+a| El sistema mantiene tiempos de respuesta menores a 1 segundo en el 95% de las solicitudes incluso durante picos de tráfico imprevistos de hasta 500 usuarios concurrentes realizando consultas o reservas. (H,H)
 
-| Overbooking
-a| Cosa de arturo (H,H)
+| Capacidad de procesamiento para overboking
+a| El sistema soporta un incremento del 10% sobre la carga normal (overbooking) sin provocar sobreventa accidental ni degradar su desempeño, manteniendo latencia menor a 1 segundo en el 90% de las operaciones. (H,H)
 
-| El de los 500ms arturo
-a| Eficiencia de desempeño  (M,M)
+| Comportamiento temporal en liberación de inventario
+a| El sistema libera automáticamente el inventario retenido en menos de 500 milisegundos  cuando una transacción de pago falla, para mantener la disponibilidad actualizada  (M,M)
 |===
 
 === 2. Seguridad
@@ -72,11 +72,11 @@ a| Un servidor recibe más de una vez la misma petición, pero solo procesa una 
 | Modularidad
 a| Placeholder (H,M)
 
-| Analizabilidad
-a| Placeholder (H,M) // podría ser hh
+| Analizabilidad del sistema
+a| Ante un reporte de fallo en una reserva, se puede identificar la causa raíz en menos de 15 minutos gracias a que el sistema provee logs transaccionales con un ID de correlación único (H,M)
 
-| placeholder
-a| De las busquedas (M,M)
+| Modificabilidad para nuevas funcionalidades
+a| Un desarrollador implementa un nuevo filtro de búsqueda avanzada, y la modificación requiere cambios en no más de 3 componentes del sistema y se completa en menos de una semana de trabajo.  (M,M)
 |===
 
 === 6. Interoperabilidad
@@ -119,8 +119,8 @@ a| Placeholder (H,H) //Erick
 | Accuracy
 a| Placeholder (H,M)
 
-| Tolerancia a fallos
-a| Placeholder (H,H) //Erick
+| Tolerancia a fallos en transacciones
+a| El sistema garantiza que una reserva se complete de manera atómica; si alguna etapa (retención, pago o confirmación) falla, todas las operaciones se revierten y el inventario se libera en menos de 500 milisegundos. (H,H)
 |===
 
 == Resumen de Métricas
