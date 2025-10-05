@@ -45,10 +45,10 @@ include::architecture/requirements/functional.adoc[]
 === De Calidad
 include::architecture/requirements/qualities.adoc[]
 
-== Atributos de Calidad
+=== Atributos de Calidad
 include::architecture/quality-attibutes/utility-tree.adoc[]
 
-== Escenarios de Calidad
+=== Escenarios de Calidad
 include::architecture/quality-attibutes/qa-scenarios.adoc[]
 
 == Decisiones Arquitectónicas

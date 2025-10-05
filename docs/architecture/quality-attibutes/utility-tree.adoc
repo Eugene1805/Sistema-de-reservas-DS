@@ -127,22 +127,24 @@ a| Placeholder (H,H) //Erick
 [options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
-| Performance |  P | P
-| Performance | P | P
-| Seguridad | Manejo de datos sensibles | P
+| Desempeño | Latencia en las consultas de disponibilidad de habitaciones | Tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas
+| Desempeño | Tiempo de cola de espera en la confirmacion de la reserva | Tiempo de respuesta menor a 2.5 segundos en el 90% de las veces y menor a 4 segundos en el 99% de las veces.
+| Desempeño | P | P
+| Desempeño | P | P
+| Desempeño | P | P
+| Seguridad | Manejo de datos sensibles | Ningún dato es comprometido durante el intento de ataque.
 | Seguridad | P | P
-| Escalabilidad | P | P
-| Escalabilidad | P | P
+| Escalabilidad | Escalabilidad elástica según la demanda de reservas | P
+| Escalabilidad | Escalabilidad elástica según la demanda de consultas | P
 | Disponibilidad | Confiabilidad del registro de reservas | P
-| Disponibilidad | Confiabilidad de las transacciones | P
+| Disponibilidad | Confiabilidad de las transacciones de reservas y pagos| Lo maneja sin fallar el 99% de las veces.
 | Mantenibilidad | P | P
 | Mantenibilidad | P | P
-| Interoperabilidad | P | P
+| Mantenibilidad | P | P
 | Interoperabilidad | P | P
 | Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
 | Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
 | Portabilidad | P | P
-| Portabilidad | P | P
-| Testabilidad | P | P
-| Testabilidad | P | P
+| Fiabilidad | P | P
+| Fiabilidad | P | P
 |===

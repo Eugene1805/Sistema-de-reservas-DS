@@ -14,13 +14,15 @@ Agosto 2025 – Enero 2026
 
 == Fecha
 
+Primer Hito 05 de octubre de 2025
+
 == Enlace de Repositorio
 https://github.com/Eugene1805/Sistema-de-reservas-DS[Repositorio en Github, window=_blank]
 
 == Historial de Versiones
 []
 |===
-| Version | Fecha | Autores | Resumen de cambios significatiovs |
+| Versión | Fecha | Autores | Resumen de cambios significatiovs |
 
 | 1 | | | |
 
