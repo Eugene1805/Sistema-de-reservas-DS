@@ -1,4 +1,4 @@
-== CU-22 Actualizar tipo de habitación
+==== CU-22 Actualizar tipo de habitación
 
 |===
 | ID | CU-22

@@ -1,4 +1,4 @@
-== CU-07 Hacer check-out
+==== CU-07 Hacer check-out
 
 |===
 | ID | CU-07
@@ -59,7 +59,7 @@ EX-02. Consumos pendientes de pago. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El recepcionista da clic en "Aceptar". +
     4.- El sistema regresa al detalle de la estancia para permitir registrar el pago. +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- La habitación asignada queda liberada y disponible para futuras reservaciones. +
 POST-02.- La estancia del huésped se marca como finalizada en el sistema.
 | Reglas de negocio |

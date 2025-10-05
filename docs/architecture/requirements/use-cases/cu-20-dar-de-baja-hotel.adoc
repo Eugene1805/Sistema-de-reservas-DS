@@ -1,4 +1,4 @@
-== CU-20 Dar de baja hotel
+==== CU-20 Dar de baja hotel
 
 |===
 | ID | CU-20
@@ -55,7 +55,7 @@ EX-03. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana principal de "Hoteles". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- El estado del hotel cambia a **Inactivo** en la base de datos. +
 POST-02.- El hotel queda inhabilitado para nuevas reservaciones, asignaciones de habitaciones o gestión de tarifas. +
 POST-03.- La información del hotel permanece en el sistema para fines históricos y de auditoría. +

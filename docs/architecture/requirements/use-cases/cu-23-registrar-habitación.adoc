@@ -1,4 +1,4 @@
-== CU-23 Registrar Habitación
+==== CU-23 Registrar Habitación
 
 |===
 | ID | CU-23

@@ -1,4 +1,4 @@
-== CU-05 Hacer pago con otro metodo de pago
+==== CU-05 Hacer pago con otro metodo de pago
 
 |===
 | ID | CU-05

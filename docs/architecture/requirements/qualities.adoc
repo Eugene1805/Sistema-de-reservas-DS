@@ -1,18 +1,5 @@
 
-
-== Objetivos de calidad
-
-- Desempeño
-- Disponibilidad
-- Seguridad
-- Usabilidad
-- Escalabilidad
-- Mantenibilidad
-- Interoperabilidad
-- Portabilidad
-- Fiabilidad
-
-=== Objetivos de Negocio
+==== Objetivos de Negocio
 |===
 | Objetivo | Definición | Importancia para el sistema
 | Desempeño | Grado en que un sistema o componente cumple sus funciones designadas dentro de unas limitaciones determinadas, tales como velocidad, precisión o uso de la memoria. +

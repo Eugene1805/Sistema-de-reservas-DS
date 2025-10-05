@@ -1,4 +1,4 @@
-== CU-24 Consultar Habitación
+==== CU-24 Consultar Habitación
 
 |===
 | ID | CU-23

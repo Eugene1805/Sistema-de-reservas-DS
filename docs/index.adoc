@@ -8,7 +8,6 @@
 :imagesdir: images
 
 
-== Integrantes
 include::architecture/4+1/cover.adoc[]
 
 == Contexto y Alcance del Sistema
@@ -17,7 +16,7 @@ include::architecture/4+1/introduction.adoc[]
 == Contexto
 include::architecture/4+1/context.adoc[]
 
-== Stakeholders
+=== Stakeholders
 include::architecture/4+1/stakeholders.adoc[]
 
 == Vistas 4+1
@@ -50,7 +49,6 @@ include::architecture/quality-attibutes/utility-tree.adoc[]
 === Escenarios de Calidad
 include::architecture/quality-attibutes/qa-scenarios.adoc[]
 
-== Decisiones Arquitectónicas
 include::architecture/decisions/decisions.adoc[]
 
 == Glosario

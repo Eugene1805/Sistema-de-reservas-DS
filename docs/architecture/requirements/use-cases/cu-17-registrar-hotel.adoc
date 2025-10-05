@@ -1,4 +1,4 @@
-== CU-17 Registrar hotel
+==== CU-17 Registrar hotel
 
 |===
 | ID | CU-17
@@ -54,7 +54,7 @@ EX-03. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana "Hoteles". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- El nuevo hotel queda registrado en la base de datos y visible en la lista de hoteles del sistema. +
 POST-02.- El hotel queda disponible para asignarle habitaciones, tipos de habitación, tarifas y personal. +
 POST-03.- Los datos quedan almacenados con su respectiva ubicación (ciudad y dirección).

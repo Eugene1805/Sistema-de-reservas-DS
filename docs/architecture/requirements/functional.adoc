@@ -1,8 +1,8 @@
-== Vista funcional
+==== Vista funcional
 
-== Casos de uso
+=== Casos de uso
 
-== Lista de casos de uso
+==== Lista de casos de uso
 
 [cols="1,2,3,4,5"]
 |===
@@ -45,7 +45,7 @@
 | CU-35 | Dar de baja recepcionista | Administrador | Permite eliminar el registro de un recepcionista. | Seguridad
 |===
 
-== Detalles de los casos de uso
+==== Detalles de los casos de uso
 include::use-cases/cu-01-hacer-reservación.adoc[]
 //include::use-cases/cu-02-consultar-disponibilidad.adoc[]
 include::use-cases/cu-03-hacer-pago-con-tarjeta.adoc[]
@@ -84,30 +84,30 @@ include::use-cases/cu-34-consultar-recepcionistas.adoc[]
 include::use-cases/cu-35-dar-de-baja-recepcionista.adoc[]
 
 ////
-== Diagramas
+=== Diagramas
 
-=== Diagrama de Paquetes
+==== Diagrama de Paquetes
 image::DiagramaPaquetesSistemaGestionHotelera.png[Diagrama de Paquetes General, width=700, align=center]
 
-=== Actores del Sistema
+==== Actores del Sistema
 image::Actors.png[Actores del Sistema, width=600, align=center]
 
-=== Casos de Uso – Administración del Hotel
+==== Casos de Uso – Administración del Hotel
 image::PaqueteAdministracionDelHotel.png[Casos de Uso - Administración del Hotel, width=700, align=center]
 
-=== Casos de Uso – Gestión de Actores
+==== Casos de Uso – Gestión de Actores
 image::PaqueteGestionDeActores.png[Casos de Uso - Gestión de Actores, width=700, align=center]
 
-=== Casos de Uso – Operaciones de Estancia
+==== Casos de Uso – Operaciones de Estancia
 image::PaqueteOperacionesDeEstancia.png[Casos de Uso - Operaciones de Estancia, width=700, align=center]
 
-=== Casos de Uso – Reservaciones
+==== Casos de Uso – Reservaciones
 image::PaqueteReservaciones.png[Casos de Uso - Reservaciones, width=700, align=center]
 
-=== Casos de Uso – Gestión de Habitaciones
+==== Casos de Uso – Gestión de Habitaciones
 image::PaquetesGestionDeHabitaciones.png[Casos de Uso - Gestión de Habitaciones, width=700, align=center]
 
-== Reglas de negcio
+=== Reglas de negcio
 // agregar reglas de negocio
 - Overbooking 10%
 - Pago completo al hacer la reservacion

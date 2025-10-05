@@ -1,4 +1,4 @@
-== CU-08 Cambiar habitación
+==== CU-08 Cambiar habitación
 
 |===
 | ID | CU-08

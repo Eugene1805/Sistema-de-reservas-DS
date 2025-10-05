@@ -1,4 +1,4 @@
-Lista de stakeholders
+==== Lista de stakeholders
 
 - Clientes
 - Administradores del sistema
@@ -22,7 +22,7 @@ Lista de stakeholders
 - Equipo de análisis de datos
 - Equipo de diseño
 
-== Preocupaciones de los stakeholders
+==== Preocupaciones de los stakeholders
 
 Lista de preocupaciones de los stakeholders
 
@@ -35,17 +35,17 @@ Lista de preocupaciones de los stakeholders
 - Reservar en menos de cinco clics [Usabilidad]
 
 
-== Restricciones
+==== Restricciones
 
-== Restricciones tecnicas
+==== Restricciones tecnicas
 
 - Utilizar una base de datos relacional para gestionar las reservas y la información de los clientes.
 - Implementar un sistema web y móvil para facilitar el acceso a los servicios de reserva.
 
-== Restricciones organizacionales (Leyes y regulaciones)
+==== Restricciones organizacionales (Leyes y regulaciones)
 
 -
 -
 
-== Otras
+==== Otras
 -

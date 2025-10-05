@@ -1,4 +1,4 @@
-== CU-15 Actualizar tarifa de cuota
+==== CU-15 Actualizar tarifa de cuota
 
 |===
 | ID | CU-15
@@ -63,7 +63,7 @@ EX-04. No hay conexión con la base de datos. +
     2.- El sistema muestra el botón "Aceptar". +
     3.- El administrador da clic en "Aceptar". +
     4.- El sistema regresa al usuario a la ventana "Tarifas". +
-| Postcondiciones | 
+| Postcondiciones |
 POST-01.- La tarifa de cuota seleccionada se actualiza correctamente en la base de datos. +
 POST-02.- Las modificaciones se aplican a futuras cuotas o cargos recurrentes. +
 POST-03.- Las cuotas ya generadas antes de la actualización mantienen el valor previo. +

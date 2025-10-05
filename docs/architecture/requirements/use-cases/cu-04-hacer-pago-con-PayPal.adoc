@@ -1,4 +1,4 @@
-== CU-04 Hacer pago con PayPal
+==== CU-04 Hacer pago con PayPal
 
 |===
 | ID | CU-04
