@@ -1,32 +1,52 @@
 ==== CU-24 Consultar Habitación
 
 |===
-| ID | CU-23
-| Nombre | Registrar Habitación USABILIDAD Y RENDIMIENTO (POR LAS CONSULTAS)
+| ID | CU-24
+| Nombre | Consultar Habitación
 | Autor | Arturo Agustín Cuevas Pérez
-| Fecha de actualización | 02 de octubre de 2025
-| Descripción | Permite al Gerente consultar la información de una habitación ya registrada en el sistema
+| Fecha de actualización | 05 de octubre de 2025
+| Descripción | Permite al Gerente consultar y visualizar la información de las habitaciones del hotel que ya han sido registradas en el sistema.
 | Actor | Gerente
-| Disparador | El Gerente selecciona  la opción de "Consultar Habitación" en el sistema
-| Precondiciones | - La habitación a consultar debe existir previamente en el sistema.
-- Debe existir al menos una habitación registrada en el sistema
-- ¿? El Gerente este autenticado
-| Flujo normal | 1.- El sistema muestra el mapa de habitaciones del hotel y un campo de búsqueda. (VER EX-2)
-2.- El Gerente selecciona la habitación que desea consultar en el mapa o ingresa en el campo de busqueda el número de habitación.
-3.- El sistema valida los datos ingresados. (VER FA 3.1)
-4.- El Gerente da clic en el botón "Consultar". (VER FA 4.1)
-5.- El sistema despliega la información de la habitacción seleccionada o encontrada. (VER EX-1 )
-| Flujo Alterno | FA 3.1: Datos Inválidos o Incompletos.
-1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente corregir los datos incorrectos.
-FA 4.1: El Gerente cancela el registro de la habitación
-1.- El Gerente da clic en el botón "Cancelar"
-2.- El sistema muestra un mensaje de confirmación de cancelación
-| Excepciones | EX-1: No se pudo conectar con la base de datos
-1.- El sistema muestra un mensaje de error y solicita al actor intentarlo más tarde
-EX-2: Sin Conexión a Internet
-1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red
-¿?EX-3 Consulta exceda el tiempo
-| Postcondiciones | El sistema muestra la información registrada de la habitación seleccionada
+| Disparador | El gerente selecciona  la opción de "Consultar Habitación" en el sistema
+| Precondiciones |
+PRE-01 El gerente debe estar autenticado en el sistema. +
+PRE-02 Debe de existir al menos una habitación registrada en el hotel. +
+PRE-03 El mapa de habitaciones del hotel ya debe de haber sido creado.
+| Flujo normal |
+1.- El sistema muestra una sección con filtros de búsqueda (por número de habitación, por tipo de habitación, rango de precios, etc.), el mapa de las habitaciones del hotel y los botones de "Consultar" y "Cancelar" . (Ver EX-2) +
+2.- El gerente ingresa sus criterios de búsqueda o bien selecciona directamente una habitación del mapa de habitaciones del hotel y da clic en el botón "Consultar" (Ver FA 2.1). +
+3.- El sistema valida los criterios de búsqueda o la selección del gerente. A partir de esta validación, el sistema recupera y muestra una información previa de las habitaciones que coinciden con los filtros o la habitación seleccionada. (Ver FA 3.1) (Ver FA 3.2) (Ver FA 3.3) (Ver EX-1) (Ver EX-3) +
+4.- El gerente selecciona una habitación si la consulta fue realizada por filtros, o confirma la habitación seleccionada desde el mapa. +
+5.- El sistema despliega toda la información de la habitacción seleccionada. (VER EX-1) +
+6.- Termina el caso de uso.
+
+| Flujo Alterno |
+FA 2.1: El gerente da clic en "Cancelar". +
+1.- El sistema muestra un mensaje de confirmación de cancelación. +
+2.- El gerente da clic en "Aceptar", si da clic en "Cancelar" vuelve al flujo normal. +
+3.- Termina el caso de uso. +
+FA 3.1: El gerente ingresó criterios de búsqueda inválidos o vacios. +
+1.- El sistema muestra un mensaje de error correspondiente y permite al gerente corregir los datos incorrectos. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.2: Mapa de habitaciones sin seleccionar. +
+1.- El sistema muestra un mensaje de error correspondiente y permite al Gerente seleccionar una habitación del mapa. +
+2.- Regresa al paso 2 del flujo normal. +
+FA 3.3: No hay coincidencias. +
+1.- El sistema muestra un mensaje de información, indicando que no ha habido coincidencias con los criterios dados. +
+2.- Termina el caso de uso.
+
+| Excepciones |
+EX-1: El sistema no se pudo conectar con la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al gerente intentarlo más tarde. +
+2.- Termina el caso de uso. +
+EX-2: Sin Conexión a Internet. +
+1.- El sistema muestra un mensaje de sin conexión a Internet y solicita al actor intentar conectarse a una red o comprobar su conexión. +
+2.- Termina el caso de uso. +
+EX-3: La consulta excedió el tiempo de espera. +
+1.- El sistema muestra un mensaje de error correspondiente y solicita al actor volverlo a intentar más tarde. +
+2.- Termina el caso de uso.
+| Postcondiciones |
+POST-01 Se muestra la información de la habitación seleccionada sin modificar sus datos.
 | Reglas de Negocio |
-¿? RN Solo los Gerentes o ¿Administradores? pueden consultar una habitación. RN Las habitaciones no podrán consultarse si no se selecciona o ll todos sus campos
+RN Solo los Gerentes pueden consultar una habitación.
 |===

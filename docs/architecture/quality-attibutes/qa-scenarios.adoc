@@ -3,8 +3,8 @@
 
 include::qas-01.adoc[]
 include::qas-02.adoc[]
-//include::qas-03.adoc[]
-//include::qas-04.adoc[]
+include::qas-03.adoc[]
+include::qas-04.adoc[]
 //include::qas-05.adoc[]
 include::qas-06.adoc[]
 //include::qas-07.adoc[]

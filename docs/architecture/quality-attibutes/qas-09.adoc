@@ -1,0 +1,14 @@
+[cols="1,2", options="header"]
+|===
+| ID y descripción corta | QAS-09
+| Escenario | Garantiza la capacidad del sistema de adaptarse a diferentes plataformas tecnológicas manteniendo la funcionalidad y consistencia.
+| Atributo | Portabilidad
+| Preocupación del atributo | Adaptabilidad
+| Refinamiento del escenario | Cuando la cadena hotelera requiere desplegar el sistema en una nueva plataforma (por ejemplo, una aplicación móvil oficial además del portal web), la arquitectura multicapa basada en servicios REST permite reutilizar la misma capa de negocio y de datos. Solo se modifica la capa de presentación y los parámetros de configuración del entorno. La adaptación a la nueva plataforma se completa en menos de 2 días de trabajo, sin alterar los servicios ni las entidades de dominio.
+| Fuente del estímulo | Área de desarrollo o equipo de integración.
+| Estímulo | Se solicita la implementación del sistema en una nueva plataforma (web, móvil o escritorio).
+| Ambiente | Durante el ciclo de despliegue o ampliación de entornos, dentro de una arquitectura multicapa con servicios REST y configuración dinámica.
+| Artefacto | Capa de presentación y módulos de configuración de entorno.
+| Respuesta | El sistema reutiliza las capas de negocio y datos existentes, adaptando únicamente la interfaz y configuración del entorno sin afectar los componentes principales.
+| Medida de respuesta | Adaptación completada en ≤ 2 días modificando solo la capa de presentación y configuración; 0% de impacto en la lógica de negocio. (H,H)
+|===

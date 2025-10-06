@@ -1,0 +1,16 @@
+
+
+[cols="1,2", options="header"]
+|===
+| ID y descripción corta | QAS-04
+| Escenario | Asegurar que la activación de la política de overbooking no degrade el rendimiento del sistema ni introduzca errores de lógica de negocio como la sobreventa accidental.
+| Atributo | Desempeño
+| Preocupación del atributo | Capacidad de procesamiento para overbooking
+| Refinamiento del escenario | El sistema soporta un incremento del 10% sobre la carga normal (overbooking) sin provocar sobreventa accidental ni degradar su desempeño, manteniendo una latencia menor a 1 segundo en el 90% de las operaciones.
+| Fuente del estímulo | Usuarios externos (Huéspedes)
+| Estímulo | Se generan solicitudes simultáneas de reserva que exceden el límite normal del inventario en un 10 %, debido a un evento de alta demanda o promoción.
+| Ambiente | El sistema opera en modo de peak load con la política de overbooking del 10% activada.
+| Artefacto | El sistema entero
+| Respuesta | El sistema procesa las solicitudes adicionales, gestiona correctamente la sobreventa permitida y mantiene la consistencia de los datos de inventario y reservas.
+| Medida de respuesta | El sistema procesa el 100 % de las solicitudes válidas con una latencia menor a 1 segundo en el 90 % de las operaciones y sin generar sobreventas ni fallos de integridad.
+|===

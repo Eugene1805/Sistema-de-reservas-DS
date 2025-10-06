@@ -15,14 +15,14 @@ a| El sistema responde a una carga de 300 consultas por segundo con un tiempo de
 | Tiempo de cola de espera en la confirmacion de la reserva
 a| El sistema responde entre en menos de 2.5 segundos el 90% de las veces y menos de 4 segundos el 99% de las veces durante picos de 3 TPS sostenidos y rafagas de hasta 10 TPS. (M,H)
 
-| Picos de trafico
-a| Cosa de arturo (H,H)
+| Latencia durante picos de trafico no previstos
+a| El sistema mantiene tiempos de respuesta menores a 1 segundo en el 95% de las solicitudes incluso durante picos de tráfico imprevistos de hasta 500 usuarios concurrentes realizando consultas o reservas. (H,H)
 
-| Overbooking
-a| Cosa de arturo (H,H)
+| Capacidad de procesamiento para overboking
+a| El sistema soporta un incremento del 10% sobre la carga normal (overbooking) sin provocar sobreventa accidental ni degradar su desempeño, manteniendo latencia menor a 1 segundo en el 90% de las operaciones. (H,H)
 
-| El de los 500ms arturo
-a| Eficiencia de desempeño  (M,M)
+| Comportamiento temporal en liberación de inventario
+a| El sistema libera automáticamente el inventario retenido en menos de 500 milisegundos  cuando una transacción de pago falla, para mantener la disponibilidad actualizada  (M,M)
 |===
 
 === 2. Seguridad
@@ -34,7 +34,7 @@ a| Eficiencia de desempeño  (M,M)
 a| Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro (H,H)
 
 | No repudio
-a| Placeholder (H,L)
+a| Cuando un huésped completa una reserva o un administrador aprueba una modificación, el sistema genera automáticamente un registro en un log seguro y firmado digitalmente que contiene el ID de usuario, hora, dirección IP y huella de transacción. (H,L)
 |===
 
 === 3. Escalabilidad
@@ -57,7 +57,7 @@ a| Ocurre un pico de tráfico de más de 300 QPS por lo que el sistema rebalance
 |===
 | Sub-atributo | Escenario de Calidad
 | Confiabilidad del registro de reservas
-a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H) //Erick
+a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H)
 
 | Confiabilidad de las transacciones de reservas y pagos
 a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás. (H,H)
@@ -70,13 +70,13 @@ a| Un servidor recibe más de una vez la misma petición, pero solo procesa una 
 |===
 | Sub-atributo | Escenario de Calidad
 | Modularidad
-a| Placeholder (H,M)
+a| Cuando se requiere agregar un nuevo servicio o ampliar una funcionalidad existente (por ejemplo, un nuevo método de pago o una política de reserva), la arquitectura multicapa orientada a servicios permite hacerlo modificando o añadiendo un único módulo desacoplado. El cambio no afecta a otros componentes gracias a la encapsulación de lógica y a las interfaces bien definidas entre módulos. (H,M)
 
-| Analizabilidad
-a| Placeholder (H,M) // podría ser hh
+| Analizabilidad del sistema
+a| Ante un reporte de fallo en una reserva, se puede identificar la causa raíz en menos de 15 minutos gracias a que el sistema provee logs transaccionales con un ID de correlación único (H,M)
 
-| placeholder
-a| De las busquedas (M,M)
+| Modificabilidad para nuevas funcionalidades
+a| Un desarrollador implementa un nuevo filtro de búsqueda avanzada, y la modificación requiere cambios en no más de 3 componentes del sistema y se completa en menos de una semana de trabajo.  (M,M)
 |===
 
 === 6. Interoperabilidad
@@ -85,7 +85,8 @@ a| De las busquedas (M,M)
 |===
 | Sub-atributo | Escenario de Calidad
 | Intercambio de datos
-a| Placeholder (M,L)
+a| 	Cuando el sistema necesita integra un nuevo proveedor de una pasarela de pagos o un sistema externo, la arquitectura orientada a servicios basada en API REST permite el intercambio de información mediante un API Gateway y la conexión se configura en menos de 1 día sin afectar la lógica de negocio existente. (M,L)
+
 
 |===
 
@@ -107,7 +108,7 @@ a| El operador completa el check-in en menos de 10 minutos gracias a que el sist
 |===
 | Sub-atributo | Escenario de Calidad
 | Adaptabilidad
-a| Placeholder (H,H) //Erick
+a| Cuando la cadena hotelera requiere desplegar el sistema en una nueva plataforma (por ejemplo, una aplicación móvil oficial además del portal web), la arquitectura multicapa basada en servicios REST permite reutilizar la misma capa de negocio y de datos. Solo se modifica la capa de presentación y los parámetros de configuración del entorno. La adaptación a la nueva plataforma se completa en menos de 2 días de trabajo, sin alterar los servicios ni las entidades de dominio. (H,H)
 
 |===
 
@@ -117,34 +118,34 @@ a| Placeholder (H,H) //Erick
 |===
 | Sub-atributo | Escenario de Calidad
 | Accuracy
-a| Placeholder (H,M)
+a| El huésped realiza una reserva y el sistema ejecuta múltiples operaciones dependientes, la arquitectura multicapa garantiza que todas las acciones se completen de forma atómica por si alguna etapa falla, la transacción se revierte completamente para asegurar la consistencia. (H,M)
 
-| Tolerancia a fallos
-a| Placeholder (H,H) //Erick
+| Tolerancia a fallos en transacciones
+a| El sistema garantiza que una reserva se complete de manera atómica; si alguna etapa (retención, pago o confirmación) falla, todas las operaciones se revierten y el inventario se libera en menos de 500 milisegundos. (H,H)
 |===
 
 == Resumen de Métricas
 [options="header"]
 |===
 | Atributo | Sub-atributo | Métrica Objetivo
-| Desempeño | Latencia en las consultas de disponibilidad de habitaciones | Tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas
-| Desempeño | Tiempo de cola de espera en la confirmacion de la reserva | Tiempo de respuesta menor a 2.5 segundos en el 90% de las veces y menor a 4 segundos en el 99% de las veces.
-| Desempeño | P | P
-| Desempeño | P | P
-| Desempeño | P | P
-| Seguridad | Manejo de datos sensibles | Ningún dato es comprometido durante el intento de ataque.
-| Seguridad | P | P
-| Escalabilidad | Escalabilidad elástica según la demanda de reservas | P
-| Escalabilidad | Escalabilidad elástica según la demanda de consultas | P
-| Disponibilidad | Confiabilidad del registro de reservas | P
-| Disponibilidad | Confiabilidad de las transacciones de reservas y pagos| Lo maneja sin fallar el 99% de las veces.
-| Mantenibilidad | P | P
-| Mantenibilidad | P | P
-| Mantenibilidad | P | P
-| Interoperabilidad | P | P
-| Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
-| Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
-| Portabilidad | P | P
-| Fiabilidad | P | P
-| Fiabilidad | P | P
+| Desempeño | Latencia en las consultas de disponibilidad de habitaciones | Tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas.
+| Desempeño | Tiempo de cola de espera en la confirmación de la reserva | Tiempo de respuesta menor a 2.5 s en el 90% de los casos y menor a 4 s en el 99%.
+| Desempeño | Latencia durante picos de tráfico no previstos | Tiempo de respuesta menor a 1 s en el 95% de las solicitudes con hasta 500 usuarios concurrentes.
+| Desempeño | Capacidad de procesamiento para overbooking | Soporta un incremento del 10% sobre la carga normal sin sobreventas ni degradación, manteniendo latencia < 1 s en el 90% de las operaciones.
+| Desempeño | Comportamiento temporal en liberación de inventario | Libera el inventario retenido en menos de 500 ms tras fallo en el pago.
+| Seguridad | Manejo de datos sensibles | Todos los datos personales son cifrados y transmitidos mediante HTTPS; 0% de exposición de PII ante ataques de interceptación.
+| Seguridad | No repudio | Cada transacción queda registrada en logs firmados digitalmente; 100% de operaciones trazables y verificables.
+| Escalabilidad | Escalabilidad elástica según la demanda de reservas | Aumenta recursos en menos de 30 s ante incrementos superiores a 3 TPS.
+| Escalabilidad | Escalabilidad elástica según la demanda de consultas | Rebalancea carga ante picos de 300 QPS manteniendo 90% de disponibilidad del servicio.
+| Disponibilidad | Confiabilidad del registro de reservas | Redirección automática ante caída de servidor, con pérdida de < 0.1% de solicitudes.
+| Disponibilidad | Confiabilidad de las transacciones de reservas y pagos | Maneja transacciones duplicadas sin error el 99% de las veces.
+| Mantenibilidad | Modularidad | Cambios o adición de módulos afectan como máximo 1 componente existente y se completan en < 1 semana.
+| Mantenibilidad | Analizabilidad del sistema | Diagnóstico de causa raíz de un fallo en < 15 minutos mediante logs transaccionales con ID de correlación.
+| Mantenibilidad | Modificabilidad para nuevas funcionalidades | Nuevas funciones o filtros se implementan en < 1 semana con cambios en no más de 3 componentes.
+| Interoperabilidad | Intercambio de datos | Integración de nuevas pasarelas o servicios externos en < 1 día sin afectar la lógica de negocio.
+| Usabilidad | Facilidad de aprendizaje del proceso de check-in | Operador novato logra 90% de éxito en 15 minutos tras 10 minutos de capacitación.
+| Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | El operador completa el check-in en menos de 10 minutos en condiciones normales.
+| Portabilidad | Adaptabilidad | Despliegue en nueva plataforma (web/móvil) en < 2 días modificando solo la capa de presentación y configuración.
+| Fiabilidad | Accuracy | 100% de consistencia entre precio mostrado y cobrado; transacciones atómicas con reversión completa en caso de fallo.
+| Fiabilidad | Tolerancia a fallos en transacciones | Reversión total y liberación de inventario en < 500 ms ante fallo o interrupción.
 |===
