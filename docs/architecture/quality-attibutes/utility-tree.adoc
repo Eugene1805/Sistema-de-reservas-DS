@@ -57,7 +57,7 @@ a| Ocurre un pico de tráfico de más de 300 QPS por lo que el sistema rebalance
 |===
 | Sub-atributo | Escenario de Calidad
 | Confiabilidad del registro de reservas
-a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H) //Erick
+a| Un servidor que registra las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta, redirige las peticiones a otro servidor activo y registra el incidente. (H,H)
 
 | Confiabilidad de las transacciones de reservas y pagos
 a| Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás. (H,H)
