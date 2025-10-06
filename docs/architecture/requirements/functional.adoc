@@ -87,25 +87,25 @@ include::use-cases/cu-35-dar-de-baja-recepcionista.adoc[]
 === Diagramas
 
 ==== Diagrama de Paquetes
-image::DiagramaPaquetesSistemaGestionHotelera.png[Diagrama de Paquetes General, width=700, align=center]
+image::DiagramaPaquetesSistemaGestionHotelera1.png[Diagrama de Paquetes General, width=700, align=center]
 
 ==== Actores del Sistema
-image::Actors.png[Actores del Sistema, width=600, align=center]
+image::Actores.png[Actores del Sistema, width=600, align=center]
 
 ==== Casos de Uso – Administración del Hotel
-image::PaqueteAdministracionDelHotel.png[Casos de Uso - Administración del Hotel, width=700, align=center]
+image::PaqueteAdministracionDelHotel1.png[Casos de Uso - Administración del Hotel, width=700, align=center]
 
 ==== Casos de Uso – Gestión de Actores
-image::PaqueteGestionDeActores.png[Casos de Uso - Gestión de Actores, width=700, align=center]
+image::PaqueteGestionDeActores1.png[Casos de Uso - Gestión de Actores, width=700, align=center]
 
 ==== Casos de Uso – Operaciones de Estancia
-image::PaqueteOperacionesDeEstancia.png[Casos de Uso - Operaciones de Estancia, width=700, align=center]
+image::PaqueteOperacionesDeEstancia1.png[Casos de Uso - Operaciones de Estancia, width=700, align=center]
 
 ==== Casos de Uso – Reservaciones
-image::PaqueteReservaciones.png[Casos de Uso - Reservaciones, width=700, align=center]
+image::PaqueteReservaciones1.png[Casos de Uso - Reservaciones, width=700, align=center]
 
 ==== Casos de Uso – Gestión de Habitaciones
-image::PaquetesGestionDeHabitaciones.png[Casos de Uso - Gestión de Habitaciones, width=700, align=center]
+image::PaquetesGestionDeHabitaciones1.png[Casos de Uso - Gestión de Habitaciones, width=700, align=center]
 
 === Reglas de negcio
 // agregar reglas de negocio
