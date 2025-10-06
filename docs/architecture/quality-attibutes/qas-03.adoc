@@ -1,0 +1,16 @@
+
+
+[cols="1,2", options="header"]
+|===
+| ID y descripción corta | QAS-03
+| Escenario | Garantizar que el sistema mantenga un rendimiento aceptable y no falle durante aumentos súbitos e inesperados en el número de usuarios.
+| Atributo | Desempeño
+| Preocupación del atributo | Latencia durante picos de tráfico no previstos.
+| Refinamiento del escenario | El sistema mantiene tiempos de respuesta menores a 1 segundo en el 95% de las solicitudes, incluso durante picos de tráfico imprevistos de hasta 500 usuarios concurrentes realizando consultas o reservas.
+| Fuente del estímulo | Un grupo de 500 usuarios concurrentes.
+| Estímulo | Los usuarios realizan solicitudes de consulta de disponibilidad y de reserva de forma esporádica y simultánea.
+| Ambiente | El sistema se encuentra en modo de peak load, operando en condiciones de alta demanda no planificada.
+| Artefacto | El sistema completo
+| Respuesta | El sistema procesa todas las solicitudes sin rechazos, prioriza las operaciones críticas y mantiene el tiempo de respuesta dentro del umbral aceptado.
+| Medida de respuesta | La latencia promedio es menor a 1 segundo en el 95 % de las solicitudes y la tasa de error es menor al 1 % durante el pico de 500 usuarios concurrentes.
+|===
