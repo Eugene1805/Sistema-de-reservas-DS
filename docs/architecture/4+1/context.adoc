@@ -1,7 +1,9 @@
 === Vista de contexto
 
 === Contexto del sistema
-// Añadir diagrama de contexto del sistema aquí
+
+image::ContextDiagram.png[Diagrama de contexto, width=700, align=center]
+
 === Actores externos
 
 - Huésped: Usuario que busca y reserva habitaciones en el sistema.
