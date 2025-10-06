@@ -129,9 +129,9 @@ a| El sistema garantiza que una reserva se complete de manera atómica; si algun
 | Atributo | Sub-atributo | Métrica Objetivo
 | Desempeño | Latencia en las consultas de disponibilidad de habitaciones | Tiempo de respuesta menor a 500 milisegundos en el 95% de las consultas
 | Desempeño | Tiempo de cola de espera en la confirmacion de la reserva | Tiempo de respuesta menor a 2.5 segundos en el 90% de las veces y menor a 4 segundos en el 99% de las veces.
-| Desempeño | P | P
-| Desempeño | P | P
-| Desempeño | P | P
+| Desempeño | Latencia durante picos de tráfico no previstos | Tiempos de respuesta menores a 1 s en el 95 % de las solicitudes durante picos de hasta 500 usuarios concurrentes.
+| Desempeño | Capacidad de procesamiento para overbooking | Soporta un incremento del 10 % de carga sobre la capacidad normal sin sobreventas ni degradación; latencia menor a 1 s en el 90 % de las operaciones.
+| Desempeño | Comportamiento temporal en liberación de inventario | Liberación de inventario en < 500 ms tras fallo.
 | Seguridad | Manejo de datos sensibles | Ningún dato es comprometido durante el intento de ataque.
 | Seguridad | P | P
 | Escalabilidad | Escalabilidad elástica según la demanda de reservas | P
@@ -139,12 +139,12 @@ a| El sistema garantiza que una reserva se complete de manera atómica; si algun
 | Disponibilidad | Confiabilidad del registro de reservas | P
 | Disponibilidad | Confiabilidad de las transacciones de reservas y pagos| Lo maneja sin fallar el 99% de las veces.
 | Mantenibilidad | P | P
-| Mantenibilidad | P | P
-| Mantenibilidad | P | P
+| Mantenibilidad | Analizabilidad del sistema | Diagnóstico de causa raíz de un fallo en < 15 minutos.
+| Mantenibilidad | Modificabilidad para nuevas funcionalidades | Implementación de nuevas búsquedas o filtros en < 1 semana con cambios en no más de 3 componentes.
 | Interoperabilidad | P | P
 | Usabilidad | Facilidad de aprendizaje del proceso de check-in | <15 minutos para aprender el caso de uso
 | Usabilidad | Eficiencia de uso en el tiempo en hacer el check-in | <10 minutos para completar el caso de uso
 | Portabilidad | P | P
 | Fiabilidad | P | P
-| Fiabilidad | P | P
+| Fiabilidad | Tolerancia a fallos en transacciones | Reversión y liberación de inventario en < 500 ms ante fallo.
 |===

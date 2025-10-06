@@ -30,19 +30,19 @@
 | CU-20 | Dar de baja hotel | Administrador | Permite eliminar un hotel de la cadena. | Seguridad, Disponibilidad
 | CU-21 | Registrar tipo de habitación | Administrador | Permite crear un nuevo tipo de habitación (suite, doble, sencilla, etc.). | Flexibilidad
 | CU-22 | Actualizar tipo de habitación | Administrador | Permite modificar un tipo de habitación existente. | Disponibilidad
-| CU-23 | Registrar habitación | Gerente | Permite dar de alta habitaciones individuales en un hotel. | Disponibilidad
-| CU-24 | Consultar habitación | Gerente | Permite consultar información de una habitación registrada. | Rendimiento
+| CU-23 | Registrar habitación | Gerente | Permite dar de alta habitaciones individuales en un hotel. | Disponibilidad, Seguridad
+| CU-24 | Consultar habitación | Gerente | Permite consultar información de una habitación registrada. | Rendimiento, Disponibilidad
 | CU-25 | Actualizar habitación | Gerente | Permite modificar los datos de una habitación. | Disponibilidad
-| CU-26 | Dar de baja habitación | Gerente | Permite eliminar una habitación registrada. | Seguridad
+| CU-26 | Dar de baja habitación | Gerente | Permite eliminar una habitación registrada. | Seguridad, Disponibilidad
 | CU-27 | Hacer mapa del hotel | Administrador | Permite generar un mapa de las habitaciones del hotel. | Usabilidad
 | CU-28 | Registrar huésped | Administrador | Permite registrar datos de un nuevo huésped. | Seguridad, Disponibilidad
-| CU-29 | Consultar huésped | Recepcionista | Permite consultar información de huéspedes registrados. | Rendimiento
-| CU-30 | Registrar gerente | Administrador | Permite dar de alta a un gerente. | Seguridad
-| CU-31 | Consultar gerente | Administrador | Permite consultar información de gerentes. | Rendimiento
-| CU-32 | Dar de baja gerente | Administrador | Permite eliminar el registro de un gerente. | Seguridad
-| CU-33 | Registrar recepcionista | Gerente | Permite dar de alta a un recepcionista. | Seguridad
-| CU-34 | Consultar recepcionistas | Gerente | Permite consultar información de recepcionistas. | Rendimiento
-| CU-35 | Dar de baja recepcionista | Gerente | Permite eliminar el registro de un recepcionista. | Seguridad
+| CU-29 | Consultar huésped | Recepcionista | Permite consultar información de huéspedes registrados. | Rendimiento, Disponibilidad
+| CU-30 | Registrar gerente | Administrador | Permite dar de alta a un gerente. | Seguridad, Disponibilidad
+| CU-31 | Consultar gerente | Administrador | Permite consultar información de gerentes. | Rendimiento, Disponibilidad
+| CU-32 | Dar de baja gerente | Administrador | Permite eliminar el registro de un gerente. | Seguridad, Disponibilidad
+| CU-33 | Registrar recepcionista | Gerente | Permite dar de alta a un recepcionista. | Seguridad, Disponibilidad
+| CU-34 | Consultar recepcionistas | Gerente | Permite consultar información de recepcionistas. | Rendimiento, Disponibilidad
+| CU-35 | Dar de baja recepcionista | Gerente | Permite eliminar el registro de un recepcionista. | Seguridad, Disponibilidad
 |===
 
 ==== Detalles de los casos de uso
