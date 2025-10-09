@@ -39,6 +39,15 @@ Lista de preocupaciones de los stakeholders
 
 ==== Restricciones tecnicas
 
+[]
+|===
+| CON-01 | Un minimo de 5,000 hoteles deben ser soportados
+| CON-02 | Un minimo de 1,000,000 habitaciones deben ser soportadas
+| CON-03 | El sistema debe poder ser accesible desde un navegador web en diferentes plataformas (Windows, Linux MacOs) y desde una aplicacion movil en diferentes plataformas (IOS, Android)
+| CON-04 |
+| CON-05 |
+|===
+
 - Utilizar una base de datos relacional para gestionar las reservas y la información de los clientes.
 - Implementar un sistema web y móvil para facilitar el acceso a los servicios de reserva.
 
