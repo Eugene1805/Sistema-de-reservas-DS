@@ -25,6 +25,11 @@
 ==== Preocupaciones de los stakeholders
 
 Lista de preocupaciones de los stakeholders
+[]
+|===
+| CRN-01 | Se deben proteger los datos sensible de los clientes (PII)
+| CRN-02 | Se debe asegurar que no existan pagos dobles
+|===
 
 - Precios dinamicos
 - Trazabilidad de las operaciones (Auditoria)
@@ -44,12 +49,10 @@ Lista de preocupaciones de los stakeholders
 | CON-01 | Un minimo de 5,000 hoteles deben ser soportados
 | CON-02 | Un minimo de 1,000,000 habitaciones deben ser soportadas
 | CON-03 | El sistema debe poder ser accesible desde un navegador web en diferentes plataformas (Windows, Linux MacOs) y desde una aplicacion movil en diferentes plataformas (IOS, Android)
-| CON-04 |
+| CON-04 | El sistema debe utilizar una base de datos relacionar para gestionar las reservas y la informacion de los clientes
 | CON-05 |
 |===
 
-- Utilizar una base de datos relacional para gestionar las reservas y la información de los clientes.
-- Implementar un sistema web y móvil para facilitar el acceso a los servicios de reserva.
 
 ==== Restricciones organizacionales (Leyes y regulaciones)
 
