@@ -1,0 +1,21 @@
+=== ADD
+
+==== Introducción
+
+Para garantizar que el diseño respondiera directamente a los impulsores de negocio y a los atributos de calidad más críticos, se adoptó un enfoque metodologico que combina dos prácticas : Attribute-Driven Desing (ADD) y Component-Based Software Engineering (CBSE)
+
+==== Identificación y Priorizicación de Drivers Arquitectónicos
+El backlog de los drivers se elaboró a partir del análisis de las secciones de
+"Visión del Sistema", "Alcance" y "Requisitos" del presente documento, así como del árbol de utilidad y de los escenarios de calidad desarrolados. Se seleccionaron únicamente los requisitos con impacto significativo en la estructura del sistema, es decir, solo aquellos que, de no ser atendidos, generarían una arquitectura totalmente distinta.
+
+- Drivers Funcionales: Consideramos aquellos casos de uso que representan el núcleo operativo del negocio hotelero, es decir, los que conectan de forma directa con los objetivos de negocio con las operacciones transaccionales del sistem
+
+|===
+| ID | Caso de uso | Relevancia Arquitectónica |
+
+| CU-01 | Hacer reservación | Es nuestro flujo central del negocio |
+| CU-02 | Consultar disponibilidad | Operación con alta frecuencia, y necesidad de respuesta en tiempo real |
+| CU-03 | Hacer pago con tarjeta / PayPal/ Método alternativo | |
+| CU-06 | Check-in / Check-out | |
+
+|===
