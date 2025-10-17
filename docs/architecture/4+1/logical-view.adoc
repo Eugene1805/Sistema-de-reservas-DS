@@ -1,5 +1,169 @@
-- Estilo arquitectonico :
-- Arquitectura cliente-servidor para despliegue: Para admitir multiples clientes util para appicaciones web y móviles. Permite centralizar el almacenamiento, la lógica de negocio y gestion de datos.
-- Layered architecture para la estructura del sistema: Permite dar soporte a diferentes tipos de clientes(web y moviles) e implementar reglas de negocio complejas
-- Service-oriented para la comunicación entre componentes: Permite la interoperabilidad y la reutilización de servicios. Util para exponer la funcionalidad independientemente de la plataforma.
-- Patron arquitectonico Broker para la comunicación entre componentes distribuidos: Facilita la comunicación entre componentes distribuidos, permitiendo la escalabilidad y flexibilidad del sistema, admite el intercambio dinámico, la adición o la eliminación de componentes en tiempo de ejecución.
+== Introducción y Visión General de la Arquitectura
+
+Esta sección describe la *Vista Lógica* del sistema, la cual define:
+
+* La estructura estática
+* Sus principales elementos funcionales
+* Las relaciones entre ellos
+
+Para satisfacer los exigentes requisitos no funcionales de *Desempeño*, *Disponibilidad* y *Portabilidad* (derivados de `QAS-01`, `QAS-02`, `QAS-06`, `QAS-08`), la estructura se basa en una **Arquitectura en Capas** como pilar fundamental.
+
+Este estilo se complementa con:
+
+* Un enfoque **Orientado a Servicios (SOA)** para la organización de la lógica de negocio
+* El patrón **Broker** para gestionar la comunicación asíncrona
+
+La combinación de estos enfoques busca crear un sistema que:
+
+* Sea robusto y escalable para manejar picos de demanda (`QAS-03`)
+* Sea lo suficientemente flexible para adaptarse a futuras plataformas (`CON-03`)
+* Garantice la integridad de cada transacción (`QAS-09`)
+
+== Justificación de Decisiones Arquitectónicas
+
+A continuación, se detallan las decisiones clave de diseño, justificando cómo responden a los drivers arquitectónicos más críticos.
+
+=== 1. Desempeño y Escalabilidad bajo Alta Concurrencia
+
+*Drivers*::
+Los escenarios `QAS-01`, `QAS-02`, `QAS-03` y `QAS-04` exigen:
+* Tiempos de respuesta extremadamente bajos (<500ms para consultas, <2.5s para reservas)
+* Operación bajo cargas sostenidas (300-500 usuarios concurrentes)
+* Soporte para ráfagas de tráfico
+// Referenciar correctamente los drivers cuando estén hechos
+*Táctica(s)*::
+* Gestión de la Concurrencia
+* Comunicación Asíncrona
+
+*Patrón/Decisión*::
+Se implementará el **patrón Broker** a través de una cola de mensajes (Message Queue). Las operaciones críticas que no requieren respuesta inmediata (procesamiento de pago, envío de confirmaciones, auditoría) se desacoplarán del flujo principal.
+
+*Flujo*:
+. Usuario confirma reserva
+. Sistema realiza validación rápida
+. Solicitud se encola
+. Servicios _workers_ procesan mensajes asíncronamente
+. API responde instantáneamente al usuario
+
+*Trade-offs*::
+* Mayor complejidad operativa (administración y monitoreo del broker)
+* Modelo de consistencia eventual
+* Confirmación de "reserva en proceso" antes de finalización total
+
+=== 2. Portabilidad y Evolución del Sistema
+
+*Drivers*::
+* `QAS-08` y restricción `CON-03`
+* Soporte múltiple de clientes (web, móvil)
+* Incorporación de nuevas plataformas con esfuerzo mínimo (≤ 2 días)
+
+*Táctica(s)*::
+Separación de Responsabilidades (Separation of Concerns)
+
+*Patrón/Decisión*::
+**Arquitectura en Capas** con:
+* Capa de Presentación desacoplada
+* Capa de Negocio
+* Capa de Datos
+
+La capa de Negocio expone funcionalidad mediante **API RESTful** (enfoque SOA).
+
+*Trade-offs*::
+* Incremento en latencia por comunicación en red
+* Requiere disciplina de diseño para evitar filtrado de lógica de negocio a capas de cliente
+
+=== 3. Fiabilidad y Consistencia Transaccional
+
+*Drivers*::
+* `QAS-07` (idempotencia)
+* `QAS-09` (atomicidad de transacciones)
+* `CRN-02` (no pagos dobles)
+* `CRN-05` (no dobles reservas)
+
+*Táctica(s)*::
+* Transacciones Atómicas
+* Idempotencia
+* Detección y Recuperación de Fallos
+
+*Patrón/Decisión*::
+
+*Atomicidad*::
+**Patrón Saga** para transacciones distribuidas:
+* Orquesta secuencia de transacciones locales
+* Ejecuta operaciones de compensación en caso de fallo
+* Garantiza estado consistente (`QAS-09`)
+
+*Idempotencia*::
+Cada solicitud modificativa incluirá `Idempotency-Key` en el encabezado.
+
+*Trade-offs*::
+* Lógica de compensación compleja en Sagas
+* Overhead de almacenamiento y verificación de claves de idempotencia
+
+=== 4. Seguridad de Datos Sensibles
+
+*Drivers*::
+* `QAS-05` y preocupación `CRN-01`
+* Protección de Información Personalmente Identificable (PII)
+
+*Táctica(s)*::
+* Cifrado de Datos en Tránsito
+* Autenticación y Autorización Centralizadas
+
+*Patrón/Decisión*::
+**API Gateway** como único punto de entrada:
+* Termina conexiones SSL/TLS
+* Valida tokens de autenticación (ej. JWT)
+* Aplica políticas de seguridad globales
+
+*Trade-offs*::
+* Punto único de fallo (SPOF) - requiere configuración HA
+* Salto de red adicional que impacta latencia
+
+== Tarea 8: Descripción de Elementos Lógicos
+
+La estructura lógica del sistema se organiza en los siguientes componentes principales:
+
+=== Paquete: Clients (Externo)
+
+*Responsabilidad*::
+Aplicaciones orientadas al usuario:
+* Aplicación Web
+* Aplicación Móvil
+
+*Función*::
+* Interfaz de usuario (UI) y experiencia de usuario (UX)
+* Consumo de API pública del sistema
+* *No contienen lógica de negocio*
+
+=== Paquete: API Gateway
+
+*Responsabilidad*::
+* Fachada del sistema
+* Enrutamiento de peticiones
+* Gestión de autenticación y autorización
+* Aplicación de límites de tasa (rate limiting)
+* Terminación SSL
+
+=== Paquete: Business Services (Capa de Negocio)
+
+*Responsabilidad*::
+*Corazón del sistema* - contiene lógica de dominio y reglas de negocio
+
+*Servicios*::
+* `ReservationService`:: Orquesta proceso de reserva, políticas de precios, cancelaciones
+* `InventoryService`:: Gestiona disponibilidad de habitaciones, hoteles, lógica de overbooking
+* `PaymentService`:: Integración con pasarelas de pago externas
+* `HotelManagementService`:: Funcionalidad de backoffice para administración
+
+=== Paquete: Infrastructure (Capa de Infraestructura/Datos)
+
+*Responsabilidad*::
+Capacidades técnicas transversales
+
+*Componentes*::
+* `DataAccess`:: Implementa patrón Repositorio (ej. `IReservationRepository`, `SqlReservationRepository`)
+* `Messaging`:: Abstracción sobre Broker de mensajería para eventos (ej. `ReservationCreatedEvent`)
+* `SharedKernel`:: Elementos de dominio compartidos (ej. `Money`, `DateRange`, entidades transversales)
+// Add diagrams here
+
