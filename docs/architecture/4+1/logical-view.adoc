@@ -1,0 +1,5 @@
+- Estilo arquitectonico :
+- Arquitectura cliente-servidor para despliegue: Para admitir multiples clientes util para appicaciones web y móviles. Permite centralizar el almacenamiento, la lógica de negocio y gestion de datos.
+- Layered architecture para la estructura del sistema: Permite dar soporte a diferentes tipos de clientes(web y moviles) e implementar reglas de negocio complejas
+- Service-oriented para la comunicación entre componentes: Permite la interoperabilidad y la reutilización de servicios. Util para exponer la funcionalidad independientemente de la plataforma.
+- Patron arquitectonico Broker para la comunicación entre componentes distribuidos: Facilita la comunicación entre componentes distribuidos, permitiendo la escalabilidad y flexibilidad del sistema, admite el intercambio dinámico, la adición o la eliminación de componentes en tiempo de ejecución.

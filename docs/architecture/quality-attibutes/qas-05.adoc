@@ -1,0 +1,16 @@
+
+
+[cols="1,2", options="header"]
+|===
+| ID y descripción corta | QAS-05
+| Escenario | Garantizar la privacidad y tratamiento adecuado de la PII del huésped.
+| Atributo | Seguridad
+| Preocupación del atributo | Manejo de datos sensibles
+| Refinamiento del escenario | Un atacante intenta interceptar PII del huésped al momento de hacer una reserva, pero el sistema manda la información encriptada a través de un canal seguro.
+| Fuente del estímulo | Un atacante externo desconocido
+| Estímulo | Intenta interceptar PII del huésped
+| Ambiente | En medio de operaciones normales del sistema al momento de procesar reservas.
+| Artefacto | Los datos ingresados al sistema por el huésped (PII)
+| Respuesta | Los datos son protegidos al ser encriptados durante su transmisión y transmitidos por un canal seguro.
+| Medida de respuesta | Ningún dato es comprometido durante el intento de ataque.
+|===

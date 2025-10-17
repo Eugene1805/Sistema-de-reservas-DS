@@ -1,14 +1,16 @@
+
+
 [cols="1,2", options="header"]
 |===
 | ID y descripción corta | QAS-07
-| Escenario | Garantiza la continuidad del registro de reservas ante fallas inesperadas de servidores.
-| Atributo | Disponibilidad
-| Preocupación del atributo | Confiabilidad del registro de reservas
-| Refinamiento del escenario | Si un servidor que gestiona las solicitudes de reservas se detiene inesperadamente, el sistema lo detecta en menos de 2 segundos, redirige automáticamente las peticiones a otro servidor activo y registra el incidente sin pérdida de datos.
-| Fuente del estímulo | Servidor del clúster de reservas
-| Estímulo | El servidor falla repentinamente durante la operación normal del sistema.
-| Ambiente | Durante condiciones normales de carga en una arquitectura distribuida con balanceador de carga y monitoreo activo.
-| Artefacto | Módulo de registro de reservas y componente de balanceo de carga.
-| Respuesta | El sistema detecta la falla, redirige las solicitudes al servidor activo más cercano y registra el evento en el sistema de monitoreo sin interrumpir el servicio.
-| Medida de respuesta | Falla detectada y redirigida en ≤ 2 segundos, disponibilidad ≥ 99.9% y pérdida de solicitudes ≤ 0.1%. (H,H)
+| Escenario | Garantizar la idempotencia de las transacciones de reservas y los pagos.
+| Atributo | Disponibilidad.
+| Preocupación del atributo | Confiabilidad de las transacciones de reservas y pagos.
+| Refinamiento del escenario | Un servidor recibe más de una vez la misma petición, pero solo procesa una vez la solicitud e ignora las demás.
+| Fuente del estímulo | El sistema cliente.
+| Estímulo | Envía por error más de una vez la misma petición.
+| Ambiente | Condiciones normales de operación.
+| Artefacto | El servidor.
+| Respuesta | Identifica la falla y procesa unicamente la primera petición descartando las demás.
+| Medida de respuesta | Lo maneja sin fallar el 99% de las veces.
 |===
