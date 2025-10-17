@@ -120,12 +120,11 @@ Cada solicitud modificativa incluirá `Idempotency-Key` en el encabezado.
 * Punto único de fallo (SPOF) - requiere configuración HA
 * Salto de red adicional que impacta latencia
 
-== Tarea 8: Descripción de Elementos Lógicos
+== Descripción de Elementos Lógicos
 
 La estructura lógica del sistema se organiza en los siguientes componentes principales:
 
-=== Paquete: Clients (Externo)
-
+=== Paquete: Clientes (Capa de Presentación)
 *Responsabilidad*::
 Aplicaciones orientadas al usuario:
 * Aplicación Web
@@ -145,25 +144,26 @@ Aplicaciones orientadas al usuario:
 * Aplicación de límites de tasa (rate limiting)
 * Terminación SSL
 
-=== Paquete: Business Services (Capa de Negocio)
+=== Paquete: Servicios de Negocio (Capa de Negocio)
 
 *Responsabilidad*::
 *Corazón del sistema* - contiene lógica de dominio y reglas de negocio
 
 *Servicios*::
-* `ReservationService`:: Orquesta proceso de reserva, políticas de precios, cancelaciones
-* `InventoryService`:: Gestiona disponibilidad de habitaciones, hoteles, lógica de overbooking
-* `PaymentService`:: Integración con pasarelas de pago externas
-* `HotelManagementService`:: Funcionalidad de backoffice para administración
+* `ServicioDeReservas`:: Orquesta proceso de reserva, políticas de precios, cancelaciones
+* `ServicioDeInventario`:: Gestiona disponibilidad de habitaciones, hoteles, lógica de overbooking
+* `ServicioDePago`:: Integración con pasarelas de pago externas
+* `ServicioDeGestiónHotelera`:: Funcionalidad de backoffice para administración
 
-=== Paquete: Infrastructure (Capa de Infraestructura/Datos)
+=== Paquete: Infraestructura (Capa de Infraestructura/Datos)
 
 *Responsabilidad*::
 Capacidades técnicas transversales
 
 *Componentes*::
-* `DataAccess`:: Implementa patrón Repositorio (ej. `IReservationRepository`, `SqlReservationRepository`)
-* `Messaging`:: Abstracción sobre Broker de mensajería para eventos (ej. `ReservationCreatedEvent`)
-* `SharedKernel`:: Elementos de dominio compartidos (ej. `Money`, `DateRange`, entidades transversales)
-// Add diagrams here
+* `Acceso a datos`:: Implementa patrón Repositorio (ej. `IReservaRepository`, `SqlReservaRepository`)
+* `Mensajería`:: Abstracción sobre Broker de mensajería para eventos (ej. `EventoCreadoPorReserva`)
+* `Kernel compartido`:: Elementos de dominio compartidos (ej. `Divisa`, `RangoDeFechas`, entidades transversales)
+
+image::logical-view.png[Diagrama de la Vista Lógica, width=700, align="center"]
 
