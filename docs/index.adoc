@@ -19,6 +19,9 @@ include::architecture/4+1/context.adoc[]
 === Stakeholders
 include::architecture/4+1/stakeholders.adoc[]
 
+== Metodo de Diseño
+include::architecture/4+1/add.adoc[]
+
 == Vistas 4+1
 
 === Vista Lógica

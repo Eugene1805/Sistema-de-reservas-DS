@@ -1,5 +1,3 @@
-=== ADD
-
 ==== Introducción
 
 A continuación, detallaremos el método de diseño que empleamos para derivar la arquitectura del Sistema de Gestión Hotelera. Principalmente nos enfocamos en los siguientes dos marcos de trabajo:
@@ -96,8 +94,6 @@ El hacer el modelado de interacciones fue fundamental para refinar las responsab
 La última fase consistió en formalizar los hallazgos de las fases anteriores en un conjunto de especificaciones concretas, cuyo resultado final es la Vista Lógica.
 
 * Especificación de Interfaces y Contratos: Se definieron las interfaces formales (los "contratos") para cada componente, detallando las operaciones, sus parámetros y los tipos de datos de retorno. Por ejemplo, se especificó la interfaz IServicioDeReservas con métodos como crearReserva(DetalleReserva) y cancelarReserva(idReserva), y la interfaz IServicioDePago con procesarPago(DetallePago).
-
 * Definición de Dependencias (Provistas/Requeridas): Se documentaron explícitamente las dependencias de cada componente. Por ejemplo, el componente ServicioDeReservas provee la interfaz IServicioDeReservas al resto del sistema (a través del API Gateway), pero requiere las interfaces IServicioDeInventario, IServicioDePago y IReservaRepository para poder cumplir con su funcionalidad.
-
 * Modelo de Información: Se especificaron las estructuras de datos clave que se intercambian entre los componentes, como los objetos DetalleReserva o RangoDeFechas, los cuales forman parte del Kernel Compartido.
 
