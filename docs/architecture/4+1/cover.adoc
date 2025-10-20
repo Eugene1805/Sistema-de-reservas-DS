@@ -19,8 +19,8 @@ Erickmel Vázquez López https://github.com/Erickvl22[@Erickvl22]
 == Historial de Versiones
 []
 |===
-| Versión | Fecha | Autores | Resumen de cambios significatiovs
+| Versión | Fecha | Autores | Resumen de cambios significativos
 
-| 1 | | |
+| 1 | 16/10/2025 | Arturo Agustín Cuevas Pérez, Eugenio Salvador González Sánchez, Erickmel Vázquez López | Definición de la arquitectura del sistema en cuanto a estilos arquitectónicos, patrones y modelo de despliegue.
 
 |===
