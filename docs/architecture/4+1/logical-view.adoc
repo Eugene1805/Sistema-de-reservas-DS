@@ -1,4 +1,4 @@
-== Introducción y Visión General de la Arquitectura
+=== Introducción y Visión General de la Arquitectura
 
 Esta sección describe la *Vista Lógica* del sistema, la cual define:
 
@@ -19,11 +19,11 @@ La combinación de estos enfoques busca crear un sistema que:
 * Sea lo suficientemente flexible para adaptarse a futuras plataformas (`CON-03`)
 * Garantice la integridad de cada transacción (`QAS-09`)
 
-== Justificación de Decisiones Arquitectónicas
+=== Justificación de Decisiones Arquitectónicas
 
 A continuación, se detallan las decisiones clave de diseño, justificando cómo responden a los drivers arquitectónicos más críticos.
 
-=== 1. Desempeño y Escalabilidad bajo Alta Concurrencia
+==== 1. Desempeño y Escalabilidad bajo Alta Concurrencia
 
 *Drivers*::
 Los escenarios `QAS-01`, `QAS-02`, `QAS-03` y `QAS-04` exigen:
@@ -50,7 +50,7 @@ Se implementará el **patrón Broker** a través de una cola de mensajes (Messag
 * Modelo de consistencia eventual
 * Confirmación de "reserva en proceso" antes de finalización total
 
-=== 2. Portabilidad y Evolución del Sistema
+==== 2. Portabilidad y Evolución del Sistema
 
 *Drivers*::
 * `QAS-08` y restricción `CON-03`
@@ -72,7 +72,7 @@ La capa de Negocio expone funcionalidad mediante **API RESTful** (enfoque SOA).
 * Incremento en latencia por comunicación en red
 * Requiere disciplina de diseño para evitar filtrado de lógica de negocio a capas de cliente
 
-=== 3. Fiabilidad y Consistencia Transaccional
+==== 3. Fiabilidad y Consistencia Transaccional
 
 *Drivers*::
 * `QAS-07` (idempotencia)
@@ -100,7 +100,7 @@ Cada solicitud modificativa incluirá `Idempotency-Key` en el encabezado.
 * Lógica de compensación compleja en Sagas
 * Overhead de almacenamiento y verificación de claves de idempotencia
 
-=== 4. Seguridad de Datos Sensibles
+==== 4. Seguridad de Datos Sensibles
 
 *Drivers*::
 * `QAS-05` y preocupación `CRN-01`
@@ -120,11 +120,11 @@ Cada solicitud modificativa incluirá `Idempotency-Key` en el encabezado.
 * Punto único de fallo (SPOF) - requiere configuración HA
 * Salto de red adicional que impacta latencia
 
-== Descripción de Elementos Lógicos
+=== Descripción de Elementos Lógicos
 
 La estructura lógica del sistema se organiza en los siguientes componentes principales:
 
-=== Paquete: Clientes (Capa de Presentación)
+==== Paquete: Clientes (Capa de Presentación)
 *Responsabilidad*::
 Aplicaciones orientadas al usuario:
 * Aplicación Web
@@ -135,7 +135,7 @@ Aplicaciones orientadas al usuario:
 * Consumo de API pública del sistema
 * *No contienen lógica de negocio*
 
-=== Paquete: API Gateway
+==== Paquete: API Gateway
 
 *Responsabilidad*::
 * Fachada del sistema
@@ -144,7 +144,7 @@ Aplicaciones orientadas al usuario:
 * Aplicación de límites de tasa (rate limiting)
 * Terminación SSL
 
-=== Paquete: Servicios de Negocio (Capa de Negocio)
+==== Paquete: Servicios de Negocio (Capa de Negocio)
 
 *Responsabilidad*::
 *Corazón del sistema* - contiene lógica de dominio y reglas de negocio
@@ -155,7 +155,7 @@ Aplicaciones orientadas al usuario:
 * `ServicioDePago`:: Integración con pasarelas de pago externas
 * `ServicioDeGestiónHotelera`:: Funcionalidad de backoffice para administración
 
-=== Paquete: Infraestructura (Capa de Infraestructura/Datos)
+==== Paquete: Infraestructura (Capa de Infraestructura/Datos)
 
 *Responsabilidad*::
 Capacidades técnicas transversales
