@@ -22,5 +22,5 @@ Erickmel Vázquez López https://github.com/Erickvl22[@Erickvl22]
 | Versión | Fecha | Autores | Resumen de cambios significativos
 
 | 1 | 16/10/2025 | Arturo Agustín Cuevas Pérez, Eugenio Salvador González Sánchez, Erickmel Vázquez López | Definición de la arquitectura del sistema en cuanto a estilos arquitectónicos, patrones y modelo de despliegue.
-
+| 2 | 19/10/2025 | Arturo Agustín Cuevas Pérez, Eugenio Salvador González Sánchez, Erickmel Vázquez López | Se documentaron las Restricciones y Preocupaciones (Sección 6.5.3 y 6.5.2 respectivamente). Se redactó la sección 7 "Método de diseño", explicando el proceso racional basado en ADD y CBSE. Se añadió la "Vista Lógica" (Sección 8.1) con su diagrama y justificación de patrones. Por último, se incorporó el "Modelo de conceptos de negocio" con su diagrama de clases UML.
 |===
