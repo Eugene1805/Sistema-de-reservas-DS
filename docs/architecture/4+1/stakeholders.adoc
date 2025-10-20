@@ -22,42 +22,74 @@
 - Equipo de análisis de datos
 - Equipo de diseño
 
+
 ==== Preocupaciones de los stakeholders
 
 Lista de preocupaciones de los stakeholders
-[]
+[cols="1,2", options="header"]
 |===
-| CRN-01 | Se deben proteger los datos sensible de los clientes (PII)
-| CRN-02 | Se debe asegurar que no existan pagos dobles
-|===
+| ID | Preocupación
 
-- Precios dinamicos
-- Trazabilidad de las operaciones (Auditoria)
-- Evitar dobles reservas
-- Asegurar el pago una sola vez
-- Respetar el precio mostrado al cliente [Transaccional]
-- Proteger los datos sensibles de los clientes [Seguridad]
-- Reservar en menos de cinco clics [Usabilidad]
+| CRN-01 | Se deben proteger los datos sensibles de los clientes (PII).
+| CRN-02 | Se debe asegurar que no existan pagos dobles o inconsistentes.
+| CRN-03 | El sistema debe garantizar la disponibilidad continua durante operaciones críticas de reserva y pago.
+| CRN-04 | Las reservas deben ser procesadas en menos de 5 clics.
+| CRN-05 | El sistema debe asegurar la trazabilidad de todas las operaciones (auditoría).
+| CRN-06 | Los precios mostrados al cliente deben ser consistentes con el cobro final.
+| CRN-07 | El sistema debe prevenir la doble reserva de una misma habitación.
+| CRN-08 | El sistema debe permitir el manejo controlado de overbooking (hasta 10%).
+| CRN-09 | Los pagos deben procesarse de forma segura, evitando fugas de información.
+| CRN-10 | Los servicios externos (PayPal, pasarelas de pago) deben integrarse sin comprometer la seguridad ni el rendimiento.
+| CRN-11 | La arquitectura debe permitir la escalabilidad a nuevos canales (web, móvil, escritorio).
+| CRN-12 | Debe existir un registro histórico de cambios, transacciones y errores.
+| CRN-13 | El sistema debe ser modular para permitir su mantenimiento y evolución.
+| CRN-14 | La interfaz debe ser intuitiva para personal no técnico.
+| CRN-15 | Se debe garantizar la consistencia de datos entre reservas, pagos y disponibilidad.
+| CRN-16 | El sistema debe permitir recuperación ante fallos del servidor o la base de datos.
+| CRN-17 | Se deben cumplir las políticas internas y leyes de protección de datos.
+| CRN-18 | Los componentes deben ser reutilizables entre los diferentes canales.
+| CRN-19 | Las políticas y tarifas deben poder actualizarse sin afectar otras funciones.
+| CRN-20 | La documentación del sistema debe mantenerse accesible, trazable y actualizada.
+|===
 
 
 ==== Restricciones
 
-==== Restricciones tecnicas
+==== Restricciones técnicas
 
-[]
+[cols="1,2", options="header"]
 |===
-| CON-01 | Un minimo de 5,000 hoteles deben ser soportados
-| CON-02 | Un minimo de 1,000,000 habitaciones deben ser soportadas
-| CON-03 | El sistema debe poder ser accesible desde un navegador web en diferentes plataformas (Windows, Linux MacOs) y desde una aplicacion movil en diferentes plataformas (IOS, Android)
-| CON-04 | El sistema debe utilizar una base de datos relacionar para gestionar las reservas y la informacion de los clientes
-| CON-05 |
+| ID | Restricción Técnica
+
+| CON-01 | La solución debe desarrollarse sobre la plataforma .NET Framework 4.7.2 utilizando WCF para la comunicación cliente-servidor.
+| CON-02 | Se debe utilizar Entity Framework 6 (Model-First) conectado a SQL Server Developer Edition.
+| CON-03 | La interfaz de usuario debe implementarse en WPF (Windows Presentation Foundation).
+| CON-04 | El sistema debe operar bajo un esquema cliente-servidor local con servicios WCF auto-hosteados o en IIS.
+| CON-05 | Se usará autenticación SQL Server, no autenticación de Windows.
+| CON-06 | Todo el sistema debe desarrollarse en C#.
+| CON-07 | La arquitectura debe ser multicapa (UI, BLL, DAL, Service).
+| CON-08 | Toda la documentación debe realizarse en AsciiDoc y publicarse desde GitHub Pages.
+| CON-09 | La comunicación entre cliente y servicio debe realizarse mediante contratos WCF (SOAP).
+| CON-10 | Se debe garantizar compatibilidad con al menos 5,000 hoteles y 1,000,000 habitaciones.
+| CON-11 | El sistema debe utilizar una base de datos relacional para gestionar reservas, clientes y pagos.
+| CON-12 | El sistema debe garantizar respuesta óptima para 500 usuarios concurrentes en picos de carga.
+| CON-13 | No se permitirá dependencia con servicios en la nube (debe funcionar localmente).
+| CON-14 | Los datos personales deben almacenarse cifrados según las políticas de seguridad definidas.
+| CON-15 | El sistema debe soportar múltiples formas de pago (tarjeta, PayPal, otros métodos).
 |===
 
 
 ==== Restricciones organizacionales (Leyes y regulaciones)
 
--
--
+- Cumplir con la legislación nacional e internacional de protección de datos personales (por ejemplo, Ley Federal de Protección de Datos Personales en Posesión de los Particulares).
+- Cumplir con las políticas internas de seguridad definidas por la organización.
+- Cumplir con las normativas aplicables a la gestión de pagos electrónicos y antifraude.
+- Mantener trazabilidad de transacciones y operaciones para auditorías internas y externas.
 
-==== Otras
--
+
+==== Otras restricciones
+
+- La arquitectura debe facilitar el mantenimiento evolutivo del sistema sin rediseño completo.
+- El código fuente y la documentación deben mantenerse en repositorios Git centralizados.
+- Las dependencias externas (librerías, frameworks) deben estar aprobadas por el equipo académico o de seguridad.
+- El sistema debe permitir su ejecución tanto en entornos de desarrollo como en laboratorio sin requerir infraestructura adicional.

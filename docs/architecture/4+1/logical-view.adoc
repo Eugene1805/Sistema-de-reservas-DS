@@ -167,3 +167,6 @@ Capacidades técnicas transversales
 
 image::logical-view.png[Diagrama de la Vista Lógica, width=700, align="center"]
 
+==== Modelo de Conceptos de negocio 
+image::ConceptosDeNegocio.png[Modelo de Conceptos de Negocio, width=700, align="center"]
+
