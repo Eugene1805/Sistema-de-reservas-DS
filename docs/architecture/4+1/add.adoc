@@ -1,21 +1,99 @@
-=== ADD
-
 ==== Introducción
 
-Para garantizar que el diseño respondiera directamente a los impulsores de negocio y a los atributos de calidad más críticos, se adoptó un enfoque metodologico que combina dos prácticas : Attribute-Driven Desing (ADD) y Component-Based Software Engineering (CBSE)
+A continuación, detallaremos el método de diseño que empleamos para derivar la arquitectura del Sistema de Gestión Hotelera. Principalmente nos enfocamos en los siguientes dos marcos de trabajo:
 
-==== Identificación y Priorizicación de Drivers Arquitectónicos
-El backlog de los drivers se elaboró a partir del análisis de las secciones de
-"Visión del Sistema", "Alcance" y "Requisitos" del presente documento, así como del árbol de utilidad y de los escenarios de calidad desarrolados. Se seleccionaron únicamente los requisitos con impacto significativo en la estructura del sistema, es decir, solo aquellos que, de no ser atendidos, generarían una arquitectura totalmente distinta.
+* ADD (Attribute-Driven Design): Se utilizó como el método principal para definir la arquitectura del sistema; partimos de los drivers arquitectónicos más críticos (escenarios de calidad (QAs), preocupaciones de los stakeholders y restricciones) para seleccionar los estilos y patrones arquitectónicos que conforman la estructura fundamental del sistema.
 
-- Drivers Funcionales: Consideramos aquellos casos de uso que representan el núcleo operativo del negocio hotelero, es decir, los que conectan de forma directa con los objetivos de negocio con las operacciones transaccionales del sistem
+* CBSE (Component Based Software Engineering): Se utilizó para el diseño detallado de los elementos lógicos una vez establecida la estructura general. Partiendo de los casos de uso, este método nos guio a través de la identificación de componentes, la definición de sus interacciones y la especificación formal de sus interfaces y contratos.
 
-|===
-| ID | Caso de uso | Relevancia Arquitectónica |
+==== Proceso de diseño ADD:
+El proceso de diseño se estructuró en iteraciones, cada una enfocada en un conjunto coherente de drivers arquitectónicos. En la primera iteración tuvimos como objetivo establecer la estructura fundamental del sistema, seleccionando los patrones y estilos que nos permitieran satisfacer los atributos de calidad de más alto impacto y las restricciones del proyecto.
 
-| CU-01 | Hacer reservación | Es nuestro flujo central del negocio |
-| CU-02 | Consultar disponibilidad | Operación con alta frecuencia, y necesidad de respuesta en tiempo real |
-| CU-03 | Hacer pago con tarjeta / PayPal/ Método alternativo | |
-| CU-06 | Check-in / Check-out | |
+==== Iteración 1: Abordar los Drivers Críticos
 
-|===
+El objetivo principal de esta iteración fue definir una arquitectura base que respondiera simultáneamente a los siguientes impulsores, los cuales consideramos los de mayor prioridad por su impacto directo en los objetivos del negocio:
+
+* *Desempeño y Escalabilidad*: Más allá de la simple rapidez, consideramos que este driver es fundamental para la experiencia del usuario y la conversión de ventas, porque un sistema lento durante la consulta de disponibilidad (QAS-01) o la confirmación de una reserva (QAS-02, QAS-03) conduciría directamente al abandono del proceso y a la pérdida de ingresos. Por lo tanto, sonsideramos que la arquitectura debe ser inherentemente capaz de gestionar cargas de trabajo variables y picos de demanda estacionales.
+
+* *Fiabilidad y Consistencia Transaccional*: Buscamos garantizar la atomicidad de las operaciones para evitar a toda costa dobles reservas y cobros duplicados (QAS-09, CRN-02), así como la idempotencia de las transacciones (QAS-07).
+
+* *Portabilidad*: Permitir que el sistema sea accedido desde múltiples tipos de clientes (navegadores web y aplicaciones móviles nativas) con un esfuerzo de adaptación mínimo (QAS-08, CON-03).
+
+* *Seguridad*: Proteger la Información Personalmente Identificable (PII) de los huéspedes y asegurar que solo usuarios autorizados accedan a la información (QAS-05, CRN-01).
+
+* *Mantenibilidad*: Facilitar la evolución del sistema y la adición de nuevas funcionalidades a futuro sin requerir modificaciones extensivas.
+
+===== Decisiones Arquitectónicas y Tácticas Aplicadas
+
+Para satisfacer este conjunto de drivers, se tomaron las siguientes decisiones fundamentales:
+
+* *Adopción del Estilo de Arquitectura en Capas*: Como respuesta directa al requisito de Portabilidad (QAS-08), decimimos seleccionar una arquitectura en capas, con esta decisión establecimos una separación estricta de responsabilidades:
+
+** Capa de Presentación: Que contendría a los clientes (aplicación web y móvil) que interactuarían con el usuario.
+
+** Capa de Negocio: Encapsularía toda la lógica de dominio y las reglas de negocio.
+
+** Capa de Datos/Infraestructura: Gestionaría la persistencia y la comunicación con sistemas externos. Este desacoplamiento es la táctica clave que nos permitiría desarrollar o adaptar nuevos clientes sin impactar la lógica central del sistema, cumpliendo así con la restricción CON-03.
+
+* *Enfoque Orientado a Servicios (SOA) en la Capa de Negocio*: Para fomentar la Mantenibilidad y la cohesión, decidimos organizar la capa de negocio siguiendo un enfoque orientado a servicios. Identificamos dominios de responsabilidad claros, como ServicioDeReservas, ServicioDeInventario y ServicioDePago, lo que nos permitiría que cada servicio evolucionaría de forma independiente. Por ejemplo, si el negocio decidiese integrar una nueva pasarela de pago, solo el componente ServicioDePago necesitaría ser modificado, sin riesgo de introducir efectos secundarios en la lógica de gestión de inventario o de perfiles de usuario.
+
+* *Implementación del Patrón Broker para Comunicación Asíncrona*: Para cumplir con los requisitos de Desempeño (QAS-02), decidimos desacoplar las operaciones de larga duración del flujo principal de solicitud-respuesta. Para esto adoptamos el patrón Broker mediante una cola de mensajes (Message Queue). Por ejemplo, cuando un usuario confirmara una reserva, el sistema realizaría validaciones rápidas, encolaría una serie de eventos y respondería inmediatamente al usuario. Dentro de dichos eventos, los servicios workers especializados serían los encargados de escucharlos y procesarían la confirmación, el pago y las notificaciones de manera asíncrona, lo que mejoraría drásticamente la latencia percibida por los usuarios durante los picos de tráfico.
+
+* *Uso del Patrón Saga para la Consistencia Transaccional*: Dado que una reserva involucra a múltiples servicios distribuidos (Inventario, Pagos y Reservas), una transacción de base de datos tradicional no sería viable. Por lo tanto, decidimos seleccionar el patrón Saga para orquestar las transacciones. Dicho patrón, nos permitiría asegurar que la secuencia de operaciones locales (retener inventario, procesar pago y confirmar reserva) se completaran en su totalidad o si una de ellas fallara, se ejecutaran las operaciones de compensación correspondientes para revertir la transacción y mantener el sistema en un estado consistente, garantizando la integridad de los datos del sistema.
+
+* *Introducción de un API Gateway*: Para centralizar la gestión de la Seguridad (QAS-05) y simplificar la comunicación desde los clientes, decidimos adoptar el patrón API Gateway. Este componente actúa como la única fachada del sistema, siendo responsable de terminar las conexiones SSL/TLS, validar los tokens de autenticación y autorización, y aplicar políticas de control de tráfico, para prevenir abusos y enrutar las peticiones al servicio interno correspondiente. Esto nos evita el tener que duplicar la lógica de seguridad en cada uno de los servicio de negocio y simplificaría el desarrollo de los clientes, que solo necesitan conocer un único punto de entrada.
+
+
+*¿Iteración suficiente?*
+Esta primera iteración de diseño la consideramos "suficiente" porque el conjunto de decisiones que tomamos nos permitió establecer el "esqueleto" de la arquitectura. La combinación de Capas, SOA, API Gateway, Broker y Sagas abordaron de manera explícita todos los drivers de alta prioridad, proporcionando una base sólida sobre la cual podríamos proceder al diseño detallado de los componentes internos. Las decisiones que describimos definen la estructura que rige el comportamiento global del sistema frente a sus requisitos más desafiantes.
+
+==== Iteración 2: Refinamiento de las Capas de Negocio y Datos
+Habiendo definido arquitectura en la iteración anterior, en esta segunda iteración de diseño nos centramos en refinar la estructura interna de las capas de Negocio e Infraestructura. Todo con el objetivo de establecer los principios y patrones que gobernarían la interacción de los servicios con la capa de persistencia y la gestión de conceptos de dominio comunes, principalmente para garantizar un alto grado de mantenibilidad a largo plazo y de adherirse a las restricciones del negocio.
+
+===== Decisiones Arquitectónicas y Tácticas aplicadas
+* *Adopción del Patrón Repository*: Uno de los principales desafios que tuvimos por resolver fue el de cómo cumplir con la restricción CON-04 sin violar el principio de separación de capas, es decir, sin acoplar fuertemente la lógica de negocio a la tecnología de base de datos. Ante este problema, nuestra solución fue aplicar la táctica de Abstracción de Persistencia a través del patrón Repository, el cual media entre el dominio y las capas de mapeo de datos, actuando como una colección de objetos de dominio en memoria.
+
+** Definición de Interfaces en la Capa de Negocio: Primero, definimos interfaces agnósticas a la tecnología dentro de la capa de negocio (por ejemplo, IReservaRepository o IInventarioRepository), estas interfaces expondrían métododos basados en el lenguaje del dominio, como buscarPorId(id) o guardar(reserva), sin revelar ningún detalle sobre SQL o tablas.
+
+** Implementación Concreta en la Capa de Infraestructura: Posteriormente, en la Capa de Infraestructura, decidimos crear las clases que implementarían estas interfaces (por ejemplo, SqlReservaRepository o SqlInventarioRepository), estas clases contendrían todo el código específico de la base de datos, como sentencias SQL, manejo de conexiones y traducción de objetos de dominio a registros de tablas y viceversa.
+
+** Impacto y Beneficios: Consideramos que esta separación es fundamental, ya que permitiría que el ServicioDeReservas dependa únicamente de la interfaz IReservaRepository, no de la clase SqlReservaRepository. Esto nos permitiría cambiar el motor de base de datos a otro RDBMS simplemente creando una nueva implementación de la interfaz, sin realizar un solo cambio en la lógica de negocio.
+
+* *Identificación de un Kernel Compartido (Shared Kernel)*: Durante el refinamiento de los servicios SOA, se nos hizo evidente que conceptos fundamentales del dominio eran requeridos por múltiples servicios. Por ejemplo, tanto el ServicioDeReservas como el ServicioDeInventario necesitaban operar con el concepto de un Rango de fechas. Por lo tanto, para evitar la duplicación de código decidimos crear un paquete de Kernel Compartido.
+
+** Contenido y Propósito: Este paquete centralizado contendría los elementos de dominio que serían transversales para todo el sistema. En nuestro diseño, esto incluiría las definiciones de Divisa, Rango de fechas y potencialmente otras entidades o tipos de valor compartidos. Asegurandonos de no contener la lógica de negocio, solo las definiciones y estructuras de datos comunes.
+
+** Impacto y Beneficios: El Shared Kernel nos aseguraría una consistencia semántica en todo el sistema, garantizando que todos los servicios "hablen" el mismo lenguaje y manipulen los mismos objetos de valor para los conceptos de dominio fundamentales, eliminando la ambigüedad y el riesgo de errores de integración entre servicios.
+
+*¿Iteración suficiente?*
+Consideramos que esta iteración se consideró "suficiente" una vez que definimos los mecanismos de abstracción (Repository) y de compartición de código (Kernel), con la lógica de negocio formalmente aislada de las preocupaciones de la base de datos y con un mecanismo claro para manejar los conceptos de dominio comunes, el diseño arquitectónico de alto nivel quedó completo.
+
+==== Proceso de Diseño CBSE: Especificación de Componentes e Interfaces
+Una vez que establecimos la arquitectura mediante ADD, comenzamos a aplicar CBSE para refinar y detallar los elementos lógicos del sistema, el cual nos permitiría transitar desde la estructura de alto nivel hacia una especificación concreta de los componentes, sus responsabilidades y los contratos que rigen su colaboración, asegurando que toda la funcionalidad descrita en los casos de uso fuera correctamente implementada. El proceso se dividió en las tres fases propuestas por Cheesman & Daniels.
+
+===== Fase de Identificación (Identification)
+El primer paso consistió en identificar los componentes candidatos que poblarían la Capa de Negocio. Esta identificación se basó en dos fuentes primarias de información:
+
+* Modelo de Conceptos de Negocio: Los conceptos clave del dominio, como Reservación, Hotel, Habitación, Huésped y Pago, nos llevaron a deducir la necesidad de encapsular la lógica relacionada con cada uno en componentes de software, esto dio origen a la concepción inicial de servicios como el ServicioDeReservas o el ServicioDePago.
+
+* Análisis de Casos de Uso: Decidimos agrupar los casos de uso por afinidad funcional para descubrir responsabilidades compartidas. Por ejemplo, el conjunto de casos de uso relacionados con la administración del inventario (CU-17 a CU-27), como Registrar hotel o Registrar Habitación, justifican la existencia de un ServicioDeGestiónHotelera y un ServicioDeInventario. De manera similar, los casos de uso del flujo de reserva (CU-01 a CU-05) consolidaron la necesidad de los componentes de ServicioDeReservas y ServicioDePago.
+
+===== Fase de Interacción (Interaction)
+Con los componentes identificados, en la siguiente fase nos centramos en definir cómo interactuarían entre sí para satisfacer los flujos de trabajo descritos en los casos de uso.
+
+El ejemplo más representativo es la operación crearReserva, derivada del caso de uso CU-01: Hacer reservación. Al hacer el análisis de su flujo normal nos dimos cuenta de una complejidad de interacciones que atraviesan múltiples componentes, lo que reforzó la decisión que tomamos de usar el patrón Saga:
+
+* La solicitud inicial llega al ServicioDeReservas.
+* Este servicio, actuando como orquestador de la saga, invoca a ServicioDeInventario para verificar la disponibilidad y retener una habitación.
+* Si el paso anterior tiene éxito, ServicioDeReservas invoca a ServicioDePago para procesar la transacción financiera.
+* Finalmente, si el pago es exitoso, se confirma la reserva, actualizando el estado en la base de datos a través de su repositorio.
+
+El hacer el modelado de interacciones fue fundamental para refinar las responsabilidades de cada componente y, más importante aún, para empezar a definir las operaciones exactas que cada interfaz debía exponer, permitiendo visualizar las dependencias y el flujo de datos entre los servicios.
+
+===== Fase de Especificación (Specification)
+La última fase consistió en formalizar los hallazgos de las fases anteriores en un conjunto de especificaciones concretas, cuyo resultado final es la Vista Lógica.
+
+* Especificación de Interfaces y Contratos: Se definieron las interfaces formales (los "contratos") para cada componente, detallando las operaciones, sus parámetros y los tipos de datos de retorno. Por ejemplo, se especificó la interfaz IServicioDeReservas con métodos como crearReserva(DetalleReserva) y cancelarReserva(idReserva), y la interfaz IServicioDePago con procesarPago(DetallePago).
+* Definición de Dependencias (Provistas/Requeridas): Se documentaron explícitamente las dependencias de cada componente. Por ejemplo, el componente ServicioDeReservas provee la interfaz IServicioDeReservas al resto del sistema (a través del API Gateway), pero requiere las interfaces IServicioDeInventario, IServicioDePago y IReservaRepository para poder cumplir con su funcionalidad.
+* Modelo de Información: Se especificaron las estructuras de datos clave que se intercambian entre los componentes, como los objetos DetalleReserva o RangoDeFechas, los cuales forman parte del Kernel Compartido.
+
