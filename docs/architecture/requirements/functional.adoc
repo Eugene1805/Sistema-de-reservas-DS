@@ -41,7 +41,7 @@
 | CU-31 | Consultar gerente | Administrador | Permite consultar información de gerentes. | Rendimiento, Disponibilidad
 | CU-32 | Dar de baja gerente | Administrador | Permite eliminar el registro de un gerente. | Seguridad, Disponibilidad
 | CU-33 | Registrar recepcionista | Gerente | Permite dar de alta a un recepcionista. | Seguridad, Disponibilidad
-| CU-34 | Consultar recepcionistas | Gerente | Permite consultar información de recepcionistas. | Rendimiento, Disponibilidad
+| CU-34 | Consultar recepcionista | Gerente | Permite consultar información de un recepcionista. | Rendimiento, Disponibilidad
 | CU-35 | Dar de baja recepcionista | Gerente | Permite eliminar el registro de un recepcionista. | Seguridad, Disponibilidad
 |===
 
@@ -58,7 +58,7 @@ include::use-cases/cu-09-registrar-servicio-de-consumo.adoc[]
 include::use-cases/cu-10-iniciar-sesión.adoc[]
 include::use-cases/cu-11-registrar-política.adoc[]
 include::use-cases/cu-12-actualizar-política.adoc[]
-//include::use-cases/cu-13-registrar-tarifa.adoc[]
+include::use-cases/cu-13-registrar-tarifa.adoc[]
 include::use-cases/cu-14-actualizar-tarifa.adoc[]
 include::use-cases/cu-15-actualizar-tarifa-de-cuota.adoc[]
 include::use-cases/cu-16-actualizar-tarifa-de-insumo.adoc[]
@@ -67,14 +67,13 @@ include::use-cases/cu-18-consultar-hotel.adoc[]
 include::use-cases/cu-19-actualizar-hotel.adoc[]
 include::use-cases/cu-20-dar-de-baja-hotel.adoc[]
 include::use-cases/cu-21-registrar-tipo-de-habitación.adoc[]
-//include::use-cases/cu-22-actualizar-tipo-de-habitación.adoc[]
+include::use-cases/cu-22-actualizar-tipo-de-habitación.adoc[]
 include::use-cases/cu-23-registrar-habitación.adoc[]
 include::use-cases/cu-24-consultar-habitación.adoc[]
 include::use-cases/cu-25-actualizar-habitacion.adoc[]
 include::use-cases/cu-26-dar-de-baja-habitación.adoc[]
 include::use-cases/cu-27-hacer-mapa-del-hotel.adoc[]
 include::use-cases/cu-28-registrar-huésped.adoc[]
-
 include::use-cases/cu-29-consultar-huésped.adoc[]
 include::use-cases/cu-30-registrar-gerente.adoc[]
 include::use-cases/cu-31-consultar-gerente.adoc[]

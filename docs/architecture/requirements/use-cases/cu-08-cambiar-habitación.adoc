@@ -12,8 +12,8 @@
 | Flujo normal |
 1.- El sistema recupera y muestra las habitaciones disponibles. (Ver FA 1.1) (Ver EX 3) +
 2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
-3.- Extiende al CU- Hacer check-out +
-4.- Extiende al CU- Hacer check-in +
+3.- Include al CU- Hacer check-out +
+4.- Include al CU- Hacer check-in +
 5.- Termina el caso de uso.
 | Flujos alternos |
 FA 1.1 El sistema no cuenta con habitaciones disponibles +
