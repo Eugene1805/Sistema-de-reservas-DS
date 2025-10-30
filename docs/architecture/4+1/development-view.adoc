@@ -7,9 +7,9 @@ image::FullComponentDiagram.png[width=600,alt=Diagrama de componentes completo]
 
 ==== Diagramas de componentes detallados
 
-image::HotelMgrComponent.png[width=600,alt=Diagrama de componentes de HotelMgr]
-image::HuéspedMgrComponent.png[width=600,alt=Diagrama de componentes de HuéspedMgr]
-image::MétodoPagoMgrComponent.png[width=600,alt=Diagrama de componentes de MétodoPagoMgr]
+image::HotelMgrComponent.png[width=400,alt=Diagrama de componentes de HotelMgr]
+image::HuéspedMgrComponent.png[width=400,alt=Diagrama de componentes de HuéspedMgr]
+image::MétodoPagoMgrComponent.png[width=400,alt=Diagrama de componentes de MétodoPagoMgr]
 image::SistemaDeReservaciónComponent.png[width=600,alt=Diagrama de componentes de SistemaDeReservación]
 image::SistemaDeGestiónDeEstanciaComponent.png[width=600,alt=Diagrama de componentes de SistemaDeGestiónDeEstancia]
 image::SistemaDePagosComponent.png[width=600,alt=Diagrama de componentes de SistemaDePagos]

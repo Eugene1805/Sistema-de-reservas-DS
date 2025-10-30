@@ -4,25 +4,64 @@
 | ID | CU-08
 | Nombre | Cancelar reservación
 | Autor | Eugenio Salvador González Sánchez
-| Fecha de actualización | 03 de octubre de 2025
-| Descripción | El recepcionista realiza un cambio de habitación durante la estancia del huésped.
+| Fecha de actualización | 30 de octubre de 2025
+| Descripción | Permite al huésped o al recepcionista cancelar una reservación vigente de una habitación, aplicando la política de cancelación correspondiente y gestionando los cargos o reembolsos según aplique.
 | Actor(es) | Huésped, Recepcionista
-| Disparador | El recepcionista busca al huésped y da clic en cambiar
-| Precondiciones | PRE-01 El huésped ha hecho check-in en el hotel correspondiente
+| Disparador | El actor abre el detalle de la reservación y selecciona la opción "Cancelar reservación".
+| Precondiciones |
+PRE-01 Existe una reservación vigente en estado "Confirmada" para el huésped. +
+PRE-02 Si el actor es huésped, debe estar autenticado (o proporcionar código de reservación y correo electrónico para validación). +
+PRE-03 La reservación no debe tener check-in registrado.
 | Flujo normal |
-1.- El sistema recupera y muestra las habitaciones disponibles. (Ver FA 1.1) (Ver EX 3) +
-2.- El recepcionista selecciona la nueva habitación a donde va a cambiarse el huésped +
-3.- Include al CU- Hacer check-out +
-4.- Include al CU- Hacer check-in +
-5.- Termina el caso de uso.
+1.- El sistema muestra el detalle de la reservación, incluyendo la política de cancelación y los posibles cargos o reembolsos aplicables. (Ver FA-01) +
+2.- El actor da clic en el botón "Cancelar reservación". (Ver FA-02) (Ver FA-03) +
+3.- El sistema calcula el cargo por cancelación y, en su caso, el monto a reembolsar conforme a la política vigente del hotel. +
+4.- El sistema muestra un resumen de cancelación con: datos de la reservación, política aplicada, cargo/reembolso y medio por el cual se realizará el reembolso. (Ver FA-04) +
+5.- El actor confirma la cancelación. +
+6.- El sistema valida que la reservación no tenga check-in ni estancias activas y procede a cancelar, libera la habitación y registra la cancelación en la base de datos. (Ver FA-05) (Ver EX-01) +
+7.- Si aplica reembolso, el sistema solicita a la pasarela de pago ejecutar el reembolso al método original de pago. (Ver EX 4) +
+8.- El sistema envía una confirmación de cancelación al correo del huésped con el folio y el detalle de cargos/reembolsos. +
+9.- Termina el caso de uso.
 | Flujos alternos |
-FA 1.1 El sistema no cuenta con habitaciones disponibles +
-1.- El sistema muestra el mensaje "No quedan habitaciones disponbles" +
-2.- Termina el caso de uso.
+FA-01. Huésped no autenticado. +
+	1.- El sistema solicita el código de reservación y el correo electrónico asociados. +
+	2.- El huésped ingresa los datos solicitados. +
+	3.- El sistema valida los datos y, si son correctos, muestra el detalle de la reservación. +
+	4.- Regresa al paso 1 del flujo normal. +
+FA-02. El actor decide no continuar con la cancelación. +
+	1.- El sistema muestra un diálogo de confirmación. +
+	2.- El actor da clic en "Cancelar" en el diálogo. +
+	3.- Termina el caso de uso. +
+FA-03. Reserva no reembolsable o fuera del periodo de cancelación gratuita. +
+	1.- El sistema informa que aplica penalización conforme a la política del hotel. +
+	2.- El actor decide continuar o desistir. +
+	3.- Si desiste, termina el caso de uso; si continúa, prosigue en el paso 5 del flujo normal. +
+FA-04. El actor regresa desde el resumen. +
+	1.- El actor da clic en "Regresar". +
+	2.- El sistema vuelve a mostrar el detalle de la reservación. +
+	3.- Regresa al paso 1 del flujo normal. +
+FA-05. La reservación ya tiene check-in registrado. +
+	1.- El sistema informa que no es posible cancelar una reservación con check-in realizado. +
+	2.- El sistema sugiere realizar el proceso de check-out (Ver CU-07 Hacer check-out) o contactar a recepción. +
+	3.- Termina el caso de uso.
 | Excepciones |
-EX 3 - El sistema no puede conectarse a la base de datos +
-1.- El sistema muestra un mensaje de error y solicita al huésped intentar nuevamente más tarde. +
+EX-01. No hay conexión con la base de datos. +
+1.- El sistema muestra un mensaje de error y solicita al actor intentar nuevamente más tarde. +
+2.- Termina el caso de uso. +
+EX-02. La pasarela de pago rechaza o no permite el reembolso. +
+1.- El sistema muestra un mensaje de error indicando que el reembolso no pudo procesarse en ese momento. +
+2.- El sistema registra la reservación como "Cancelada con reembolso pendiente" y notifica al área correspondiente para gestión manual. +
+3.- Termina el caso de uso. +
+EX-03. La reservación no existe o ya fue cancelada. +
+1.- El sistema muestra un mensaje informando la situación. +
 2.- Termina el caso de uso.
-| Postcondiciones | POST-01 El huésped hace check-out de la antigua habitación y hace check-in en la nueva
+| Postcondiciones |
+POST-01 La reservación queda cancelada en el sistema y la habitación es liberada. +
+POST-02 Se registran los cargos por cancelación y, si aplica, se emite el reembolso al medio de pago original o se deja en estado pendiente si falló la pasarela.
 | Reglas de negocio |
+RN-01.- La aplicación de cargos o reembolsos por cancelación se rige por las políticas del hotel registradas y vigentes. (Ver CU-11 Registrar política y CU-12 Actualizar política) +
+RN-02.- No se permite la cancelación de reservaciones con check-in registrado. +
+RN-03.- En reservaciones no reembolsables, la penalización es del 100% del monto pagado. +
+RN-04.- En cancelaciones tardías, se cobra la penalización definida por la política (por ejemplo, primera noche o porcentaje del total). +
+RN-05.- El reembolso, cuando aplique, debe realizarse por el mismo medio de pago utilizado en la compra original.
 |===
