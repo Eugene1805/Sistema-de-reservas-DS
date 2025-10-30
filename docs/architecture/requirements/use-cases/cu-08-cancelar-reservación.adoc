@@ -1,12 +1,12 @@
-==== CU-08 Cambiar habitación
+==== CU-08 Cancelar reservación
 
 |===
 | ID | CU-08
-| Nombre | Cambiar habitación
+| Nombre | Cancelar reservación
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 03 de octubre de 2025
 | Descripción | El recepcionista realiza un cambio de habitación durante la estancia del huésped.
-| Actor(es) | Recepcionista
+| Actor(es) | Huésped, Recepcionista
 | Disparador | El recepcionista busca al huésped y da clic en cambiar
 | Precondiciones | PRE-01 El huésped ha hecho check-in en el hotel correspondiente
 | Flujo normal |

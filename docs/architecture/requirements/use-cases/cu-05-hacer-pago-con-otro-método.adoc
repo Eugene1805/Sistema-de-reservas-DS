@@ -1,8 +1,8 @@
-==== CU-05 Hacer pago con otro metodo de pago
+==== CU-05 Hacer pago con otro método de pago
 
 |===
 | ID | CU-05
-| Nombre | Hacer pago con otro metodo de pago
+| Nombre | Hacer pago con otro método de pago
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 02 de octubre de 2025
 | Descripción | El huésped realiza el pago completo de la reservación mediante otro método de pago distinto a tarjeta o PayPal.

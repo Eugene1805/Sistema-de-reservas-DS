@@ -1,0 +1,18 @@
+==== Vista de implementación
+
+Esta vista describe la organización del software en módulos y componentes, así como las relaciones entre ellos. Se enfoca en la estructura estática del sistema desde la perspectiva de los desarrolladores.
+
+==== Diagrama de componentes
+image::images/FullComponentDiagram.png[width=600,alt=Diagrama de componentes completo]
+
+==== Diagramas de componentes detallados
+
+image::images/HotelMgrComponent.png[width=600,alt=Diagrama de componentes de HotelMgr]
+image::images/HuéspedMgrComponent.png[width=600,alt=Diagrama de componentes de HuéspedMgr]
+image::images/MétodoPagoMgrComponent.png[width=600,alt=Diagrama de componentes de MétodoPagoMgr]
+image::images/SistemaDeReservaciónComponent.png[width=600,alt=Diagrama de componentes de SistemaDeReservación]
+image::images/SistemaDeGestiónDeEstanciaComponent.png[width=600,alt=Diagrama de componentes de SistemaDeGestiónDeEstancia]
+image::images/SistemaDePagosComponent.png[width=600,alt=Diagrama de componentes de SistemaDePagos]
+image::images/SistemaDeAutorizaciónYAutenticaciónComponent.png[width=600,alt=Diagrama de componentes de SistemaDeAutorizaciónYAutenticación]
+image::images/SistemaDeInventarioComponent.png[width=600,alt=Diagrama de componentes de SistemaDeInventario]
+image::images/SistemaDePolíticasComponent.png[width=600,alt=Diagrama de componentes de SistemaDePolíticasCorporativas]

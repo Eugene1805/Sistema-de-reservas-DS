@@ -1,4 +1,4 @@
-==== Introducción
+=== Introducción
 
 A continuación, detallaremos el método de diseño que empleamos para derivar la arquitectura del Sistema de Gestión Hotelera. Principalmente nos enfocamos en los siguientes dos marcos de trabajo:
 
