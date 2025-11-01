@@ -1,8 +1,8 @@
-==== CU-09 Registrar servicio de consumo
+==== CU-09 Registrar consumo extra
 
 |===
 | ID | CU-09
-| Nombre | Registrar servicio de consumo
+| Nombre | Registrar consumo extra
 | Autor | Eugenio Salvador González Sánchez
 | Fecha de actualización | 03 de octubre de 2025
 | Descripción | El recepcionista registra consumos adicionales (minibar, servicios).

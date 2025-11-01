@@ -24,7 +24,7 @@ FA 4.1 El administrador desea cancelar la edición de la política. +
 3.- Termina el caso de uso.
 | Excepciones |
 EX 3 - El sistema no puede conectarse a la base de datos +
-1.- El sistema muestra un mensaje de error y solicita al admiistrador intentar nuevamente más tarde. +
+1.- El sistema muestra un mensaje de error y solicita al administrador intentar nuevamente más tarde. +
 2.- Termina el caso de uso.
 | Postcondiciones | POST-01 La política seleccionada es actualizada en el sistema.
 | Reglas de negocio |
