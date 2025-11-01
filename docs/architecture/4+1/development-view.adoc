@@ -7,12 +7,261 @@ image::FullComponentDiagram.png[width=600,alt=Diagrama de componentes completo]
 
 ==== Diagramas de componentes detallados
 
+.Diagrama de componentes: HotelMgr
 image::HotelMgrComponent.png[width=400,alt=Diagrama de componentes de HotelMgr]
+
+.Diagrama de componentes: HuéspedMgr
 image::HuéspedMgrComponent.png[width=400,alt=Diagrama de componentes de HuéspedMgr]
+
+.Diagrama de componentes: MétodoPagoMgr
 image::MétodoPagoMgrComponent.png[width=400,alt=Diagrama de componentes de MétodoPagoMgr]
-image::SistemaDeReservaciónComponent.png[width=600,alt=Diagrama de componentes de SistemaDeReservación]
-image::SistemaDeGestiónDeEstanciaComponent.png[width=600,alt=Diagrama de componentes de SistemaDeGestiónDeEstancia]
-image::SistemaDePagosComponent.png[width=600,alt=Diagrama de componentes de SistemaDePagos]
-image::SistemaDeAutorizaciónYAutenticaciónComponent.png[width=600,alt=Diagrama de componentes de SistemaDeAutorizaciónYAutenticación]
-image::SistemaDeInventarioComponent.png[width=600,alt=Diagrama de componentes de SistemaDeInventario]
-image::SistemaDePolíticasComponent.png[width=600,alt=Diagrama de componentes de SistemaDePolíticasCorporativas]
+
+.Diagrama de componentes: Sistema de Reservación
+image::SistemaDeReservaciónComponent.png[width=600,alt=Diagrama de componentes de Sistema de Reservación]
+
+.Diagrama de componentes: Sistema de Gestión de Estancia
+image::SistemaDeGestiónDeEstanciaComponent.png[width=600,alt=Diagrama de componentes de Sistema de Gestión de Estancia]
+
+.Diagrama de componentes: Sistema de Pagos
+image::SistemaDePagosComponent.png[width=600,alt=Diagrama de componentes de Sistema de Pagos]
+
+.Diagrama de componentes: Sistema de Autorización y Autenticación
+image::SistemaDeAutorizaciónYAutenticaciónComponent.png[width=600,alt=Diagrama de componentes de Sistema de Autorización y Autenticación]
+
+.Diagrama de componentes: Sistema de Inventario
+image::SistemaDeInventarioComponent.png[width=600,alt=Diagrama de componentes de Sistema de Inventario]
+
+.Diagrama de componentes: Sistema de Políticas
+image::SistemaDePolíticasComponent.png[width=600,alt=Diagrama de componentes de Sistema de Políticas]
+
+==== Diagramas de interfaces
+
+.Diagrama de interfaces: Hacer reservación
+image::IHacerReservación.png[width=600,alt=Diagrama de interfaces de Hacer reservación]
+
+.Diagrama de interfaces: Consultar disponibilidad
+// TODO: Agregar diagrama de interfaces para CU-02 Consultar disponibilidad.
+//       Archivo sugerido: images/IConsultarDisponibilidad.png
+//       Luego agregar aquí: image::IConsultarDisponibilidad.png[width=600,alt=Diagrama de interfaces de Consultar disponibilidad]
+
+.Diagrama de interfaces: Hacer pago con tarjeta
+image::IHacerPagoConTarjeta.png[width=600,alt=Diagrama de interfaces de Hacer pago con tarjeta]
+
+.Diagrama de interfaces: Hacer pago con PayPal
+image::IHacerPagoConPayPal.png[width=600,alt=Diagrama de interfaces de Hacer pago con PayPal]
+
+.Diagrama de interfaces: Hacer pago con otro método
+image::IHacerPagoConOtroMétodo.png[width=600,alt=Diagrama de interfaces de Hacer pago con otro método]
+
+.Diagrama de interfaces: Hacer check-in
+// TODO: Agregar diagrama de interfaces para CU-06 Hacer check-in.
+//       Archivo sugerido: images/IHacerCheckIn.png
+//       Luego agregar aquí: image::IHacerCheckIn.png[width=600,alt=Diagrama de interfaces de Hacer check-in]
+
+.Diagrama de interfaces: Hacer check-out
+// TODO: Agregar diagrama de interfaces para CU-07 Hacer check-out.
+//       Archivo sugerido: images/IHacerCheckOut.png
+//       Luego agregar aquí: image::IHacerCheckOut.png[width=600,alt=Diagrama de interfaces de Hacer check-out]
+
+.Diagrama de interfaces: Cancelar reservación
+image::ICancelarReservación.png[width=600,alt=Diagrama de interfaces de Cancelar reservación]
+
+.Diagrama de interfaces: Registrar consumo extra
+image::IRegistrarConsumoExtra.png[width=600,alt=Diagrama de interfaces de Registrar consumo extra]
+
+.Diagrama de interfaces: Iniciar sesión
+image::IIniciarSesión.png[width=600,alt=Diagrama de interfaces de Iniciar sesión]
+
+.Diagrama de interfaces: Registrar política
+image::IRegistrarPolítica.png[width=600,alt=Diagrama de interfaces de Registrar política]
+
+.Diagrama de interfaces: Actualizar política
+image::IActualizarPolítica.png[width=600,alt=Diagrama de interfaces de Actualizar política]
+
+.Diagrama de interfaces: Registrar tarifa
+// TODO: Agregar diagrama de interfaces para CU-13 Registrar tarifa.
+//       Archivo sugerido: images/IRegistrarTarifa.png
+//       Luego agregar aquí: image::IRegistrarTarifa.png[width=600,alt=Diagrama de interfaces de Registrar tarifa]
+
+.Diagrama de interfaces: Actualizar tarifa
+// TODO: Agregar diagrama de interfaces para CU-14 Actualizar tarifa.
+//       Archivo sugerido: images/IActualizarTarifa.png
+//       Luego agregar aquí: image::IActualizarTarifa.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa]
+
+.Diagrama de interfaces: Actualizar tarifa de cuota
+// TODO: Agregar diagrama de interfaces para CU-15 Actualizar tarifa de cuota.
+//       Archivo sugerido: images/IActualizarTarifaDeCuota.png
+//       Luego agregar aquí: image::IActualizarTarifaDeCuota.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de cuota]
+
+.Diagrama de interfaces: Actualizar tarifa de insumo
+// TODO: Agregar diagrama de interfaces para CU-16 Actualizar tarifa de insumo.
+//       Archivo sugerido: images/IActualizarTarifaDeInsumo.png
+//       Luego agregar aquí: image::IActualizarTarifaDeInsumo.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de insumo]
+
+.Diagrama de interfaces: Registrar hotel
+// TODO: Agregar diagrama de interfaces para CU-17 Registrar hotel.
+//       Archivo sugerido: images/IRegistrarHotel.png
+//       Luego agregar aquí: image::IRegistrarHotel.png[width=600,alt=Diagrama de interfaces de Registrar hotel]
+
+.Diagrama de interfaces: Consultar hotel
+// TODO: Agregar diagrama de interfaces para CU-18 Consultar hotel.
+//       Archivo sugerido: images/IConsultarHotel.png
+//       Luego agregar aquí: image::IConsultarHotel.png[width=600,alt=Diagrama de interfaces de Consultar hotel]
+
+.Diagrama de interfaces: Actualizar hotel
+// TODO: Agregar diagrama de interfaces para CU-19 Actualizar hotel.
+//       Archivo sugerido: images/IActualizarHotel.png
+//       Luego agregar aquí: image::IActualizarHotel.png[width=600,alt=Diagrama de interfaces de Actualizar hotel]
+
+.Diagrama de interfaces: Dar de baja hotel
+// TODO: Agregar diagrama de interfaces para CU-20 Dar de baja hotel.
+//       Archivo sugerido: images/IDarDeBajaHotel.png
+//       Luego agregar aquí: image::IDarDeBajaHotel.png[width=600,alt=Diagrama de interfaces de Dar de baja hotel]
+
+.Diagrama de interfaces: Registrar tipo de habitación
+image::IRegistrarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Registrar tipo de habitación]
+
+.Diagrama de interfaces: Actualizar tipo de habitación
+// TODO: Agregar diagrama de interfaces para CU-22 Actualizar tipo de habitación.
+//       Archivo sugerido: images/IActualizarTipoHabitación.png
+//       Luego agregar aquí: image::IActualizarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar tipo de habitación]
+
+.Diagrama de interfaces: Registrar habitación
+// TODO: Agregar diagrama de interfaces para CU-23 Registrar habitación.
+//       Archivo sugerido: images/IRegistrarHabitación.png
+//       Luego agregar aquí: image::IRegistrarHabitación.png[width=600,alt=Diagrama de interfaces de Registrar habitación]
+
+.Diagrama de interfaces: Consultar habitación
+// TODO: Agregar diagrama de interfaces para CU-24 Consultar habitación.
+//       Archivo sugerido: images/IConsultarHabitación.png
+//       Luego agregar aquí: image::IConsultarHabitación.png[width=600,alt=Diagrama de interfaces de Consultar habitación]
+
+.Diagrama de interfaces: Actualizar habitación
+// TODO: Agregar diagrama de interfaces para CU-25 Actualizar habitación.
+//       Archivo sugerido: images/IActualizarHabitación.png
+//       Luego agregar aquí: image::IActualizarHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
+
+.Diagrama de interfaces: Dar de baja habitación
+// TODO: Agregar diagrama de interfaces para CU-26 Dar de baja habitación.
+//       Archivo sugerido: images/IDarDeBajaHabitación.png
+//       Luego agregar aquí: image::IDarDeBajaHabitación.png[width=600,alt=Diagrama de interfaces de Dar de baja habitación]
+
+.Diagrama de interfaces: Hacer mapa del hotel
+image::IHacerMapaDelHotel.png[width=600,alt=Diagrama de interfaces de Hacer mapa del hotel]
+
+.Diagrama de interfaces: Registrar huésped
+image::IRegistrarHuésped.png[width=600,alt=Diagrama de interfaces de Registrar huésped]
+
+.Diagrama de interfaces: Consultar huésped
+// TODO: Agregar diagrama de interfaces para CU-29 Consultar huésped.
+//       Archivo sugerido: images/IConsultarHuésped.png
+//       Luego agregar aquí: image::IConsultarHuésped.png[width=600,alt=Diagrama de interfaces de Consultar huésped]
+
+.Diagrama de interfaces: Registrar gerente
+// TODO: Agregar diagrama de interfaces para CU-30 Registrar gerente.
+//       Archivo sugerido: images/IRegistrarGerente.png
+//       Luego agregar aquí: image::IRegistrarGerente.png[width=600,alt=Diagrama de interfaces de Registrar gerente]
+
+.Diagrama de interfaces: Consultar gerente
+// TODO: Agregar diagrama de interfaces para CU-31 Consultar gerente.
+//       Archivo sugerido: images/IConsultarGerente.png
+//       Luego agregar aquí: image::IConsultarGerente.png[width=600,alt=Diagrama de interfaces de Consultar gerente]
+
+.Diagrama de interfaces: Dar de baja gerente
+// TODO: Agregar diagrama de interfaces para CU-32 Dar de baja gerente.
+//       Archivo sugerido: images/IDarDeBajaGerente.png
+//       Luego agregar aquí: image::IDarDeBajaGerente.png[width=600,alt=Diagrama de interfaces de Dar de baja gerente]
+
+.Diagrama de interfaces: Registrar recepcionista
+// TODO: Agregar diagrama de interfaces para CU-33 Registrar recepcionista.
+//       Archivo sugerido: images/IRegistrarRecepcionista.png
+//       Luego agregar aquí: image::IRegistrarRecepcionista.png[width=600,alt=Diagrama de interfaces de Registrar recepcionista]
+
+.Diagrama de interfaces: Consultar recepcionista
+// TODO: Agregar diagrama de interfaces para CU-34 Consultar recepcionista.
+//       Archivo sugerido: images/IConsultarRecepcionista.png
+//       Luego agregar aquí: image::IConsultarRecepcionista.png[width=600,alt=Diagrama de interfaces de Consultar recepcionista]
+
+.Diagrama de interfaces: Dar de baja recepcionista
+// TODO: Agregar diagrama de interfaces para CU-35 Dar de baja recepcionista.
+//       Archivo sugerido: images/IDarDeBajaRecepcionista.png
+//       Luego agregar aquí: image::IDarDeBajaRecepcionista.png[width=600,alt=Diagrama de interfaces de Dar de baja recepcionista]
+
+==== Diagramas de comunicación (ordenados por casos de uso)
+
+.Diagrama de comunicación: CU-01 Hacer reservación
+image::HacerReservación.png[width=700,alt=Diagrama de comunicación de Hacer reservación]
+
+// TODO: Agregar diagrama de comunicación para CU-02 Consultar disponibilidad.
+//       Archivo sugerido: images/ConsultarDisponibilidad.png
+//       Luego agregar aquí: image::ConsultarDisponibilidad.png[width=700,alt=Diagrama de comunicación de Consultar disponibilidad]
+
+.Diagrama de comunicación: CU-03 Hacer pago con tarjeta
+image::HacerPagoConTarjeta.png[width=700,alt=Diagrama de comunicación de Hacer pago con tarjeta]
+
+.Diagrama de comunicación: CU-04 Hacer pago con PayPal
+image::HacerPagoConPayPal.png[width=700,alt=Diagrama de comunicación de Hacer pago con PayPal]
+
+.Diagrama de comunicación: CU-05 Hacer pago con otro método
+image::HacerPagoConOtroMétodo.png[width=700,alt=Diagrama de comunicación de Hacer pago con otro método]
+
+// TODO: Agregar diagrama de comunicación para CU-06 Hacer check-in.
+//       Archivo sugerido: images/HacerCheckIn.png
+//       Luego agregar aquí: image::HacerCheckIn.png[width=700,alt=Diagrama de comunicación de Hacer check-in]
+// TODO: Agregar diagrama de comunicación para CU-07 Hacer check-out.
+//       Archivo sugerido: images/HacerCheckOut.png
+//       Luego agregar aquí: image::HacerCheckOut.png[width=700,alt=Diagrama de comunicación de Hacer check-out]
+
+.Diagrama de comunicación: CU-08 Cancelar reservación
+image::CancelarReservación.png[width=700,alt=Diagrama de comunicación de Cancelar reservación]
+
+.Diagrama de comunicación: CU-09 Registrar consumo extra
+image::RegistrarConsumoExtra.png[width=700,alt=Diagrama de comunicación de Registrar consumo extra]
+
+.Diagrama de comunicación: CU-10 Iniciar sesión en el sistema
+image::IniciarSesión.png[width=700,alt=Diagrama de comunicación de Iniciar sesión]
+
+.Diagrama de comunicación: CU-11 Registrar política
+image::RegistrarPolítica.png[width=700,alt=Diagrama de comunicación de Registrar política]
+
+.Diagrama de comunicación: CU-12 Actualizar política
+image::ActualizarPolítica.png[width=700,alt=Diagrama de comunicación de Actualizar política]
+
+// TODO: Agregar diagramas de comunicación para:
+//   - CU-13 Registrar tarifa -> images/RegistrarTarifa.png
+//   - CU-14 Actualizar tarifa -> images/ActualizarTarifa.png
+//   - CU-15 Actualizar tarifa de cuota -> images/ActualizarTarifaDeCuota.png
+//   - CU-16 Actualizar tarifa de insumo -> images/ActualizarTarifaDeInsumo.png
+//   - CU-17 Registrar hotel -> images/RegistrarHotel.png
+//   - CU-18 Consultar hotel -> images/ConsultarHotel.png
+//   - CU-19 Actualizar hotel -> images/ActualizarHotel.png
+//   - CU-20 Dar de baja hotel -> images/DarDeBajaHotel.png
+//       Luego agregar cada uno aquí con width=700 y alt descriptivo.
+
+.Diagrama de comunicación: CU-21 Registrar tipo de habitación
+image::RegistrarTipoHabitación.png[width=700,alt=Diagrama de comunicación de Registrar tipo de habitación]
+
+// TODO: Agregar diagramas de comunicación para:
+//   - CU-22 Actualizar tipo de habitación -> images/ActualizarTipoHabitación.png
+//   - CU-23 Registrar habitación -> images/RegistrarHabitación.png
+//   - CU-24 Consultar habitación -> images/ConsultarHabitación.png
+//   - CU-25 Actualizar habitación -> images/ActualizarHabitación.png
+//   - CU-26 Dar de baja habitación -> images/DarDeBajaHabitación.png
+//   - CU-27 Hacer mapa del hotel (ya agregado)
+
+.Diagrama de comunicación: CU-27 Hacer mapa del hotel
+image::HacerMapaDelHotel.png[width=700,alt=Diagrama de comunicación de Hacer mapa del hotel]
+
+// CU-28 Registrar huésped
+.Diagrama de comunicación: CU-28 Registrar huésped
+image::RegistrarHuésped.png[width=700,alt=Diagrama de comunicación de Registrar huésped]
+
+// TODO: Agregar diagramas de comunicación para:
+//   - CU-29 Consultar huésped -> images/ConsultarHuésped.png
+//   - CU-30 Registrar gerente -> images/RegistrarGerente.png
+//   - CU-31 Consultar gerente -> images/ConsultarGerente.png
+//   - CU-32 Dar de baja gerente -> images/DarDeBajaGerente.png
+//   - CU-33 Registrar recepcionista -> images/RegistrarRecepcionista.png
+//   - CU-34 Consultar recepcionista -> images/ConsultarRecepcionista.png
+//   - CU-35 Dar de baja recepcionista -> images/DarDeBajaRecepcionista.png
+//       Luego agregar cada uno aquí con width=700 y alt descriptivo.
