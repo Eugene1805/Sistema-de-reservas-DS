@@ -38,154 +38,604 @@ image::SistemaDePolíticasComponent.png[width=600,alt=Diagrama de componentes de
 
 .Diagrama de interfaces: Hacer reservación
 image::IHacerReservación.png[width=600,alt=Diagrama de interfaces de Hacer reservación]
+|===
+| Pre-condiciones  | Post-condiciones
+| context IHacerReservación::crearReservación(huespedId: int, datosDePago: DatosDePago, habitación: Habitación): void
+  pre:
+    -- Debe existir el huésped indicado por 'huespedId'.
+    huespedes->exists(h \| h.idHuesped = huespedId) and
+
+    -- La habitación debe existir y estar disponible.
+    habitaciones->exists(hab \| hab.idHabitacion = habitación.idHabitacion and hab.estado = 'DISPONIBLE') and
+
+    -- Los datos de pago deben ser válidos.
+    datosDePago.esValido()
+
+  context IHacerReservación::obtenerDatosHuésped(): Huesped
+  pre:
+    -- Debe existir una sesión activa asociada a un huésped autenticado.
+    sesionesActivas->exists(s \| s.estado = 'ACTIVA')
+
+  context IHacerReservación::obtenerDetallesHabitación(periodo: RangoDeFechas, habitación: Habitación): Habitación
+  pre:
+    -- El periodo debe ser válido y la habitación debe existir.
+    periodo.fechaFin >= periodo.fechaInicio and
+    habitaciones->exists(hab \| hab.idHabitacion = habitación.idHabitacion)
+
+  context IHacerReservación::realizarPago(datosDePago: DatosDePago, monto: Divisa): void
+  pre:
+    -- El monto debe ser positivo y los datos de pago válidos.
+    monto.cantidad > 0 and datosDePago.esValido()
+
+  context IHacerReservación::enviarConfirmación(reservaId: int): void
+  pre:
+    -- Debe existir la reserva a confirmar.
+    reservas->exists(r \| r.idReserva = reservaId)
+
+| context IHacerReservación::crearReservación(huespedId: int, datosDePago: DatosDePago, habitación: Habitación): void
+  post:
+    -- Se ha creado una nueva reserva confirmada para el huésped y la habitación indicados.
+    reservas->size = reservas@pre->size + 1 and
+    let nuevaReserva : Reserva = reservas->excluding(reservas@pre)->asSequence()->first() in
+    nuevaReserva.idReserva.oclIsDefined() and
+    nuevaReserva.infoHuesped.oclIsNotEmpty() and
+    nuevaReserva.estado = 'CONFIRMADA' and
+    nuevaReserva.periodoDeEstancia.oclIsDefined()
+
+  context IHacerReservación::obtenerDatosHuésped(): Huesped
+  post:
+    -- El resultado contiene los datos del huésped autenticado y no modifica el estado.
+    result.oclIsTypeOf(Huesped) and
+    huespedes = huespedes@pre
+
+  context IHacerReservación::obtenerDetallesHabitación(periodo: RangoDeFechas, habitación: Habitación): Habitación
+  post:
+    -- El resultado corresponde a la habitación solicitada (operación de consulta).
+    result.idHabitacion = habitación.idHabitacion and
+    habitaciones = habitaciones@pre
+
+  context IHacerReservación::realizarPago(datosDePago: DatosDePago, monto: Divisa): void
+  post:
+    -- Se ha registrado una transacción de pago aprobada por el monto indicado.
+    transacciones->size = transacciones@pre->size + 1 and
+    let nuevaTx : Transaccion = transacciones->excluding(transacciones@pre)->asSequence()->first() in
+    nuevaTx.monto = monto and
+    nuevaTx.estado = 'APROBADA'
+
+  context IHacerReservación::enviarConfirmación(reservaId: int): void
+  post:
+    -- Se registró el envío de una confirmación sin alterar la cantidad de reservas.
+    reservas->size = reservas@pre->size
+|===
 
 .Diagrama de interfaces: Consultar disponibilidad
 // TODO: Agregar diagrama de interfaces para CU-02 Consultar disponibilidad.
 //       Archivo sugerido: images/IConsultarDisponibilidad.png
 //       Luego agregar aquí: image::IConsultarDisponibilidad.png[width=600,alt=Diagrama de interfaces de Consultar disponibilidad]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarDisponibilidad. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarDisponibilidad. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Hacer pago con tarjeta
 image::IHacerPagoConTarjeta.png[width=600,alt=Diagrama de interfaces de Hacer pago con tarjeta]
 
+|===
+| Pre-condiciones  | Post-condiciones
+| context IHacerPagoConTarjeta::procesarPagoConTarjeta(tipo: TipoMétodoPago, monto: Divisa): void
+
+  pre:
+    -- El monto debe ser positivo y el tipo de método debe ser TARJETA.
+    monto.cantidad > 0 and tipo = TipoMétodoPago::TARJETA
+
+  context IHacerPagoConTarjeta::obtenerTarjetasRegistradas(huespedId: int): DatosDePago
+  pre:
+    -- Debe existir el huésped indicado por 'huespedId'.
+    huespedes->exists(h \| h.idHuesped = huespedId)
+
+  context IHacerPagoConTarjeta::registrarPago(datosDePago: DatosDePago): void
+  pre:
+    -- Los datos de pago deben ser válidos.
+    datosDePago.esValido()
+
+| context IHacerPagoConTarjeta::procesarPagoConTarjeta(tipo: TipoMétodoPago, monto: Divisa): void
+post:
+    -- Se registra una transacción aprobada asociada a pago con tarjeta.
+    transacciones->size = transacciones@pre->size + 1 and
+    let nuevaTx : Transaccion = transacciones->excluding(transacciones@pre)->asSequence()->first() in
+    nuevaTx.monto = monto and
+    nuevaTx.metodo = TipoMétodoPago::TARJETA and
+    nuevaTx.estado = 'APROBADA'
+
+  context IHacerPagoConTarjeta::obtenerTarjetasRegistradas(huespedId: int): DatosDePago
+  post:
+    -- Se devuelve un objeto DatosDePago del huésped (operación de consulta).
+    result.oclIsTypeOf(DatosDePago)
+
+  context IHacerPagoConTarjeta::registrarPago(datosDePago: DatosDePago): void
+  post:
+    -- Se registra un nuevo pago aprovado asociado a tarjeta.
+    pagos->size = pagos@pre->size + 1 and
+    let nuevoPago : Pago = pagos->excluding(pagos@pre)->asSequence()->first() in
+    nuevoPago.metodo = TipoMétodoPago::TARJETA and
+    nuevoPago.estado = 'APROBADO'
+
+|===
+
 .Diagrama de interfaces: Hacer pago con PayPal
 image::IHacerPagoConPayPal.png[width=600,alt=Diagrama de interfaces de Hacer pago con PayPal]
+
+|===
+| Pre-condiciones  | Post-condiciones
+|context IHacerPagoConPayPal::iniciarTransacciónPayPal(tipo: TipoMétodoPago, monto: Divisa): void
+  pre:
+    -- El monto debe ser positivo y el tipo de método debe ser PAYPAL.
+    monto.cantidad > 0 and tipo = TipoMétodoPago::PAYPAL
+
+  context IHacerPagoConPayPal::confirmarTransacción(): void
+  pre:
+    -- Debe existir una transacción pendiente de confirmación para el actor actual.
+    transacciones->exists(tx \| tx.estado = 'PENDIENTE')
+|context IHacerPagoConPayPal::iniciarTransacciónPayPal(tipo: TipoMétodoPago, monto: Divisa): void
+  post:
+    -- Se crea una transacción pendiente asociada a PayPal y al monto indicado.
+    transacciones->size = transacciones@pre->size + 1 and
+    let nuevaTx : Transaccion = transacciones->excluding(transacciones@pre)->asSequence()->first() in
+    nuevaTx.estado = 'PENDIENTE' and
+    nuevaTx.monto = monto and
+    nuevaTx.metodo = TipoMétodoPago::PAYPAL
+
+  context IHacerPagoConPayPal::confirmarTransacción(): void
+  post:
+    -- Una transacción pendiente se actualiza a 'APROBADA'.
+    let txActualizada : Transaccion = transacciones->any(tx \| tx.estado = 'PENDIENTE') in
+    txActualizada.estado = 'APROBADA'
+|===
 
 .Diagrama de interfaces: Hacer pago con otro método
 image::IHacerPagoConOtroMétodo.png[width=600,alt=Diagrama de interfaces de Hacer pago con otro método]
 
+|===
+| Pre-condiciones  | Post-condiciones
+|context IHacerPagoConOtroMétodo::generarInstrucciónDePago(metodo: TipoMétodoPago, monto: Divisa): void
+  pre:
+    -- El monto debe ser positivo y el método de pago debe ser soportado (TRANSFERENCIA/OTRO).
+    monto.cantidad > 0 and (metodo = TipoMétodoPago::TRANSFERENCIA or metodo = TipoMétodoPago::OTRO)
+  context IMetodoPagoMgt::confirmarPagoAsincrono(referenciaPago: String): ResultadoTransaccion
+  pre:
+    -- Debe existir una transacción con la referencia proporcionada y debe estar esperando pago.
+    transacciones->exists(tx \| tx.referencia = referenciaPago and tx.estado = 'ESPERANDO_PAGO')
+|context IHacerPagoConOtroMétodo::generarInstrucciónDePago(metodo: TipoMétodoPago, monto: Divisa): void
+  post:
+    -- Se ha creado un nuevo registro de transacción con estado 'ESPERANDO_PAGO'.
+    transacciones->size = transacciones@pre->size + 1 and
+    let nuevaTx : Transaccion = transacciones->excluding(transacciones@pre)->asSequence()->first() in
+    nuevaTx.estado = 'ESPERANDO_PAGO' and
+    nuevaTx.monto = monto and
+    (nuevaTx.metodo = TipoMétodoPago::TRANSFERENCIA or nuevaTx.metodo = TipoMétodoPago::OTRO)
+  context IMetodoPagoMgt::confirmarPagoAsincrono(referenciaPago: String): ResultadoTransaccion
+  post:
+    -- El estado de la transacción se actualiza a 'APROBADA'.
+    let txActualizada : Transaccion = transacciones->any(tx \| tx.referencia = referenciaPago) in
+    txActualizada.estado = 'APROBADA' and
+
+    -- El resultado de la operación confirma el éxito.
+    result.exitoso = true and
+    result.idTransaccion = txActualizada.id
+|===
 .Diagrama de interfaces: Hacer check-in
 // TODO: Agregar diagrama de interfaces para CU-06 Hacer check-in.
 //       Archivo sugerido: images/IHacerCheckIn.png
 //       Luego agregar aquí: image::IHacerCheckIn.png[width=600,alt=Diagrama de interfaces de Hacer check-in]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IHacerCheckIn. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IHacerCheckIn. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Hacer check-out
 // TODO: Agregar diagrama de interfaces para CU-07 Hacer check-out.
 //       Archivo sugerido: images/IHacerCheckOut.png
 //       Luego agregar aquí: image::IHacerCheckOut.png[width=600,alt=Diagrama de interfaces de Hacer check-out]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IHacerCheckOut. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IHacerCheckOut. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Cancelar reservación
 image::ICancelarReservación.png[width=600,alt=Diagrama de interfaces de Cancelar reservación]
+|===
+| Pre-condiciones  | Post-condiciones
+| context IMetodoPagoMgt::procesarReembolso(pagoId: String, monto: Divisa): ResultadoTransaccion
+  pre:
+    -- Debe existir un pago original aprobado con el ID proporcionado.
+    pagos->exists(p \| p.id = pagoId and p.estado = 'APROBADO') and
 
+    -- El monto a reembolsar no puede ser mayor al monto del pago original.
+    monto <= pagos->any(p \| p.id = pagoId).monto
+  context IConsultarPolitica::obtenerPoliticaCancelacion(hotelId: String, fecha: Date): PoliticaCancelacion
+  pre:
+    -- Debe existir un hotel con el ID proporcionado.
+    hoteles->exists(h \| h.id = hotelId)
+| context IMetodoPagoMgt::procesarReembolso(pagoId: String, monto: Divisa): ResultadoTransaccion
+  post:
+    -- Se ha creado una nueva transacción de tipo 'REEMBOLSO'.
+    transacciones->size = transacciones@pre->size + 1 and
+    let nuevaTx : Transaccion = transacciones->excluding(transacciones@pre)->asSequence()->first() in
+    nuevaTx.tipo = 'REEMBOLSO' and
+    nuevaTx.estado = 'APROBADA' and
+    nuevaTx.pagoOriginalId = pagoId and
+
+    -- El resultado confirma la operación exitosa.
+    result.exitoso = true and
+    result.idTransaccion = nuevaTx.id
+  context IConsultarPolitica::obtenerPoliticaCancelacion(hotelId: String, fecha: Date): PoliticaCancelacion
+  post:
+    -- El resultado ('result') es la política vigente para el hotel en la fecha dada.
+    result = politicas->select(p \| p.hotelId = hotelId and fecha.isBetween(p.fechaInicio, p.fechaFin))->asSequence()->first() and
+
+    -- La operación es de solo lectura, no modifica el estado de las políticas.
+    politicas = politicas@pre
+|===
 .Diagrama de interfaces: Registrar consumo extra
 image::IRegistrarConsumoExtra.png[width=600,alt=Diagrama de interfaces de Registrar consumo extra]
 
+|===
+| Pre-condiciones  | Post-condiciones
+|context IRegistrarConsumoExtra::agregarCargo(cargo: Consumo): void
+  pre:
+    -- Debe existir una cuenta/estancia activa asociada al consumo y el monto debe ser positivo.
+    cuentas->exists(c \| c.idAsociado = cargo.estanciaId and c.estado = 'ABIERTA') and
+    cargo.monto > 0
+  context IRegistrarConsumoExtra::obtenerDetalles(): Consumo
+  pre:
+    -- Operación de consulta sin precondiciones estrictas.
+    true
+|context IRegistrarConsumoExtra::agregarCargo(cargo: Consumo): void
+  post:
+    -- La cuenta asociada a la estancia tiene un nuevo cargo registrado.
+    let cuenta : Cuenta = cuentas->any(c \| c.idAsociado = cargo.estanciaId) in
+    cuenta.cargos->size = cuenta.cargos@pre->size + 1 and
+    cuenta.cargos->includes(cargo) and
+
+    -- El saldo de la cuenta se ha incrementado por el monto del cargo.
+    cuenta.saldo = cuenta.saldo@pre + cargo.monto and
+
+    -- No hay valor de retorno; la operación actualiza el estado de la cuenta.
+    true
+  context IRegistrarConsumoExtra::obtenerDetalles(): Consumo
+  post:
+    -- Se devuelve un objeto Consumo con información detallada (operación de solo lectura).
+    result.oclIsTypeOf(Consumo)
+|===
 .Diagrama de interfaces: Iniciar sesión
 image::IIniciarSesión.png[width=600,alt=Diagrama de interfaces de Iniciar sesión]
-
+|===
+| Pre-condiciones  | Post-condiciones
+| context IIniciarSesión::validarCredenciales(credenciales: Credenciales): void
+  pre:
+    -- Las credenciales proporcionadas deben tener un formato válido (ej. email no vacío, contraseña no vacía).
+    credenciales.usuario.oclIsNotEmpty() and credenciales.password.oclIsNotEmpty()
+| context IIniciarSesión::validarCredenciales(credenciales: Credenciales): void
+  post:
+  -- Escenario de éxito: si las credenciales son correctas, se crea una nueva sesión.
+  if actores->exists(a \| a.usuario = credenciales.usuario and a.passwordHash = encriptar(credenciales.password)) then
+    sesionesActivas->size = sesionesActivas@pre->size + 1 and
+    let nuevaSesion : Sesion = sesionesActivas->excluding(sesionesActivas@pre)->asSequence()->first() in
+    nuevaSesion.actorId = actores->any(a \| a.usuario = credenciales.usuario).id and
+    nuevaSesion.token.oclIsNotEmpty()
+  else
+    -- Escenario de falla: no se crea ninguna sesión.
+    sesionesActivas->size = sesionesActivas@pre->size
+  endif
+|===
 .Diagrama de interfaces: Registrar política
 image::IRegistrarPolítica.png[width=600,alt=Diagrama de interfaces de Registrar política]
+|===
+| Pre-condiciones  | Post-condiciones
+|context IRegistrarPolítica::registrarPolítica(politica: Política): void
+  pre:
+    -- Los datos de la política deben ser consistentes y completos.
+    politica.nombre.oclIsNotEmpty() and
+    politica.vigencia.fechaFin >= politica.vigencia.fechaInicio
+|context IRegistrarPolítica::registrarPolítica(politica: Política): void
+  post:
+    -- Se ha creado un nuevo objeto Politica en el sistema.
+    politicas->size = politicas@pre->size + 1 and
 
+    -- La nueva política es la que se acaba de agregar al conjunto.
+    let nuevaPolitica : Politica = politicas->excluding(politicas@pre)->asSequence()->first() in
+
+    -- Los atributos de la nueva política corresponden a los datos de entrada.
+    nuevaPolitica.nombre = politica.nombre and
+    nuevaPolitica.descripcion = politica.descripcion and
+    nuevaPolitica.vigencia = politica.vigencia and
+    nuevaPolitica.idPolitica.oclIsDefined()
+|===
 .Diagrama de interfaces: Actualizar política
 image::IActualizarPolítica.png[width=600,alt=Diagrama de interfaces de Actualizar política]
+|===
+| Pre-condiciones  | Post-condiciones
+| context IActualizarPolítica::actualizarPolítica(politica: Política, id: int): void
+  pre:
+    -- La política que se desea actualizar debe existir en el sistema y los nuevos datos deben ser consistentes.
+    politicas->exists(p \| p.idPolitica = id) and
+    politica.vigencia.fechaFin >= politica.vigencia.fechaInicio
+| context IActualizarPolítica::actualizarPolítica(politica: Política, id: int): void
+  post:
+    -- El número total de políticas no ha cambiado.
+    politicas->size = politicas@pre->size and
 
+    -- Los atributos de la política actualizada ahora coinciden con los nuevos datos.
+    let politicaActualizada : Politica = politicas->any(p \| p.idPolitica = id) in
+    politicaActualizada.nombre = politica.nombre and
+    politicaActualizada.descripcion = politica.descripcion and
+    politicaActualizada.vigencia = politica.vigencia
+|===
 .Diagrama de interfaces: Registrar tarifa
 // TODO: Agregar diagrama de interfaces para CU-13 Registrar tarifa.
 //       Archivo sugerido: images/IRegistrarTarifa.png
 //       Luego agregar aquí: image::IRegistrarTarifa.png[width=600,alt=Diagrama de interfaces de Registrar tarifa]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IRegistrarTarifa. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IRegistrarTarifa. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Actualizar tarifa
 // TODO: Agregar diagrama de interfaces para CU-14 Actualizar tarifa.
 //       Archivo sugerido: images/IActualizarTarifa.png
 //       Luego agregar aquí: image::IActualizarTarifa.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarTarifa. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarTarifa. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Actualizar tarifa de cuota
 // TODO: Agregar diagrama de interfaces para CU-15 Actualizar tarifa de cuota.
 //       Archivo sugerido: images/IActualizarTarifaDeCuota.png
 //       Luego agregar aquí: image::IActualizarTarifaDeCuota.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de cuota]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarTarifaDeCuota. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarTarifaDeCuota. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Actualizar tarifa de insumo
 // TODO: Agregar diagrama de interfaces para CU-16 Actualizar tarifa de insumo.
 //       Archivo sugerido: images/IActualizarTarifaDeInsumo.png
 //       Luego agregar aquí: image::IActualizarTarifaDeInsumo.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de insumo]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarTarifaDeInsumo. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarTarifaDeInsumo. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Registrar hotel
 // TODO: Agregar diagrama de interfaces para CU-17 Registrar hotel.
 //       Archivo sugerido: images/IRegistrarHotel.png
 //       Luego agregar aquí: image::IRegistrarHotel.png[width=600,alt=Diagrama de interfaces de Registrar hotel]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IRegistrarHotel. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IRegistrarHotel. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Consultar hotel
 // TODO: Agregar diagrama de interfaces para CU-18 Consultar hotel.
 //       Archivo sugerido: images/IConsultarHotel.png
 //       Luego agregar aquí: image::IConsultarHotel.png[width=600,alt=Diagrama de interfaces de Consultar hotel]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarHotel. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarHotel. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Actualizar hotel
 // TODO: Agregar diagrama de interfaces para CU-19 Actualizar hotel.
 //       Archivo sugerido: images/IActualizarHotel.png
 //       Luego agregar aquí: image::IActualizarHotel.png[width=600,alt=Diagrama de interfaces de Actualizar hotel]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarHotel. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarHotel. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Dar de baja hotel
 // TODO: Agregar diagrama de interfaces para CU-20 Dar de baja hotel.
 //       Archivo sugerido: images/IDarDeBajaHotel.png
 //       Luego agregar aquí: image::IDarDeBajaHotel.png[width=600,alt=Diagrama de interfaces de Dar de baja hotel]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IDarDeBajaHotel. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IDarDeBajaHotel. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Registrar tipo de habitación
 image::IRegistrarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Registrar tipo de habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+|context IRegistrarTipoHabitación::registrarTipoHabitación(tipo: TipoHabitación): void
+  pre:
+    -- El nombre del nuevo tipo de habitación no puede estar vacío y no debe estar duplicado.
+    tipo.nombre.oclIsNotEmpty() and
+    tiposDeHabitacion->forAll(t \| t.nombre <> tipo.nombre)
+|context IRegistrarTipoHabitación::registrarTipoHabitación(tipo: TipoHabitación): void
+  post:
+    -- Se ha creado un nuevo objeto TipoHabitacion en el sistema.
+    tiposDeHabitacion->size = tiposDeHabitacion@pre->size + 1 and
 
+    -- El nuevo tipo de habitación es el que se acaba de agregar al conjunto.
+    let nuevoTipo : TipoHabitacion = tiposDeHabitacion->excluding(tiposDeHabitacion@pre)->asSequence()->first() in
+
+    -- Los atributos del nuevo tipo corresponden a los datos de entrada.
+    nuevoTipo.nombre = tipo.nombre and
+    nuevoTipo.descripcion = tipo.descripcion and
+    nuevoTipo.capacidad = tipo.capacidad
+|===
 .Diagrama de interfaces: Actualizar tipo de habitación
 // TODO: Agregar diagrama de interfaces para CU-22 Actualizar tipo de habitación.
 //       Archivo sugerido: images/IActualizarTipoHabitación.png
 //       Luego agregar aquí: image::IActualizarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar tipo de habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarTipoHabitación. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarTipoHabitación. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Registrar habitación
 // TODO: Agregar diagrama de interfaces para CU-23 Registrar habitación.
 //       Archivo sugerido: images/IRegistrarHabitación.png
 //       Luego agregar aquí: image::IRegistrarHabitación.png[width=600,alt=Diagrama de interfaces de Registrar habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IRegistrarHabitación. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IRegistrarHabitación. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Consultar habitación
 // TODO: Agregar diagrama de interfaces para CU-24 Consultar habitación.
 //       Archivo sugerido: images/IConsultarHabitación.png
 //       Luego agregar aquí: image::IConsultarHabitación.png[width=600,alt=Diagrama de interfaces de Consultar habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarHabitación. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarHabitación. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Actualizar habitación
 // TODO: Agregar diagrama de interfaces para CU-25 Actualizar habitación.
 //       Archivo sugerido: images/IActualizarHabitación.png
 //       Luego agregar aquí: image::IActualizarHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IActualizarHabitación. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IActualizarHabitación. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Dar de baja habitación
 // TODO: Agregar diagrama de interfaces para CU-26 Dar de baja habitación.
 //       Archivo sugerido: images/IDarDeBajaHabitación.png
 //       Luego agregar aquí: image::IDarDeBajaHabitación.png[width=600,alt=Diagrama de interfaces de Dar de baja habitación]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IDarDeBajaHabitación. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IDarDeBajaHabitación. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Hacer mapa del hotel
 image::IHacerMapaDelHotel.png[width=600,alt=Diagrama de interfaces de Hacer mapa del hotel]
+|===
+| Pre-condiciones  | Post-condiciones
+|context IHacerMapaDelHotel::guardarMapaHotel(hotelId: int): void
+  pre:
+    -- El hotel al que se le asignará el mapa debe existir y no tener un mapa previo.
+    hoteles->exists(h \| h.idHotel = hotelId and h.mapa->isEmpty())
+|context IHacerMapaDelHotel::guardarMapaHotel(hotelId: int): void
+  post:
+    -- El hotel ahora tiene un mapa asociado.
+    let hotelActualizado : Hotel = hoteles->any(h \| h.idHotel = hotelId) in
+    hotelActualizado.mapa.oclIsNotEmpty() and
 
+    -- Se han creado nuevas habitaciones en el inventario (según el mapa definido previamente).
+    habitaciones->size > habitaciones@pre->size
+|===
 .Diagrama de interfaces: Registrar huésped
 image::IRegistrarHuésped.png[width=600,alt=Diagrama de interfaces de Registrar huésped]
+|===
+| Pre-condiciones  | Post-condiciones
+| context IRegistrarHuésped::registrarHuésped(huesped: Huesped): void
+  pre:
+    -- Los datos del huésped deben ser válidos (ej. el email debe tener un formato correcto).
+    huesped.informacionDeContacto.correoElectronico.matches('.+@.+\..+') and huesped.informacionPersonal.nombre.oclIsNotEmpty() and
 
+  -- No debe existir otro huésped con el mismo documento de identidad (PRE-01).
+    huespedes->forAll(h \| h.informacionPersonal.documentoIdentidad <> huesped.informacionPersonal.documentoIdentidad)
+| context IRegistrarHuésped::registrarHuésped(huesped: Huesped): void
+  post:
+    -- Se ha creado un nuevo objeto Huésped en el sistema.
+    huespedes->size = huespedes@pre->size + 1 and
+
+    -- El nuevo huésped es el que se acaba de agregar al conjunto.
+    let nuevoHuesped : Huesped = huespedes->excluding(huespedes@pre)->asSequence()->first() in
+
+    -- Los atributos del nuevo huésped corresponden a los datos de entrada.
+    nuevoHuesped.informacionPersonal = huesped.informacionPersonal and
+    nuevoHuesped.informacionDeContacto = huesped.informacionDeContacto and
+    nuevoHuesped.direccion = huesped.direccion
+|===
 .Diagrama de interfaces: Consultar huésped
 // TODO: Agregar diagrama de interfaces para CU-29 Consultar huésped.
 //       Archivo sugerido: images/IConsultarHuésped.png
 //       Luego agregar aquí: image::IConsultarHuésped.png[width=600,alt=Diagrama de interfaces de Consultar huésped]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarHuésped. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarHuésped. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Registrar gerente
 // TODO: Agregar diagrama de interfaces para CU-30 Registrar gerente.
 //       Archivo sugerido: images/IRegistrarGerente.png
 //       Luego agregar aquí: image::IRegistrarGerente.png[width=600,alt=Diagrama de interfaces de Registrar gerente]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IRegistrarGerente. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IRegistrarGerente. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Consultar gerente
 // TODO: Agregar diagrama de interfaces para CU-31 Consultar gerente.
 //       Archivo sugerido: images/IConsultarGerente.png
 //       Luego agregar aquí: image::IConsultarGerente.png[width=600,alt=Diagrama de interfaces de Consultar gerente]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarGerente. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarGerente. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Dar de baja gerente
 // TODO: Agregar diagrama de interfaces para CU-32 Dar de baja gerente.
 //       Archivo sugerido: images/IDarDeBajaGerente.png
 //       Luego agregar aquí: image::IDarDeBajaGerente.png[width=600,alt=Diagrama de interfaces de Dar de baja gerente]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IDarDeBajaGerente. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IDarDeBajaGerente. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Registrar recepcionista
 // TODO: Agregar diagrama de interfaces para CU-33 Registrar recepcionista.
 //       Archivo sugerido: images/IRegistrarRecepcionista.png
 //       Luego agregar aquí: image::IRegistrarRecepcionista.png[width=600,alt=Diagrama de interfaces de Registrar recepcionista]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IRegistrarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IRegistrarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Consultar recepcionista
 // TODO: Agregar diagrama de interfaces para CU-34 Consultar recepcionista.
 //       Archivo sugerido: images/IConsultarRecepcionista.png
 //       Luego agregar aquí: image::IConsultarRecepcionista.png[width=600,alt=Diagrama de interfaces de Consultar recepcionista]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IConsultarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IConsultarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 .Diagrama de interfaces: Dar de baja recepcionista
 // TODO: Agregar diagrama de interfaces para CU-35 Dar de baja recepcionista.
 //       Archivo sugerido: images/IDarDeBajaRecepcionista.png
 //       Luego agregar aquí: image::IDarDeBajaRecepcionista.png[width=600,alt=Diagrama de interfaces de Dar de baja recepcionista]
+|===
+| Pre-condiciones  | Post-condiciones
+| // TODO: Precondiciones (OCL) para IDarDeBajaRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| // TODO: Postcondiciones (OCL) para IDarDeBajaRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+|===
 
 ==== Diagramas de comunicación (ordenados por casos de uso)
 
