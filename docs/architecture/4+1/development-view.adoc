@@ -733,7 +733,7 @@ image::IConsultarHabitación.png[width=600,alt=Diagrama de interfaces de Consult
 |===
 
 .Diagrama de interfaces: Actualizar habitación
-image::IActualizarHabitacIón.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
+image::IActualizarHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
 
 |===
 | Pre-condiciones  | Post-condiciones
@@ -1048,13 +1048,55 @@ image::IConsultarGerente.png[width=600,alt=Diagrama de interfaces de Consultar g
 |===
 
 .Diagrama de interfaces: Dar de baja gerente
-// TODO: Agregar diagrama de interfaces para CU-32 Dar de baja gerente.
-//       Archivo sugerido: images/IDarDeBajaGerente.png
-//       Luego agregar aquí: image::IDarDeBajaGerente.png[width=600,alt=Diagrama de interfaces de Dar de baja gerente]
+image::IDarDeBajaGerente.png[width=600,alt=Diagrama de interfaces de Dar de baja gerente]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IDarDeBajaGerente. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IDarDeBajaGerente. Use \\| para escapar tuberías dentro de OCL.
+| context IDarDeBajaGerente::buscarGerentes(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Gerente[] +
+  pre: +
+    -- Debe existir al menos un gerente registrado en el sistema +
+    gerentes->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtrosIP.nombre.oclIsNotEmpty() or +
+    filtrosIP.apellidos.oclIsNotEmpty() or +
+    filtrosIC.correoElectronico.oclIsNotEmpty()
+
+  context IDarDeBajaGerente::darDeBajaGerente(idGerente: int): void +
+  pre: +
+    -- El gerente que se va a dar de baja debe existir +
+    gerentes->exists(g \| g.idGerente = idGerente) +
+
+  context IDarDeBajaGerente::revocarPermisosGerente(idGerente: int): void +
+  pre: +
+    -- El gerente al que se le revocan permisos debe existir +
+    gerentes->exists(g \| g.idGerente = idGerente) and +
+    -- El gerente debe tener credenciales asociadas que puedan ser revocadas +
+    gerentes->any(g \| g.idGerente = idGerente).credenciales.oclIsDefined()
+
+| context IDarDeBajaGerente::buscarGerentes(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Gerente[] +
+  post: +
+    -- Es una operación de solo lectura +
+    gerentes = gerentes@pre and +
+    -- El resultado es una colección de Gerentes +
+    result->forAll(g \| g.oclIsTypeOf(Gerente)) and +
+    -- Si no hay coincidencias, el resultado es una colección vacía +
+    result->isSubset(gerentes)
+
+  context IDarDeBajaGerente::darDeBajaGerente(idGerente: int): void +
+  post: +
+    -- La baja no elimina el registro, el número de gerentes es el mismo. +
+    gerentes->size() = gerentes@pre->size() and +
+    -- El estado del gerente seleccionado se cambia a 'Inactivo' +
+    let gerenteActualizado: Gerente = gerentes->any(g \| g.idGerente = idGerente) in
+    gerenteActualizado.estado = 'Inactivo'
+
+  context IDarDeBajaGerente::revocarPermisosGerente(idGerente: int): void +
+  post: +
+    -- El número de credenciales no cambia, pero se invalidan +
+    credenciales = credenciales@pre and +
+    -- Las credenciales del gerente son revocadas +
+    let creds: Credenciales = gerentes->any(g \| g.idGerente = idGerente).credenciales in
+    creds.contrasenaHash = ''
 |===
 
 .Diagrama de interfaces: Registrar recepcionista
@@ -1182,8 +1224,10 @@ image::RegistrarGerente.png[width=700,alt=Diagrama de comunicación de Registrar
 
 .Diagrama de comunicación: CU-31 Consultar Gerente
 image::ConsultarGerente.png[width=700,alt=Diagrama de comunicación de Conultar Gerente]
+
+.Diagrama de comunicación: CU-32 Dar De Baja Gerente
+image::DarDeBajaGerente.png[width=700,alt=Diagrama de comunicación de Dar de baja Gerente]
 // TODO: Agregar diagramas de comunicación para:
-//   - CU-32 Dar de baja gerente -> images/DarDeBajaGerente.png
 //   - CU-33 Registrar recepcionista -> images/RegistrarRecepcionista.png
 //   - CU-34 Consultar recepcionista -> images/ConsultarRecepcionista.png
 //   - CU-35 Dar de baja recepcionista -> images/DarDeBajaRecepcionista.png
