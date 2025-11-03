@@ -109,13 +109,50 @@ image::IHacerReservación.png[width=600,alt=Diagrama de interfaces de Hacer rese
 |===
 
 .Diagrama de interfaces: Consultar disponibilidad
-// TODO: Agregar diagrama de interfaces para CU-02 Consultar disponibilidad.
-//       Archivo sugerido: images/IConsultarDisponibilidad.png
-//       Luego agregar aquí: image::IConsultarDisponibilidad.png[width=600,alt=Diagrama de interfaces de Consultar disponibilidad]
+image::IConsultarDisponibilidad.png[width=600,alt=Diagrama de interfaces de Consultar Disponibilidad]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IConsultarDisponibilidad. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IConsultarDisponibilidad. Use \\| para escapar tuberías dentro de OCL.
+
+| context IConsultarDisponibilidad::obtenerHoteles(destino: String, fechasEstancia: RangoDeFechas, numeroDeHuespedes: int): Hotel[] +
+  pre: +
+    -- El destino no puede estar vacío +
+    destino.oclIsNotEmpty() and +
+    -- El rango de fechas debe ser válido +
+    fechasEstancia.fechaFin >= fechasEstancia.fechaInicio and +
+    -- El número de huéspedes debe ser positivo. +
+    numeroDeHuespedes > 0 and +
+    -- Debe existir al menos un hotel en el sistema +
+    hoteles->size() > 0
+
+  context IConsultarDisponibilidad::obtenerTiposDeHabitaciones(idHotel: int, fechas: RangoDeFechas): TipoHabitacion[] +
+  pre: +
+    -- El hotel seleccionado debe existir en el sistema +
+    hoteles->exists(h \| h.idHotel = idHotel) and +
+    -- El rango de fechas de estancia debe ser válido +
+    fechas.fechaFin >= fechas.fechaInicio and +
+    -- El hotel seleccionado debe tener al menos un tipo de habitación registrado +
+    tiposDeHabitacion->exists(th \| th.hotel.idHotel = idHotel)
+
+| context IConsultarDisponibilidad::obtenerHoteles(destino: String, fechasEstancia: RangoDeFechas, numeroDeHuespedes: int): Hotel[] +
+  post: +
+    -- El resultado es una colección de objetos Hotel. +
+    result->forAll(h \| h.oclIsTypeOf(Hotel)) and +
+    -- Todos los hoteles devueltos deben estar en la ciudad (destino) especificada. +
+    result->forAll(h \| h.direccion.ciudad = destino) and +
+    -- La operación es de solo lectura, no modifica el estado de los hoteles. +
+    hoteles = hoteles@pre
+
+  context IConsultarDisponibilidad::obtenerTiposDeHabitaciones(idHotel: int, fechas: RangoDeFechas): TipoHabitacion[] +
+  post: +
+    -- La operación es de solo lectura (no altera el inventario) +
+    tiposDeHabitacion = tiposDeHabitacion@pre and habitaciones = habitaciones@pre and +
+    -- El resultado es una colección de Tipos de Habitación. +
+    result->forAll(th \| th.oclIsTypeOf(TipoHabitacion)) and +
+    -- Todos los tipos de habitación devueltos pertenecen al hotel solicitado +
+    result->forAll(th \| th.hotel.idHotel = idHotel) and +
+    -- El resultado es un subconjunto de los tipos de habitación del hotel, filtrado por disponibilidad en las 'fechas' dadas. +
+    result->isSubset(hoteles->any(h \| h.idHotel = idHotel).tiposDeHabitacion)
 |===
 
 .Diagrama de interfaces: Hacer pago con tarjeta
@@ -487,13 +524,57 @@ image::IRegistrarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Reg
 |===
 
 .Diagrama de interfaces: Registrar habitación
-// TODO: Agregar diagrama de interfaces para CU-23 Registrar habitación.
-//       Archivo sugerido: images/IRegistrarHabitación.png
-//       Luego agregar aquí: image::IRegistrarHabitación.png[width=600,alt=Diagrama de interfaces de Registrar habitación]
+image::IRegistrarHabitación.png[width=600,alt=Diagrama de interfaces de Registrar habitación]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IRegistrarHabitación. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IRegistrarHabitación. Use \\| para escapar tuberías dentro de OCL.
+
+| context IRegistrarHabitacion::obtenerTiposDeHabitacionesDelHotel(idHotel: int): TipoHabitacion[] +
+  pre: +
+    -- El hotel para el cual se piden los tipos debe existir +
+    hoteles->exists(h \| h.idHotel = idHotel) and +
+    -- Ese hotel debe tener al menos un tipo de habitación registrado +
+    tiposDeHabitacion->exists(th \| th.hotel.idHotel = idHotel)
+
+  context IRegistrarHabitacion::crearHabitacion(habitacion: Habitacion, tipo: TipoHabitacion): void +
+  pre: +
+    -- Los datos de la habitación deben ser válidos +
+    habitacion.numeroDeHabitacion.oclIsNotEmpty() and +
+    habitacion.piso > 0 and +
+    habitacion.capacidad > 0 and +
+    -- El tipo de habitación (tipo) debe existir y ser un tipo de habitación válido +
+    tiposDeHabitacion->includes(tipo) and +
+    -- El hotel al que pertenece este tipo de habitación debe existir +
+    let hotel: Hotel = tipo.hotel in
+    hoteles->includes(hotel) and +
+    -- El número de habitación no debe existir ya en ese hotel +
+    hotel.habitaciones->forAll(h \| h.numeroDeHabitacion <> habitacion.numeroDeHabitacion) and +
+    -- El hotel no ha excedido su número total de habitaciones +
+    hotel.habitaciones->size() < hotel.capacidadTotalHabitaciones
+
+| context IRegistrarHabitacion::obtenerTiposDeHabitacionesDelHotel(idHotel: int): TipoHabitacion[] +
+  post: +
+    -- La operación es de solo lectura +
+    tiposDeHabitacion = tiposDeHabitacion@pre and +
+    -- El resultado es una colección de objetos TipoHabitacion +
+    result->forAll(th \| th.oclIsTypeOf(TipoHabitacion)) and +
+    -- Todos los tipos de habitación devueltos pertenecen al hotel solicitado +
+    result->forAll(th \| th.hotel.idHotel = idHotel)
+
+  context IRegistrarHabitacion::crearHabitacion(habitacion: Habitacion, tipo: TipoHabitacion): void +
+  post: +
+    -- Se ha creado una nueva habitación en el sistema +
+    habitaciones->size() = habitaciones@pre->size() + 1 and +
+    -- La nueva habitación es la que se acaba de agregar +
+    let nuevaHabitacion: Habitacion = habitaciones->excluding(habitaciones@pre)->asSequence()->first() in +
+    -- Los atributos de la nueva habitación coinciden con los datos de entrada +
+    nuevaHabitacion.numeroDeHabitacion = habitacion.numeroDeHabitacion and +
+    nuevaHabitacion.capacidad = habitacion.capacidad and +
+    nuevaHabitacion.piso = habitacion.piso and +
+    nuevaHabitacion.estado = habitacion.estado and +
+    -- La nueva habitación está asociada al hotel y al tipo correctos +
+    nuevaHabitacion.tipoHabitacion = tipo and
+    tipo.hotel.habitaciones->includes(nuevaHabitacion)
 |===
 
 .Diagrama de interfaces: Consultar habitación
@@ -642,9 +723,8 @@ image::IRegistrarHuésped.png[width=600,alt=Diagrama de interfaces de Registrar 
 .Diagrama de comunicación: CU-01 Hacer reservación
 image::HacerReservación.png[width=700,alt=Diagrama de comunicación de Hacer reservación]
 
-// TODO: Agregar diagrama de comunicación para CU-02 Consultar disponibilidad.
-//       Archivo sugerido: images/ConsultarDisponibilidad.png
-//       Luego agregar aquí: image::ConsultarDisponibilidad.png[width=700,alt=Diagrama de comunicación de Consultar disponibilidad]
+.Diagrama de comunicación: CU-02 Consultar Disponibilidad
+image::ConsultarDisponibilidad.png[width=700,alt=Diagrama de comunicación de Consultar disponibilidad]
 
 .Diagrama de comunicación: CU-03 Hacer pago con tarjeta
 image::HacerPagoConTarjeta.png[width=700,alt=Diagrama de comunicación de Hacer pago con tarjeta]
@@ -693,7 +773,9 @@ image::RegistrarTipoHabitación.png[width=700,alt=Diagrama de comunicación de R
 
 // TODO: Agregar diagramas de comunicación para:
 //   - CU-22 Actualizar tipo de habitación -> images/ActualizarTipoHabitación.png
-//   - CU-23 Registrar habitación -> images/RegistrarHabitación.png
+.Diagrama de comunicación: CU-23 Registrar Habitación
+image::RegistrarHabitación.png[width=700,alt=Diagrama de comunicación de Registrar Habitación]
+
 //   - CU-24 Consultar habitación -> images/ConsultarHabitación.png
 //   - CU-25 Actualizar habitación -> images/ActualizarHabitación.png
 //   - CU-26 Dar de baja habitación -> images/DarDeBajaHabitación.png
