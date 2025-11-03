@@ -711,13 +711,58 @@ image::IActualizarHabitacIón.png[width=600,alt=Diagrama de interfaces de Actual
 |===
 
 .Diagrama de interfaces: Dar de baja habitación
-// TODO: Agregar diagrama de interfaces para CU-26 Dar de baja habitación.
-//       Archivo sugerido: images/IDarDeBajaHabitación.png
-//       Luego agregar aquí: image::IDarDeBajaHabitación.png[width=600,alt=Diagrama de interfaces de Dar de baja habitación]
+image::IDarDeBajaHabitación.png[width=600,alt=Diagrama de interfaces de Dar de baja habitación]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IDarDeBajaHabitación. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IDarDeBajaHabitación. Use \\| para escapar tuberías dentro de OCL.
+
+| context IDarDeBajaHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  pre: +
+    -- El hotel del que se pide el mapa debe existir +
+    hoteles->exists(h \| h.idHotel = idHotel) and +
+    -- El mapa del hotel ya debe haber sido creado +
+    hoteles->any(h \| h.idHotel = idHotel).mapaHotel.oclIsDefined()
+
+  context IDarDeBajaHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  pre: +
+    -- Debe existir al menos una habitación registrada en el hotel +
+    let hotel: Hotel = filtros.hotel in
+    hotel.habitaciones->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtros.numeroDeHabitacion.oclIsNotEmpty() or filtros.tipoHabitacion.oclIsDefined() +
+
+  context IDarDeBajaHabitacion::darDeBajaHabitacion(idHabitacion: int): void +
+  pre: +
+    -- La habitación que se solicita debe existir +
+    habitaciones->exists(h \| h.idHabitacion = idHabitacion) and +
+    -- La habitación a dar de baja no debe estar ocupada +
+    habitaciones->any(h \| h.idHabitacion = idHabitacion).estado <> 'OCUPADA'
+
+| context IDarDeBajaHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  post: +
+    -- Es una operación de solo lectura +
+    mapaHotel = mapaHotel@pre and +
+    -- Devuelve el mapa solicitado +
+    result = hoteles->any(h \| h.idHotel = idHotel).mapaHotel
+
+  context IDarDeBajaHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  post: +
+    -- Es una operación de solo lectura +
+    habitaciones = habitaciones@pre and +
+    -- Devuelve una lista de habitaciones que coinciden +
+    result->forAll(h \| h.oclIsTypeOf(Habitacion)) and +
+    -- Si no hay coincidencias, devuelve una lista vacía +
+    result->isSubset(filtros.hotel.habitaciones)
+
+  context IDarDeBajaHabitacion::darDeBajaHabitacion(idHabitacion: int): void +
+  post: +
+    -- La habitación se da de baja de la base de datos  +
+    habitaciones->size() = habitaciones@pre->size() - 1 and +
+    -- La habitación específica ya no existe en la colección +
+    habitaciones->forAll(h \| h.idHabitacion <> idHabitacion) and +
+    -- La habitación ya no aparece en el mapa de habitaciones del hotel +
+    let hotel: Hotel = habitaciones@pre->any(h \| h.idHabitacion = idHabitacion).hotel in
+    hotel.mapaHotel.habitaciones->forAll(h \| h.idHabitacion <> idHabitacion)
 |===
 
 .Diagrama de interfaces: Hacer mapa del hotel
@@ -762,19 +807,44 @@ image::IRegistrarHuésped.png[width=600,alt=Diagrama de interfaces de Registrar 
     nuevoHuesped.direccion = huesped.direccion
 |===
 .Diagrama de interfaces: Consultar huésped
-// TODO: Agregar diagrama de interfaces para CU-29 Consultar huésped.
-//       Archivo sugerido: images/IConsultarHuésped.png
-//       Luego agregar aquí: image::IConsultarHuésped.png[width=600,alt=Diagrama de interfaces de Consultar huésped]
+image::IConsultarHuésped.png[width=600,alt=Diagrama de interfaces de Consultar huésped]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IConsultarHuésped. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IConsultarHuésped. Use \\| para escapar tuberías dentro de OCL.
+| context IConsultarHuesped::buscarHuespedes(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Huésped[] +
+  pre: +
+    -- Debe existir al menos un huésped registrado en el sistema +
+    huespedes->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtrosIP.nombre.oclIsNotEmpty() or +
+    filtrosIP.apellidos.oclIsNotEmpty() or +
+    filtrosIC.correoElectronico.oclIsNotEmpty()
+
+  context IConsultarHuesped::consultarHuesped(idHuésped: int): Huésped +
+  pre: +
+    -- El huésped que se solicita debe existir +
+    huespedes->exists(h \| h.idHuesped = idHuésped)
+
+| context IConsultarHuesped::buscarHuespedes(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Huésped[] +
+  post: +
+    -- Es una operación de solo lectura +
+    huespedes = huespedes@pre and +
+    -- El resultado es una colección de Huéspedes +
+    result->forAll(h \| h.oclIsTypeOf(Huésped)) and +
+    --Si no hay coincidencias, el resultado es una colección vacía +
+    result->isSubset(huespedes)
+
+  context IConsultarHuesped::consultarHuesped(idHuésped: int): Huésped +
+  post: +
+    -- Es una operación de solo lectura +
+    huespedes = huespedes@pre +
+    -- El resultado es el huésped específico solicitado +
+    result.idHuesped = idHuésped
 |===
 
 .Diagrama de interfaces: Registrar gerente
-// TODO: Agregar diagrama de interfaces para CU-30 Registrar gerente.
-//       Archivo sugerido: images/IRegistrarGerente.png
-//       Luego agregar aquí: image::IRegistrarGerente.png[width=600,alt=Diagrama de interfaces de Registrar gerente]
+image::IRegistrarGerente.png[width=600,alt=Diagrama de interfaces de Registrar gerente]
+
 |===
 | Pre-condiciones  | Post-condiciones
 | // TODO: Precondiciones (OCL) para IRegistrarGerente. Use \\| para escapar tuberías dentro de OCL.
@@ -895,8 +965,8 @@ image::ConsultarHabitación.png[width=700,alt=Diagrama de comunicación de Consu
 .Diagrama de comunicación: CU-25 Actualizar Habitación
 image::ActualizarHabitación.png[width=700,alt=Diagrama de comunicación de Actualizar Habitación]
 
-//   - CU-26 Dar de baja habitación -> images/DarDeBajaHabitación.png
-//   - CU-27 Hacer mapa del hotel (ya agregado)
+.Diagrama de comunicación: CU-26 Dar De Baja Habitación
+image::DarDeBajaHabitación.png[width=700,alt=Diagrama de comunicación de Dar De Baja Habitación]
 
 .Diagrama de comunicación: CU-27 Hacer mapa del hotel
 image::HacerMapaDelHotel.png[width=700,alt=Diagrama de comunicación de Hacer mapa del hotel]
@@ -905,8 +975,10 @@ image::HacerMapaDelHotel.png[width=700,alt=Diagrama de comunicación de Hacer ma
 .Diagrama de comunicación: CU-28 Registrar huésped
 image::RegistrarHuésped.png[width=700,alt=Diagrama de comunicación de Registrar huésped]
 
+.Diagrama de comunicación: CU-29 Consultar huésped
+image::ConsultarHuésped.png[width=700,alt=Diagrama de comunicación de Consultar huésped]
+
 // TODO: Agregar diagramas de comunicación para:
-//   - CU-29 Consultar huésped -> images/ConsultarHuésped.png
 //   - CU-30 Registrar gerente -> images/RegistrarGerente.png
 //   - CU-31 Consultar gerente -> images/ConsultarGerente.png
 //   - CU-32 Dar de baja gerente -> images/DarDeBajaGerente.png
