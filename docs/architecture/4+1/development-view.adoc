@@ -1004,33 +1004,159 @@ image::IDarDeBajaGerente.png[width=600,alt=Diagrama de interfaces de Dar de baja
 |===
 
 .Diagrama de interfaces: Registrar recepcionista
-// TODO: Agregar diagrama de interfaces para CU-33 Registrar recepcionista.
-//       Archivo sugerido: images/IRegistrarRecepcionista.png
-//       Luego agregar aquí: image::IRegistrarRecepcionista.png[width=600,alt=Diagrama de interfaces de Registrar recepcionista]
+image::IRegistrarRecepcionista.png[width=600,alt=Diagrama de interfaces de Registrar recepcionista]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IRegistrarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IRegistrarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| context IRegistrarRecepcionista::obtenerHotelDelGerente(idGerente: int): Hotel +
+  pre: +
+    -- El gerente debe existir +
+    gerentes->exists(g \| g.idGerente = idGerente) and +
+    -- El gerente debe tener un hotel asignado +
+    gerentes->any(g \| g.idGerente = idGerente).hotel.oclIsDefined()
+
+  context IRegistrarRecepcionista::guardarRecepcionista(recepcionista: Recepcionista, idHotel: int): Recepcionista +
+  pre: +
+    -- Los datos personales deben ser válidos +
+    recepcionista.informacionPersonal.nombre.oclIsNotEmpty() and +
+    -- El correo debe ser válido y único +
+    recepcionista.informacionDeContacto.correoElectronico.oclIsNotEmpty() and +
+    recepcionistas->forAll(r \| r.informacionDeContacto.correoElectronico <> recepcionista.informacionDeContacto.correoElectronico) and +
+    -- El hotel donde se registra debe existir +
+    hoteles->exists(h \| h.idHotel = idHotel)
+
+  context IRegistrarRecepcionista::generarCredencialesRecepcionista(idRecepcionista: int): Credenciales +
+  pre:+
+    -- El recepcionista debe existir (recién guardado) +
+    recepcionistas->exists(r \| r.idRecepcionista = idRecepcionista)
+
+  context IRegistrarRecepcionista::enviarCredencialesRecepcionista(info: InformacionDeContacto, creds: Credenciales): void +
+  pre: +
+    -- Debe existir un correo electrónico válido +
+    info.correoElectronico.oclIsNotEmpty() and +
+    -- Deben existir credenciales para enviar +
+    creds.usuario.oclIsNotEmpty() and creds.contrasenaHash.oclIsNotEmpty()
+
+| context IRegistrarRecepcionista::obtenerHotelDelGerente(idGerente: int): Hotel +
+  post: +
+    -- Es una operación de solo lectura +
+    hoteles = hoteles@pre and gerentes = gerentes@pre and
+    -- El resultado es el hotel específico gestionado por ese gerente +
+    result = gerentes->any(g \| g.idGerente = idGerente).hotel
+
+  context IRegistrarRecepcionista::guardarRecepcionista(recepcionista: Recepcionista, idHotel: int): Recepcionista +
+  post: +
+    -- Se ha creado un nuevo recepcionista +
+    recepcionistas->size() = recepcionistas@pre->size() + 1 and +
+    -- El resultado es el recepcionista recién creado. +
+    result = recepcionistas->excluding(recepcionistas@pre)->asSequence()->first() and +
+    -- Los datos se han guardado +
+    result.informacionPersonal = recepcionista.informacionPersonal and +
+    result.informacionDeContacto = recepcionista.informacionDeContacto and +
+    -- El nuevo recepcionista está asociado al hotel correcto +
+    hoteles->any(h \| h.idHotel = idHotel).recepcionistas->includes(result)
+
+  context IRegistrarRecepcionista::generarCredencialesRecepcionista(idRecepcionista: int): Credenciales +
+  post: +
+    -- El resultado es un objeto Credenciales +
+    result.oclIsTypeOf(Credenciales) and +
+    -- Se generó un usuario y una contraseña +
+    result.usuario.oclIsNotEmpty() and +
+    result.contrasenaHash.oclIsNotEmpty() and +
+    -- Las credenciales se asocian al recepcionista +
+    recepcionistas->any(r \| r.idRecepcionista = idRecepcionista).credenciales = result
+
+  context IRegistrarRecepcionista::enviarCredencialesRecepcionista(info: InformacionDeContacto, creds: Credenciales): void +
+  post: +
+    -- El sistema registra el envío del correo +
+    self.logEnviosCorreos->size = self.logEnviosCorreos@pre->size + 1
 |===
 
 .Diagrama de interfaces: Consultar recepcionista
-// TODO: Agregar diagrama de interfaces para CU-34 Consultar recepcionista.
-//       Archivo sugerido: images/IConsultarRecepcionista.png
-//       Luego agregar aquí: image::IConsultarRecepcionista.png[width=600,alt=Diagrama de interfaces de Consultar recepcionista]
+image::IConsultarRecepcionista.png[width=600,alt=Diagrama de interfaces de Consultar recepcionista]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IConsultarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IConsultarRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| context IConsultarRecepcionista::buscarRecepcionistas(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Recepcionista[] +
+  pre: +
+    -- Debe existir al menos un recepcionista registrado en el sistema +
+    recepcionistas->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtrosIP.nombre.oclIsNotEmpty() or +
+    filtrosIC.correoElectronico.oclIsNotEmpty()
+
+  context IConsultarRecepcionista::consultarRecepcionista(idRecepcionista: int): Recepcionista +
+  pre: +
+    -- El recepcionista que se solicita debe existir +
+    recepcionistas->exists(r \| r.idRecepcionista = idRecepcionista)
+
+| context IConsultarRecepcionista::buscarRecepcionistas(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Recepcionista[] +
+  post: +
+    -- Es una operación de solo lectura +
+    recepcionistas = recepcionistas@pre and +
+    -- El resultado es una colección de Recepcionistas +
+    result->forAll(r \| r.oclIsTypeOf(Recepcionista)) and +
+    -- Si no hay coincidencias, el resultado es una colección vacía +
+    result->isSubset(recepcionistas)
+
+  context IConsultarRecepcionista::consultarRecepcionista(idRecepcionista: int): Recepcionista +
+  post: +
+    -- Es una operación de solo lectura +
+    recepcionistas = recepcionistas@pre and +
+    hoteles = hoteles@pre and +
+    -- El resultado es el recepcionista específico solicitado +
+    result.idRecepcionista = idRecepcionista
 |===
 
 .Diagrama de interfaces: Dar de baja recepcionista
-// TODO: Agregar diagrama de interfaces para CU-35 Dar de baja recepcionista.
-//       Archivo sugerido: images/IDarDeBajaRecepcionista.png
-//       Luego agregar aquí: image::IDarDeBajaRecepcionista.png[width=600,alt=Diagrama de interfaces de Dar de baja recepcionista]
+image::IDarDeBajaRecepcionista.png[width=600,alt=Diagrama de interfaces de Dar de baja recepcionista]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IDarDeBajaRecepcionista. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IDarDeBajaRecepcionista. Use \\| para escapar tuberías dentro de OCL.
+| context IDarDeBajaRecepcionista::buscarRecepcionistas(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Recepcionista[] +
+  pre: +
+    -- Debe existir al menos un recepcionista registrado en el sistema +
+    recepcionistas->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtrosIP.nombre.oclIsNotEmpty() or +
+    filtrosIC.correoElectronico.oclIsNotEmpty()
+
+  context IDarDeBajaRecepcionista::darDeBajaRecepcionista(idRecepcionista: int): void +
+  pre: +
+    -- El recepcionista que se va a dar de baja debe existir +
+    recepcionistas->exists(r \| r.idRecepcionista = idRecepcionista)
+
+  context IDarDeBajaRecepcionista::revocarPermisosRecepcionista(idRecepcionista: int): void +
+  pre: +
+    -- El recepcionista al que se le revocan permisos debe existir +
+    recepcionistas->exists(r \| r.idRecepcionista = idRecepcionista) and +
+    -- El recepcionista debe tener credenciales asociadas que puedan ser revocadas +
+    recepcionistas->any(r \| r.idRecepcionista = idRecepcionista).credenciales.oclIsDefined()
+
+| context IDarDeBajaRecepcionista::buscarRecepcionistas(filtrosIP: InformacionPersonal, filtrosIC: InformacionDeContacto): Recepcionista[] +
+  post: +
+    -- Es una operación de solo lectura +
+    recepcionistas = recepcionistas@pre and +
+    -- El resultado es una colección de Recepcionistas +
+    result->forAll(r \| r.oclIsTypeOf(Recepcionista)) and +
+    -- Si no hay coincidencias, el resultado es una colección vacía +
+    result->isSubset(recepcionistas)
+
+  context IDarDeBajaRecepcionista::darDeBajaRecepcionista(idRecepcionista: int): void +
+  post: +
+    -- La baja no elimina el registro, el número de recepcionistas es el mismo +
+    recepcionistas->size() = recepcionistas@pre->size() and +
+    -- El estado del recepcionista seleccionado se cambia a 'Inactivo' +
+    let recepcionistaActualizado: Recepcionista = recepcionistas->any(r \| r.idRecepcionista = idRecepcionista) in
+    recepcionistaActualizado.estado = 'Inactivo'
+
+  context IDarDeBajaRecepcionista::revocarPermisosRecepcionista(idRecepcionista: int): void +
+  post: +
+    -- Las credenciales no se eliminan, se invalidan
+    credenciales = credenciales@pre and
+    -- Las credenciales del recepcionista son revocadas
+    let creds: Credenciales = recepcionistas->any(r \| r.idRecepcionista = idRecepcionista).credenciales in
+    creds.contrasenaHash = ''
 |===
 
 ==== Diagramas de comunicación (ordenados por casos de uso)
@@ -1118,8 +1244,12 @@ image::ConsultarGerente.png[width=700,alt=Diagrama de comunicación de Conultar 
 
 .Diagrama de comunicación: CU-32 Dar De Baja Gerente
 image::DarDeBajaGerente.png[width=700,alt=Diagrama de comunicación de Dar de baja Gerente]
-// TODO: Agregar diagramas de comunicación para:
-//   - CU-33 Registrar recepcionista -> images/RegistrarRecepcionista.png
-//   - CU-34 Consultar recepcionista -> images/ConsultarRecepcionista.png
-//   - CU-35 Dar de baja recepcionista -> images/DarDeBajaRecepcionista.png
-//       Luego agregar cada uno aquí con width=700 y alt descriptivo.
+
+.Diagrama de comunicación: CU-33 Registrar Recepcionista
+image::RegistrarRecepcionista.png[width=700,alt=Diagrama de comunicación de Registrar Recepcionista]
+
+.Diagrama de comunicación: CU-34 Consultar Recepcionista
+image::ConsultarRecepcionista.png[width=700,alt=Diagrama de comunicación de Consultar Recepcionista]
+
+.Diagrama de comunicación: CU-35 Dar de baja Recepcionista
+image::DarDeBajaRecepcionistas.png[width=700,alt=Diagrama de comunicación de Dar de baja Recepcionista]
