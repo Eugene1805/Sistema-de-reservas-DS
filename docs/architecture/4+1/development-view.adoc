@@ -578,23 +578,136 @@ image::IRegistrarHabitación.png[width=600,alt=Diagrama de interfaces de Registr
 |===
 
 .Diagrama de interfaces: Consultar habitación
-// TODO: Agregar diagrama de interfaces para CU-24 Consultar habitación.
-//       Archivo sugerido: images/IConsultarHabitación.png
-//       Luego agregar aquí: image::IConsultarHabitación.png[width=600,alt=Diagrama de interfaces de Consultar habitación]
+image::IConsultarHabitación.png[width=600,alt=Diagrama de interfaces de Consultar habitación]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IConsultarHabitación. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IConsultarHabitación. Use \\| para escapar tuberías dentro de OCL.
+
+| context IConsultarHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  pre: +
+    -- El hotel del que se pide el mapa debe existir +
+    hoteles->exists(h \| h.idHotel = idHotel) and +
+    -- El mapa del hotel ya debe haber sido creado +
+    hoteles->any(h \| h.idHotel = idHotel).mapaHotel.oclIsDefined()
+
+  context IConsultarHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  pre: +
+    -- Debe existir al menos una habitación registrada en el hotel +
+    let hotel: Hotel = filtros.hotel in
+    hotel.habitaciones->notEmpty() and +
+    -- El objeto 'filtros' debe contener al menos un criterio de búsqueda +
+    filtros.numeroDeHabitacion.oclIsNotEmpty() or +
+    filtros.tipoHabitacion.oclIsDefined() or +
+    filtros.rangoDePrecio.oclIsDefined()
+
+  context IConsultarHabitacion::obtenerHabitacion(idHabitacion: int): Habitacion +
+  pre: +
+    -- La habitación que se solicita debe existir +
+    habitaciones->exists(h \| h.idHabitacion = idHabitacion)
+
+| context IConsultarHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  post: +
+    -- Es una operación de solo lectura +
+    mapaHotel = mapaHotel@pre and +
+    -- El resultado es el mapa de habitaciones asociado al hotel solicitado +
+    result = hoteles->any(h \| h.idHotel = idHotel).mapaHotel
+
+  context IConsultarHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  post: +
+    -- Es una operación de solo lectura +
+    habitaciones = habitaciones@pre and +
+    -- El resultado es una colección de Habitaciones +
+    result->forAll(h \| h.oclIsTypeOf(Habitacion)) and +
+    -- Todas las habitaciones devueltas pertenecen al hotel del filtro +
+    result->forAll(h \| h.hotel = filtros.hotel) and +
+    -- (Si no hay coincidencias, el resultado es una colección vacía) +
+    if result->isEmpty() then +
+      true +
+    else +
+      -- El resultado es un subconjunto de las habitaciones del hotel +
+      result->isSubset(filtros.hotel.habitaciones) +
+    endif
+
+  context IConsultarHabitacion::obtenerHabitacion(idHabitacion: int): Habitacion +
+  post: +
+    -- Es una operación de solo lectura +
+    habitaciones = habitaciones@pre and +
+    -- El resultado es la habitación específica solicitada +
+    result.idHabitacion = idHabitacion
 |===
 
 .Diagrama de interfaces: Actualizar habitación
-// TODO: Agregar diagrama de interfaces para CU-25 Actualizar habitación.
-//       Archivo sugerido: images/IActualizarHabitación.png
-//       Luego agregar aquí: image::IActualizarHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
+image::IActualizarHabitacIón.png[width=600,alt=Diagrama de interfaces de Actualizar habitación]
+
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarHabitación. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarHabitación. Use \\| para escapar tuberías dentro de OCL.
+
+| context IActualizarHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  pre: +
+    -- El hotel del que se pide el mapa debe existir +
+    hoteles->exists(h \| h.idHotel = idHotel) and +
+    -- El mapa del hotel ya debe haber sido creado +
+    hoteles->any(h \| h.idHotel = idHotel).mapaHabitaciones.oclIsDefined()
+
+  context IActualizarHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  pre: +
+    -- Debe existir al menos una habitación registrada en el hotel +
+    let hotel: Hotel = filtros.hotel in +
+    hotel.habitaciones->notEmpty() and +
+    -- Al menos un criterio de búsqueda debe estar presente +
+    filtros.numeroDeHabitacion.oclIsNotEmpty() or filtros.tipoHabitacion.oclIsDefined()
+
+  context IActualizarHabitacion::obtenerHabitacion(idHabitacion: int): Habitacion +
+  pre: +
+    -- La habitación que se solicita debe existir +
+    habitaciones->exists(h \| h.idHabitacion = idHabitacion) and +
+    -- La habitación a actualizar no debe estar ocupada +
+    habitaciones->any(h \| h.idHabitacion = idHabitacion).estado <> 'OCUPADA' +
+
+  context IActualizarHabitacion::actualizarHabitacion(habitacion: Habitacion): void +
+  pre: +
+    -- La habitación que se intenta guardar debe existir en la base de datos +
+    let habitacionOriginal: Habitacion = habitaciones@pre->any(h \| h.idHabitacion = habitacion.idHabitacion) in
+    habitacionOriginal.oclIsDefined() and +
+    -- La habitación no debe estar ocupada +
+    habitacionOriginal.estado <> 'OCUPADA' and +
+    -- El número de habitación no se puede modificar +
+    habitacionOriginal.numeroDeHabitacion = habitacion.numeroDeHabitacion and +
+    -- Los nuevos datos deben ser válidos +
+    habitacion.capacidad > 0 and habitacion.piso > 0
+
+| context IActualizarHabitacion::obtenerMapaDeHabitacionesDelHotel(idHotel: int): MapaHabitaciones +
+  post: +
+    -- Es una operación de solo lectura +
+    mapaHabitaciones = mapaHabitaciones@pre and +
+    -- Devuelve el mapa solicitado +
+    result = hoteles->any(h \| h.idHotel = idHotel).mapaHabitaciones
+
+  context IActualizarHabitacion::obtenerInformacionPreviaHabitacion(filtros: Habitacion): Habitacion[] +
+  post: +
+    -- Es una operación de solo lectura +
+    habitaciones = habitaciones@pre and +
+    -- Devuelve una lista de habitaciones que coinciden +
+    result->forAll(h \| h.oclIsTypeOf(Habitacion)) and +
+    result->isSubset(filtros.hotel.habitaciones)
+
+  context IActualizarHabitacion::obtenerHabitacion(idHabitacion: int): Habitacion +
+  post: +
+    -- Es una operación de solo lectura +
+    habitaciones = habitaciones@pre and +
+    -- Devuelve la habitación específica para editar +
+    result.idHabitacion = idHabitacion
+
+  context IActualizarHabitacion::actualizarHabitacion(habitacion: Habitacion): void +
+  post: +
+    -- El número total de habitaciones no cambia +
+    habitaciones->size() = habitaciones@pre->size() and +
+    -- La información de la habitación en el sistema coincide con los nuevos datos +
+    let habitacionActualizada: Habitacion = habitaciones->any(h \| h.idHabitacion = habitacion.idHabitacion) in +
+    habitacionActualizada.capacidad = habitacion.capacidad and +
+    habitacionActualizada.piso = habitacion.piso and +
+    habitacionActualizada.estado = habitacion.estado and +
+    habitacionActualizada.tipoHabitacion = habitacion.tipoHabitacion
 |===
 
 .Diagrama de interfaces: Dar de baja habitación
@@ -776,8 +889,12 @@ image::RegistrarTipoHabitación.png[width=700,alt=Diagrama de comunicación de R
 .Diagrama de comunicación: CU-23 Registrar Habitación
 image::RegistrarHabitación.png[width=700,alt=Diagrama de comunicación de Registrar Habitación]
 
-//   - CU-24 Consultar habitación -> images/ConsultarHabitación.png
-//   - CU-25 Actualizar habitación -> images/ActualizarHabitación.png
+.Diagrama de comunicación: CU-24 Consultar Habitación
+image::ConsultarHabitación.png[width=700,alt=Diagrama de comunicación de Consultar Habitación]
+
+.Diagrama de comunicación: CU-25 Actualizar Habitación
+image::ActualizarHabitación.png[width=700,alt=Diagrama de comunicación de Actualizar Habitación]
+
 //   - CU-26 Dar de baja habitación -> images/DarDeBajaHabitación.png
 //   - CU-27 Hacer mapa del hotel (ya agregado)
 
