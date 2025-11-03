@@ -262,24 +262,40 @@ image::IHacerPagoConOtroMétodo.png[width=600,alt=Diagrama de interfaces de Hace
     result.idTransaccion = txActualizada.id
 |===
 .Diagrama de interfaces: Hacer check-in
-// TODO: Agregar diagrama de interfaces para CU-06 Hacer check-in.
-//       Archivo sugerido: images/IHacerCheckIn.png
-//       Luego agregar aquí: image::IHacerCheckIn.png[width=600,alt=Diagrama de interfaces de Hacer check-in]
+image::InterfacesDiaCU-07 Hacer Check-In.png[width=600,alt=Diagrama de interfaces de Hacer check-in]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IHacerCheckIn. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IHacerCheckIn. Use \\| para escapar tuberías dentro de OCL.
+| context IHacerCheckIn::hacerCheckIn(): void
+  pre:
+    -- El huésped debe tener una reservación vigente asociada.
+    reservaciones->exists(r | r.huesped.id = idHuesped and r.estado = 'CONFIRMADA')
+  context IHacerCheckIn::hacerCheckIn(): void
+  post:
+    -- Se crea una estancia asociada al huésped y se asigna habitación.
+    estancias->size = estancias@pre->size + 1 and
+    let nuevaEstancia : Estancia = estancias->excluding(estancias@pre)->asSequence()->first() in
+    nuevaEstancia.habitacion.estado = 'OCUPADA' and
+    nuevaEstancia.estado = 'ACTIVA'
 |===
 
 .Diagrama de interfaces: Hacer check-out
-// TODO: Agregar diagrama de interfaces para CU-07 Hacer check-out.
-//       Archivo sugerido: images/IHacerCheckOut.png
-//       Luego agregar aquí: image::IHacerCheckOut.png[width=600,alt=Diagrama de interfaces de Hacer check-out]
+image::InterfacesDiaCU-08 Hacer Check-out.png[width=600,alt=Diagrama de interfaces de Hacer check-out]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IHacerCheckOut. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IHacerCheckOut. Use \\| para escapar tuberías dentro de OCL.
+| context IHacerCheckOut::hacerCheckOut(): void
+  pre:
+    -- El huésped debe tener una estancia activa.
+    estancias->exists(e | e.huesped.id = idHuesped and e.estado = 'ACTIVA') and
+    -- No deben existir pagos pendientes.
+    pagos->forAll(p | p.estado <> 'PENDIENTE')
+  context IHacerCheckOut::hacerCheckOut(): void
+  post:
+    -- La estancia se marca como finalizada y la habitación vuelve a estar disponible.
+    let estanciaFinalizada : Estancia = estancias->any(e | e.huesped.id = idHuesped) in
+    estanciaFinalizada.estado = 'FINALIZADA' and
+    estanciaFinalizada.habitacion.estado = 'DISPONIBLE'
 |===
+
 
 .Diagrama de interfaces: Cancelar reservación
 image::ICancelarReservación.png[width=600,alt=Diagrama de interfaces de Cancelar reservación]
@@ -412,83 +428,152 @@ image::IActualizarPolítica.png[width=600,alt=Diagrama de interfaces de Actualiz
     politicaActualizada.vigencia = politica.vigencia
 |===
 .Diagrama de interfaces: Registrar tarifa
-// TODO: Agregar diagrama de interfaces para CU-13 Registrar tarifa.
-//       Archivo sugerido: images/IRegistrarTarifa.png
-//       Luego agregar aquí: image::IRegistrarTarifa.png[width=600,alt=Diagrama de interfaces de Registrar tarifa]
+image::InterfacesDiaCU-13 Registrar tarifa.png[width=600,alt=Diagrama de interfaces de Registrar tarifa]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IRegistrarTarifa. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IRegistrarTarifa. Use \\| para escapar tuberías dentro de OCL.
+| context IRegistrarTarifa::registrarTarifa(tarifa: Tarifa): void
+  pre:
+    -- El tipo de habitación asociado debe existir.
+    tiposDeHabitacion->exists(t | t.idTipoHabitacion = tarifa.tipo.idTipoHabitacion) and
+    -- El monto de la tarifa debe ser mayor que cero.
+    tarifa.monto > 0 and
+    -- No debe existir otra tarifa activa para el mismo tipo de habitación y periodo.
+    tarifas->forAll(t | t.tipo.idTipoHabitacion <> tarifa.tipo.idTipoHabitacion or t.vigencia <> tarifa.vigencia)
+  context IRegistrarTarifa::registrarTarifa(tarifa: Tarifa): void
+  post:
+    -- Se crea una nueva tarifa activa en el sistema.
+    tarifas->size = tarifas@pre->size + 1 and
+    let nuevaTarifa : Tarifa = tarifas->excluding(tarifas@pre)->asSequence()->first() in
+    nuevaTarifa.monto = tarifa.monto and
+    nuevaTarifa.vigencia = tarifa.vigencia and
+    nuevaTarifa.estado = 'ACTIVA'
 |===
 
 .Diagrama de interfaces: Actualizar tarifa
-// TODO: Agregar diagrama de interfaces para CU-14 Actualizar tarifa.
-//       Archivo sugerido: images/IActualizarTarifa.png
-//       Luego agregar aquí: image::IActualizarTarifa.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa]
+image::InterfacesDiaCU-14 Actualizar tarifa.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarTarifa. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarTarifa. Use \\| para escapar tuberías dentro de OCL.
+| context IActualizarTarifa::actualizarTarifa(tarifa: Tarifa, idTarifa: int): void
+  pre:
+    -- La tarifa a actualizar debe existir.
+    tarifas->exists(t | t.idTarifa = idTarifa) and
+    -- El nuevo monto debe ser válido.
+    tarifa.monto > 0
+  context IActualizarTarifa::actualizarTarifa(tarifa: Tarifa, idTarifa: int): void
+  post:
+    -- El número total de tarifas no cambia.
+    tarifas->size = tarifas@pre->size and
+    -- Los valores de la tarifa actualizada coinciden con los nuevos datos.
+    let tarifaAct : Tarifa = tarifas->any(t | t.idTarifa = idTarifa) in
+    tarifaAct.monto = tarifa.monto and
+    tarifaAct.vigencia = tarifa.vigencia
 |===
 
 .Diagrama de interfaces: Actualizar tarifa de cuota
-// TODO: Agregar diagrama de interfaces para CU-15 Actualizar tarifa de cuota.
-//       Archivo sugerido: images/IActualizarTarifaDeCuota.png
-//       Luego agregar aquí: image::IActualizarTarifaDeCuota.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de cuota]
+image::InterfacesDiaCU-15 Actualizar tarifa de cuota.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de cuota]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarTarifaDeCuota. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarTarifaDeCuota. Use \\| para escapar tuberías dentro de OCL.
+| context IActualizarTarifaDeCuota::actualizarTarifaDeCuota(cuota: TarifaCuota): void
+  pre:
+    -- La cuota debe existir en el sistema.
+    tarifasCuota->exists(c | c.id = cuota.id) and
+    -- El nuevo porcentaje debe ser mayor que cero.
+    cuota.porcentaje > 0
+  context IActualizarTarifaDeCuota::actualizarTarifaDeCuota(cuota: TarifaCuota): void
+  post:
+    -- La cuota se actualiza manteniendo la integridad del conjunto.
+    tarifasCuota->size = tarifasCuota@pre->size and
+    let cuotaAct : TarifaCuota = tarifasCuota->any(c | c.id = cuota.id) in
+    cuotaAct.porcentaje = cuota.porcentaje and
+    cuotaAct.vigencia = cuota.vigencia
 |===
 
 .Diagrama de interfaces: Actualizar tarifa de insumo
-// TODO: Agregar diagrama de interfaces para CU-16 Actualizar tarifa de insumo.
-//       Archivo sugerido: images/IActualizarTarifaDeInsumo.png
-//       Luego agregar aquí: image::IActualizarTarifaDeInsumo.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de insumo]
+image::InterfacesDiaCU-16 Actualizar tarifa de insumo.png[width=600,alt=Diagrama de interfaces de Actualizar tarifa de insumo]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarTarifaDeInsumo. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarTarifaDeInsumo. Use \\| para escapar tuberías dentro de OCL.
+| context IActualizarTarifaDeInsumo::actualizarTarifaDeInsumo(insumo: TarifaInsumo): void
+  pre:
+    -- El insumo debe existir.
+    insumos->exists(i | i.id = insumo.id) and
+    -- El precio debe ser positivo.
+    insumo.precio > 0
+  context IActualizarTarifaDeInsumo::actualizarTarifaDeInsumo(insumo: TarifaInsumo): void
+  post:
+    -- Se mantiene el número total de insumos.
+    insumos->size = insumos@pre->size and
+    -- Los datos del insumo se actualizan correctamente.
+    let insumoAct : TarifaInsumo = insumos->any(i | i.id = insumo.id) in
+    insumoAct.precio = insumo.precio and
+    insumoAct.vigencia = insumo.vigencia
 |===
 
 .Diagrama de interfaces: Registrar hotel
-// TODO: Agregar diagrama de interfaces para CU-17 Registrar hotel.
-//       Archivo sugerido: images/IRegistrarHotel.png
-//       Luego agregar aquí: image::IRegistrarHotel.png[width=600,alt=Diagrama de interfaces de Registrar hotel]
+image::InterfacesDiaCU-17 Registrar hotel.png[width=600,alt=Diagrama de interfaces de Registrar hotel]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IRegistrarHotel. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IRegistrarHotel. Use \\| para escapar tuberías dentro de OCL.
+| context IRegistrarHotel::registrarHotel(hotel: Hotel): void
+  pre:
+    -- El nombre del hotel no debe estar vacío.
+    hotel.nombre.oclIsNotEmpty() and
+    -- No debe existir otro hotel con el mismo nombre y dirección.
+    hoteles->forAll(h | h.nombre <> hotel.nombre or h.direccion <> hotel.direccion)
+  context IRegistrarHotel::registrarHotel(hotel: Hotel): void
+  post:
+    -- Se ha creado un nuevo hotel en el sistema.
+    hoteles->size = hoteles@pre->size + 1 and
+    let nuevoHotel : Hotel = hoteles->excluding(hoteles@pre)->asSequence()->first() in
+    nuevoHotel.nombre = hotel.nombre and
+    nuevoHotel.direccion = hotel.direccion
 |===
 
 .Diagrama de interfaces: Consultar hotel
-// TODO: Agregar diagrama de interfaces para CU-18 Consultar hotel.
-//       Archivo sugerido: images/IConsultarHotel.png
-//       Luego agregar aquí: image::IConsultarHotel.png[width=600,alt=Diagrama de interfaces de Consultar hotel]
+image::InterfacesDiaCU-18 Consultar hotel.png[width=600,alt=Diagrama de interfaces de Consultar hotel]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IConsultarHotel. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IConsultarHotel. Use \\| para escapar tuberías dentro de OCL.
+| context IConsultarHotel::consultarHotel(filtro: Hotel): Hotel[]
+  pre:
+    -- Debe existir al menos un hotel registrado.
+    hoteles->notEmpty()
+  context IConsultarHotel::consultarHotel(filtro: Hotel): Hotel[]
+  post:
+    -- El resultado contiene únicamente hoteles válidos y no altera el estado.
+    result->forAll(h | h.oclIsTypeOf(Hotel)) and
+    hoteles = hoteles@pre
 |===
 
 .Diagrama de interfaces: Actualizar hotel
-// TODO: Agregar diagrama de interfaces para CU-19 Actualizar hotel.
-//       Archivo sugerido: images/IActualizarHotel.png
-//       Luego agregar aquí: image::IActualizarHotel.png[width=600,alt=Diagrama de interfaces de Actualizar hotel]
+image::InterfacesDiaCU-19 Actualizar hotel.png[width=600,alt=Diagrama de interfaces de Actualizar hotel]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarHotel. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarHotel. Use \\| para escapar tuberías dentro de OCL.
+| context IActualizarHotel::actualizarHotel(hotel: Hotel): void
+  pre:
+    -- El hotel debe existir.
+    hoteles->exists(h | h.idHotel = hotel.idHotel)
+  context IActualizarHotel::actualizarHotel(hotel: Hotel): void
+  post:
+    -- El número total de hoteles no cambia.
+    hoteles->size = hoteles@pre->size and
+    -- El hotel se actualiza con los nuevos datos.
+    let hotelAct : Hotel = hoteles->any(h | h.idHotel = hotel.idHotel) in
+    hotelAct.nombre = hotel.nombre and
+    hotelAct.direccion = hotel.direccion
 |===
 
 .Diagrama de interfaces: Dar de baja hotel
-// TODO: Agregar diagrama de interfaces para CU-20 Dar de baja hotel.
-//       Archivo sugerido: images/IDarDeBajaHotel.png
-//       Luego agregar aquí: image::IDarDeBajaHotel.png[width=600,alt=Diagrama de interfaces de Dar de baja hotel]
+image::InterfacesDiaCU-20 Dar de baja hotel.png[width=600,alt=Diagrama de interfaces de Dar de baja hotel]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IDarDeBajaHotel. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IDarDeBajaHotel. Use \\| para escapar tuberías dentro de OCL.
+| context IDarDeBajaHotel::darDeBajaHotel(idHotel: int): void
+  pre:
+    -- El hotel debe existir y no tener reservas activas.
+    hoteles->exists(h | h.idHotel = idHotel) and
+    reservas->forAll(r | r.hotel.idHotel <> idHotel or r.estado = 'CANCELADA')
+  context IDarDeBajaHotel::darDeBajaHotel(idHotel: int): void
+  post:
+    -- El hotel es eliminado del sistema.
+    hoteles->size = hoteles@pre->size - 1 and
+    hoteles->forAll(h | h.idHotel <> idHotel)
 |===
 
 .Diagrama de interfaces: Registrar tipo de habitación
@@ -513,14 +598,25 @@ image::IRegistrarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Reg
     nuevoTipo.descripcion = tipo.descripcion and
     nuevoTipo.capacidad = tipo.capacidad
 |===
+
 .Diagrama de interfaces: Actualizar tipo de habitación
-// TODO: Agregar diagrama de interfaces para CU-22 Actualizar tipo de habitación.
-//       Archivo sugerido: images/IActualizarTipoHabitación.png
-//       Luego agregar aquí: image::IActualizarTipoHabitación.png[width=600,alt=Diagrama de interfaces de Actualizar tipo de habitación]
+image::InterfacesDiaCU-22 Actualizar tipo de habitación.png[width=600,alt=Diagrama de interfaces de Actualizar tipo de habitación]
 |===
 | Pre-condiciones  | Post-condiciones
-| // TODO: Precondiciones (OCL) para IActualizarTipoHabitación. Use \\| para escapar tuberías dentro de OCL.
-| // TODO: Postcondiciones (OCL) para IActualizarTipoHabitación. Use \\| para escapar tuberías dentro de OCL.
+| context IActualizarTipoHabitacion::actualizarTipoHabitacion(tipo: TipoHabitacion): void
+  pre:
+    -- El tipo de habitación debe existir.
+    tiposDeHabitacion->exists(t | t.idTipoHabitacion = tipo.idTipoHabitacion) and
+    -- La capacidad y descripción deben ser válidas.
+    tipo.capacidad > 0 and tipo.descripcion.oclIsNotEmpty()
+  context IActualizarTipoHabitacion::actualizarTipoHabitacion(tipo: TipoHabitacion): void
+  post:
+    -- El número de tipos de habitación no cambia.
+    tiposDeHabitacion->size = tiposDeHabitacion@pre->size and
+    -- Se actualizan los valores de la categoría.
+    let tipoAct : TipoHabitacion = tiposDeHabitacion->any(t | t.idTipoHabitacion = tipo.idTipoHabitacion) in
+    tipoAct.capacidad = tipo.capacidad and
+    tipoAct.descripcion = tipo.descripcion
 |===
 
 .Diagrama de interfaces: Registrar habitación
@@ -1176,12 +1272,11 @@ image::HacerPagoConPayPal.png[width=700,alt=Diagrama de comunicación de Hacer p
 .Diagrama de comunicación: CU-05 Hacer pago con otro método
 image::HacerPagoConOtroMétodo.png[width=700,alt=Diagrama de comunicación de Hacer pago con otro método]
 
-// TODO: Agregar diagrama de comunicación para CU-06 Hacer check-in.
-//       Archivo sugerido: images/HacerCheckIn.png
-//       Luego agregar aquí: image::HacerCheckIn.png[width=700,alt=Diagrama de comunicación de Hacer check-in]
-// TODO: Agregar diagrama de comunicación para CU-07 Hacer check-out.
-//       Archivo sugerido: images/HacerCheckOut.png
-//       Luego agregar aquí: image::HacerCheckOut.png[width=700,alt=Diagrama de comunicación de Hacer check-out]
+.Diagrama de comunicación: CU-06 Hacer check-in
+image::HacerCheckIn.png[width=700,alt=Diagrama de comunicación de Hacer check-in]
+
+.Diagrama de comunicación: CU-07 Hacer check-out
+image::HacerCheckOut.png[width=700,alt=Diagrama de comunicación de Hacer check-out]
 
 .Diagrama de comunicación: CU-08 Cancelar reservación
 image::CancelarReservación.png[width=700,alt=Diagrama de comunicación de Cancelar reservación]
@@ -1198,22 +1293,36 @@ image::RegistrarPolítica.png[width=700,alt=Diagrama de comunicación de Registr
 .Diagrama de comunicación: CU-12 Actualizar política
 image::ActualizarPolítica.png[width=700,alt=Diagrama de comunicación de Actualizar política]
 
-// TODO: Agregar diagramas de comunicación para:
-//   - CU-13 Registrar tarifa -> images/RegistrarTarifa.png
-//   - CU-14 Actualizar tarifa -> images/ActualizarTarifa.png
-//   - CU-15 Actualizar tarifa de cuota -> images/ActualizarTarifaDeCuota.png
-//   - CU-16 Actualizar tarifa de insumo -> images/ActualizarTarifaDeInsumo.png
-//   - CU-17 Registrar hotel -> images/RegistrarHotel.png
-//   - CU-18 Consultar hotel -> images/ConsultarHotel.png
-//   - CU-19 Actualizar hotel -> images/ActualizarHotel.png
-//   - CU-20 Dar de baja hotel -> images/DarDeBajaHotel.png
-//       Luego agregar cada uno aquí con width=700 y alt descriptivo.
+.Diagrama de comunicación: CU-13 Registrar tarifa
+image::CommunicationCU-13RegistrarTarifa.png[width=700,alt=Diagrama de comunicación de Registrar tarifa]
+
+.Diagrama de comunicación: CU-14 Actualizar tarifa
+image::CommunicationCU-14ActualizarTarifa.png[width=700,alt=Diagrama de comunicación de Actualizar tarifa]
+
+.Diagrama de comunicación: CU-15 Actualizar tarifa de cuota
+image::CommunicationCU-15 Actualizar tarifa de cuota.png[width=700,alt=Diagrama de comunicación de Actualizar tarifa de cuota]
+
+.Diagrama de comunicación: CU-16 Actualizar tarifa de insumo
+image::CommunicationCU-16 Actualizar tarifa de insumo.png[width=700,alt=Diagrama de comunicación de Actualizar tarifa de insumo]
+
+.Diagrama de comunicación: CU-17 Registrar hotel
+image::CommunicationCU-17 Registrar hotel.png[width=700,alt=Diagrama de comunicación de Registrar hotel]
+
+.Diagrama de comunicación: CU-18 Consultar hotel
+image::CommunicationCU-18 Consultar Hotel.png[width=700,alt=Diagrama de comunicación de Consultar hotel]
+
+.Diagrama de comunicación: CU-19 Actualizar hotel
+image::CommunicationCU-19 Actualizar Hotel.png[width=700,alt=Diagrama de comunicación de Actualizar hotel]
+
+.Diagrama de comunicación: CU-20 Dar de baja hotel
+image::CommunicationCU-20 Dar de baja hotel.png[width=700,alt=Diagrama de comunicación de Dar de baja hotel]
 
 .Diagrama de comunicación: CU-21 Registrar tipo de habitación
 image::RegistrarTipoHabitación.png[width=700,alt=Diagrama de comunicación de Registrar tipo de habitación]
 
-// TODO: Agregar diagramas de comunicación para:
-//   - CU-22 Actualizar tipo de habitación -> images/ActualizarTipoHabitación.png
+.Diagrama de comunicación: CU-22 Actualizar tipo de habitación
+image::CommunicationCU-22 Actualizar Tipo de Habitación.png[width=700,alt=Diagrama de comunicación de Actualizar tipo de habitación]
+
 .Diagrama de comunicación: CU-23 Registrar Habitación
 image::RegistrarHabitación.png[width=700,alt=Diagrama de comunicación de Registrar Habitación]
 
