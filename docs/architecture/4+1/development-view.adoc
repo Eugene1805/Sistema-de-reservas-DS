@@ -36,6 +36,14 @@ image::SistemaDePolíticasComponent.png[width=600,alt=Diagrama de componentes de
 
 ==== Diagramas de interfaces
 
+.Diagrama de interfaces HotelMgt
+image::IHotelMgt.png[width=600,alt=Diagrama de interfaces de HotelMgt]
+
+.Diagrama de interfaces HuespedMgt
+image::IHuespedMgt.png[width=600,alt=Diagrama de interfaces de HuespedMgt]
+.Diagrama de interfaces MetodoPagoMgt
+image::IMetodoPagoMgt.png[width=600,alt=Diagrama de interfaces de MetodoPagoMgt]
+
 .Diagrama de interfaces: Hacer reservación
 image::IHacerReservación.png[width=600,alt=Diagrama de interfaces de Hacer reservación]
 |===
