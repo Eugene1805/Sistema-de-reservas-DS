@@ -12,7 +12,8 @@ de cada selección técnica o estructural. Cada decisión está acompañada de s
 justificación (*Rationale*) y su estado final dentro del diseño.
 
 Todas las decisiones aquí registradas se encuentran en estado *Accepted*, ya que forman parte
-de la arquitectura definitiva contenida en este documento.
+de la arquitectura definitiva contenida en este documento. Cada decisión se marca con un identificador único que permite
+referencias cruzadas desde la Matriz de Trazabilidad.
 
 === Registro de decisiones arquitectónicas
 
@@ -21,89 +22,106 @@ de la arquitectura definitiva contenida en este documento.
 |===
 | ID | Decision | Rationale | Status
 
+[[dec-1]]
 | 1 
 | Usar base de datos MySQL (RDBMS)
 | Requisito técnico del sistema (CON-04). Garantiza consistencia ACID, soporte transaccional y fiabilidad operacional.
 | Accepted
 
+[[dec-2]]
 | 2
 | Usar arquitectura en capas
 | Mantiene separación de responsabilidades, facilita mantenibilidad, escalabilidad y portabilidad (QAS-08).
 | Accepted
 
+[[dec-3]]
 | 3
 | Exponer APIs RESTful para interacción con clientes web/móvil
-| Permite desacoplamiento, integración multiplataforma (CON-03) y escalabilidad horizontal.
+| Permite integración multiplataforma (CON-03) y desacoplamiento entre presentación y negocio.
 | Accepted
 
+[[dec-4]]
 | 4
 | Implementar un API Gateway como punto único de entrada
-| Centraliza autenticación, autorización, throttling y terminación TLS. Mejora seguridad (QAS-05).
+| Centraliza autenticación, autorización y terminación TLS (QAS-05).
 | Accepted
 
+[[dec-5]]
 | 5
 | Cifrado en tránsito mediante HTTPS/TLS
-| Protege datos sensibles del huésped (CRN-01). Cumple requerimientos de seguridad (QAS-05).
+| Protege PII y datos sensibles del cliente (CRN-01).
 | Accepted
 
+[[dec-6]]
 | 6
 | Utilizar el patrón Saga para transacciones distribuidas
-| Permite atomicidad en flujos complejos de reserva–pago–inventario (QAS-09). Evita inconsistencias.
+| Garantiza atomicidad entre reserva–pago–inventario (QAS-09).
 | Accepted
 
+[[dec-7]]
 | 7
 | Aplicar Idempotency-Key en el servicio de pagos
-| Evita pagos duplicados ante reintentos o fallas de red (CRN-02). Asegura confiabilidad del flujo.
+| Evita pagos dobles en reintentos o fallas del cliente (CRN-02).
 | Accepted
 
+[[dec-8]]
 | 8
 | Incorporar un Message Broker para comunicación asíncrona
-| Reduce latencia en confirmación, desacopla módulos y soporta picos de tráfico (QAS-02, QAS-04).
+| Reduce latencia y soporta picos de tráfico (QAS-02, QAS-04).
 | Accepted
 
+[[dec-9]]
 | 9
-| Utilizar workers asíncronos para procesamiento prolongado
-| Evita bloquear el flujo principal de reserva; mejora tiempo percibido por el usuario (QAS-02).
+| Utilizar workers asíncronos
+| Evita bloquear el flujo principal de reserva (QAS-02).
 | Accepted
 
+[[dec-10]]
 | 10
-| Implementar mecanismos de concurrencia y exclusión mutua en inventario
-| Evita dobles reservas bajo alta concurrencia (CRN-05). Soporta política de overbooking del 10%.
+| Implementar exclusión mutua en inventario
+| Evita dobles reservas bajo alta concurrencia (CRN-05).
 | Accepted
 
+[[dec-11]]
 | 11
-| Redundancia a nivel de servicios mediante clustering
-| Aumenta disponibilidad y tolerancia a fallos del sistema (QAS-06).
+| Redundancia mediante clustering
+| Soporta disponibilidad ante fallos (QAS-06).
 | Accepted
 
+[[dec-12]]
 | 12
-| Usar balanceador de carga para distribuir solicitudes
-| Mejora la escalabilidad general y evita puntos únicos de falla (QAS-04, QAS-06).
+| Balanceador de carga
+| Distribuye tráfico, mejora escalabilidad (QAS-04).
 | Accepted
 
+[[dec-13]]
 | 13
-| Separar los servicios de Reservas, Inventario y Pagos
-| Favorece cohesión, claridad, mantenimiento y escalamiento independiente.
+| Separar servicios (Reservas, Inventario y Pagos)
+| Permite escalamiento independiente.
 | Accepted
 
+[[dec-14]]
 | 14
-| Implementar el patrón Repositorio en la capa de acceso a datos
-| Aísla la lógica de negocio del almacenamiento, facilita pruebas y mantenibilidad del sistema.
+| Patrón Repositorio en acceso a datos
+| Aísla la lógica de negocio y facilita mantenimiento.
 | Accepted
 
+[[dec-15]]
 | 15
-| Incorporar mecanismos de observabilidad (logs, métricas y trazas)
-| Permite auditoría, diagnóstico y rastreo completo de transacciones (CRN: auditoría).
+| Añadir observabilidad (logs, métricas, trazas)
+| Facilita auditoría y diagnóstico (CRN).
 | Accepted
 
+[[dec-16]]
 | 16
-| Diseñar los servicios como stateless
-| Facilita escalamiento horizontal, mejora resiliencia y simplifica recuperación ante fallos (QAS-06).
+| Servicios stateless
+| Facilita escalamiento horizontal (QAS-06).
 | Accepted
 
+[[dec-17]]
 | 17
-| Optimizar consultas de disponibilidad mediante flujos sin bloqueo
-| Cumple meta de rendimiento P95 ≤ 500 ms para 300 QPS (QAS-02).
+| Optimizar consultas de disponibilidad (flujos sin bloqueo)
+| Cumple latencia P95 para 300 QPS (QAS-02).
 | Accepted
 
 |===
@@ -218,68 +236,85 @@ los requisitos del negocio hotelero.
 | Artefactos Afectados (Vistas / Elementos)
 | Estado
 
+// ---------------- QAS-02 ----------------
 | QAS-02 (Desempeño) – Latencia en confirmación de reserva (P95 ≤ 2.5 s)
-| Message Broker + Comunicación asíncrona + Workers
+| xref:dec-8[Message Broker] +
+  xref:dec-9[Workers asíncronos] +
+  xref:dec-2[Arquitectura en capas]
 | Vista de Procesos (flujo de reserva), Paquete *Mensajería*, Workers de confirmación
 | Cumple
 
 | QAS-02 (Desempeño) – Consultas P95 ≤ 500 ms a 300 QPS
-| Flujos sin bloqueo + Optimización del ServicioDeInventario
+| xref:dec-17[Flujos sin bloqueo] +
+  xref:dec-2[Arquitectura en capas]
 | ServicioDeInventario, Vista Lógica, Vista de Procesos
 | Cumple
 
-| QAS-04 (Escalabilidad) – Manejo de picos de 10 TPS
-| Balanceador de carga + Servicios stateless
+// ---------------- QAS-04 ----------------
+| QAS-04 (Escalabilidad) – Manejo de picos de tráfico (10 TPS)
+| xref:dec-12[Balanceador de carga] +
+  xref:dec-16[Servicios stateless]
 | Vista Física (cluster), Nodos Front-End, Servicios distribuidos
 | Cumple
 
-| QAS-06 (Disponibilidad) – Failover automático y continuidad
-| Redundancia de servicios (clustering)
-| Vista Física (nodos replicados), Servicios de Reservas/Inventario/Pagos
+// ---------------- QAS-05 / CRN-01 ----------------
+| QAS-05 (Seguridad) & CRN-01 (Privacidad de PII)
+| xref:dec-4[API Gateway] +
+  xref:dec-5[Cifrado TLS]
+| Vista Física (API Gateway), Certificados SSL, Capa de borde
 | Cumple
 
-| QAS-07 (Disponibilidad / Seguridad) – Evitar pagos dobles
-| Idempotency-Key (táctica de idempotencia)
+// ---------------- QAS-06 ----------------
+| QAS-06 (Disponibilidad) – Failover y tolerancia a fallos
+| xref:dec-11[Redundancia por clustering] +
+  xref:dec-16[Servicios stateless]
+| Vista Física (nodos replicados)
+| Cumple
+
+// ---------------- QAS-07 / CRN-02 ----------------
+| QAS-07 (Disponibilidad) & CRN-02 (Evitar pagos dobles)
+| xref:dec-7[Idempotencia en pagos]
 | ServicioDePago, Registro de transacciones
 | Cumple
 
+// ---------------- QAS-08 / CON-03 ----------------
 | QAS-08 (Portabilidad) & CON-03 – Soporte web/móvil
-| Arquitectura en capas + API REST
-| Vista Lógica (Capas: Presentación, Servicios, Datos)
+| xref:dec-2[Arquitectura en capas] +
+  xref:dec-3[API RESTful]
+| Vista Lógica (Presentación, Servicios, Datos)
 | Cumple
 
-| QAS-09 (Fiabilidad) – Atomicidad de reserva y pago
-| Patrón Saga para transacciones distribuidas
-| ServicioDeReservas (Orquestador), ServicioDeInventario, ServicioDePagos
+// ---------------- QAS-09 / CRN-05 ----------------
+| QAS-09 (Fiabilidad) – Atomicidad reserva–pago–inventario
+| xref:dec-6[Patrón Saga] +
+  xref:dec-10[Exclusión mutua en inventario]
+| ServicioDeReservas (Orquestador Saga), ServicioDeInventario, ServicioDePagos
 | Cumple
 
+// ---------------- CON-04 ----------------
 | CON-04 – Uso obligatorio de RDBMS
-| Repositorio + MySQL
-| Acceso a Datos; Vista Física (DB MySQL)
+| xref:dec-1[MySQL] +
+  xref:dec-14[Patrón Repositorio]
+| Componente Acceso a Datos; Vista Física (DB MySQL)
 | Cumple
 
-| CRN-01 – Protección de PII y datos sensibles
-| API Gateway + Cifrado TLS
-| Vista Física (API Gateway), Certificados SSL
-| Cumple
-
-| CRN-02 – Prevenir pagos múltiples por reintentos
-| Idempotencia de transacciones
-| ServicioDePago
-| Cumple
-
+// ---------------- CRN-05 ----------------
 | CRN-05 – Evitar dobles reservas bajo alta concurrencia
-| Exclusión mutua + Gestión de concurrencia
-| ServicioDeInventario; Vista de Procesos (reservas simultáneas)
+| xref:dec-10[Exclusión mutua] +
+  xref:dec-6[Saga]
+| ServicioDeInventario, Vista de Procesos (reservas simultáneas)
 | Cumple
 
+// ---------------- CU-02 ----------------
 | CU-02 – Consultar disponibilidad mínima
-| Optimización del ServicioDeInventario + Arquitectura en capas
-| Vista Funcional, Vista Lógica
+| xref:dec-17[Optimización de consultas] +
+  xref:dec-2[Arquitectura en capas]
+| Vista Funcional, Vista Lógica, ServicioDeInventario
 | Cumple
 
+// ---------------- Overbooking ----------------
 | Política de Overbooking del 10%
-| Control de concurrencia + Regla de negocio en inventario
+| xref:dec-10[Control de concurrencia en inventario]
 | ServicioDeInventario (módulo de overbooking)
 | Cumple
 
