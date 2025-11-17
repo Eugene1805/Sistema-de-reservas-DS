@@ -1,12 +1,286 @@
-= Desiciones arquitectónicas
+== Decisiones Arquitectónicas
 
-== Registro de decisiones arquitectónicas
+=== Introducción
+
+El presente capítulo documenta las *Decisiones Arquitectónicas* tomadas durante el diseño del
+Sistema de Gestión Hotelera. Cada decisión representa un elemento clave de la arquitectura,
+elegido para satisfacer requisitos críticos del sistema (ASRs), incluyendo atributos de calidad,
+restricciones técnicas, preocupaciones arquitectónicas y casos de uso fundamentales.
+
+El objetivo de este registro es proporcionar una referencia clara, trazable y justificable del porqué
+de cada selección técnica o estructural. Cada decisión está acompañada de su respectiva
+justificación (*Rationale*) y su estado final dentro del diseño.
+
+Todas las decisiones aquí registradas se encuentran en estado *Accepted*, ya que forman parte
+de la arquitectura definitiva contenida en este documento.
+
+=== Registro de decisiones arquitectónicas
 
 [.table]
 [cols="1,2,2,2"]
 |===
 | ID | Decision | Rationale | Status
-// Plantilla a llenar
-| 1 | Usar base de datos MySQL | Compatible con infraestructura | Accepted
-| 2 | Usar arquitectura en capas | Mantener separación de responsabilidades | Proposed
+
+| 1 
+| Usar base de datos MySQL (RDBMS)
+| Requisito técnico del sistema (CON-04). Garantiza consistencia ACID, soporte transaccional y fiabilidad operacional.
+| Accepted
+
+| 2
+| Usar arquitectura en capas
+| Mantiene separación de responsabilidades, facilita mantenibilidad, escalabilidad y portabilidad (QAS-08).
+| Accepted
+
+| 3
+| Exponer APIs RESTful para interacción con clientes web/móvil
+| Permite desacoplamiento, integración multiplataforma (CON-03) y escalabilidad horizontal.
+| Accepted
+
+| 4
+| Implementar un API Gateway como punto único de entrada
+| Centraliza autenticación, autorización, throttling y terminación TLS. Mejora seguridad (QAS-05).
+| Accepted
+
+| 5
+| Cifrado en tránsito mediante HTTPS/TLS
+| Protege datos sensibles del huésped (CRN-01). Cumple requerimientos de seguridad (QAS-05).
+| Accepted
+
+| 6
+| Utilizar el patrón Saga para transacciones distribuidas
+| Permite atomicidad en flujos complejos de reserva–pago–inventario (QAS-09). Evita inconsistencias.
+| Accepted
+
+| 7
+| Aplicar Idempotency-Key en el servicio de pagos
+| Evita pagos duplicados ante reintentos o fallas de red (CRN-02). Asegura confiabilidad del flujo.
+| Accepted
+
+| 8
+| Incorporar un Message Broker para comunicación asíncrona
+| Reduce latencia en confirmación, desacopla módulos y soporta picos de tráfico (QAS-02, QAS-04).
+| Accepted
+
+| 9
+| Utilizar workers asíncronos para procesamiento prolongado
+| Evita bloquear el flujo principal de reserva; mejora tiempo percibido por el usuario (QAS-02).
+| Accepted
+
+| 10
+| Implementar mecanismos de concurrencia y exclusión mutua en inventario
+| Evita dobles reservas bajo alta concurrencia (CRN-05). Soporta política de overbooking del 10%.
+| Accepted
+
+| 11
+| Redundancia a nivel de servicios mediante clustering
+| Aumenta disponibilidad y tolerancia a fallos del sistema (QAS-06).
+| Accepted
+
+| 12
+| Usar balanceador de carga para distribuir solicitudes
+| Mejora la escalabilidad general y evita puntos únicos de falla (QAS-04, QAS-06).
+| Accepted
+
+| 13
+| Separar los servicios de Reservas, Inventario y Pagos
+| Favorece cohesión, claridad, mantenimiento y escalamiento independiente.
+| Accepted
+
+| 14
+| Implementar el patrón Repositorio en la capa de acceso a datos
+| Aísla la lógica de negocio del almacenamiento, facilita pruebas y mantenibilidad del sistema.
+| Accepted
+
+| 15
+| Incorporar mecanismos de observabilidad (logs, métricas y trazas)
+| Permite auditoría, diagnóstico y rastreo completo de transacciones (CRN: auditoría).
+| Accepted
+
+| 16
+| Diseñar los servicios como stateless
+| Facilita escalamiento horizontal, mejora resiliencia y simplifica recuperación ante fallos (QAS-06).
+| Accepted
+
+| 17
+| Optimizar consultas de disponibilidad mediante flujos sin bloqueo
+| Cumple meta de rendimiento P95 ≤ 500 ms para 300 QPS (QAS-02).
+| Accepted
+
+|===
+
+== Trazabilidad Arquitectónica
+
+=== Introducción a la Trazabilidad Arquitectónica
+
+La Matriz de Trazabilidad es un artefacto fundamental que permite demostrar la coherencia,
+alineación y completitud del diseño arquitectónico del Sistema de Gestión Hotelera. Su propósito
+es establecer una relación directa entre los *Drivers Arquitectónicamente Significativos* (ASRs),
+que incluyen Atributos de Calidad (QAS), Restricciones (CON), Preocupaciones Arquitectónicas (CRN)
+y Casos de Uso (CU), con las decisiones arquitectónicas que los satisfacen.
+
+Este mecanismo de trazabilidad asegura que cada decisión tomada en el diseño esté justificada
+por un requisito crítico, evitando decisiones huérfanas o carentes de motivación técnica. Asimismo,
+permite verificar que cada ASR haya sido cubierto adecuadamente mediante patrones,
+tácticas o estructuras arquitectónicas concretas.
+
+La matriz también sirve como evidencia documentada para métodos formales de evaluación
+arquitectónica como ATAM, facilitando la identificación de riesgos y la validación del diseño
+contra los objetivos del negocio.
+
+=== Proceso de Trazabilidad
+
+El proceso utilizado para construir esta matriz consta de tres pasos principales:
+
+. *Identificación de Drivers Arquitectónicamente Significativos (ASRs).*  
+  Se extrajeron atributos de calidad, restricciones del sistema, preocupaciones
+  arquitectónicas y casos de uso críticos relacionados con desempeño, seguridad,
+  disponibilidad, escalabilidad, fiabilidad y políticas de negocio.
+
+. *Vinculación con decisiones arquitectónicas.*  
+  Cada ASR fue asociado a una o más decisiones tomadas en el Capítulo de Registro de
+  Decisiones Arquitectónicas. Las decisiones incluyen tácticas de calidad, patrones y
+  estructuras como Saga, API Gateway, Balanceo de Carga, Repositorio, etc.
+
+. *Asignación de artefactos y vistas afectadas.*  
+  Se identificaron los componentes, servicios, módulos, capas o elementos de infraestructura
+  donde se materializa cada decisión, haciendo referencia a las vistas Lógica, de Procesos,
+  Física y Funcional.
+
+Este proceso garantiza que la arquitectura responde de manera directa, verificable y completa
+a los requisitos críticos del sistema.
+
+=== Cómo Interpretar la Matriz
+
+La Matriz de Trazabilidad está organizada en cuatro columnas:
+
+* *Driver (ID y Tipo):*  
+  Corresponde al ASR que necesita ser satisfecho. Puede ser un QAS, una restricción, una
+  preocupación o un caso de uso clave.
+
+* *Decisión de Diseño (Táctica / Patrón):*  
+  Es la decisión arquitectónica que fue tomada para abordar dicho driver. Incluye patrones,
+  tácticas o componentes específicos del diseño.
+
+* *Artefactos Afectados (Vistas / Elementos):*  
+  Indica dónde se materializa la decisión en la arquitectura: servicios, módulos, capas,
+  componentes físicos o procesos operativos.
+
+* *Estado:*  
+  En este documento, todas las decisiones arquitectónicas clave se encuentran en estado
+  *Accepted*, por lo que cada fila de trazabilidad se marca como *Cumple*.
+
+Esta estructura permite verificar de un vistazo si el diseño cubre correctamente todos los elementos
+críticos definidos en la fase de requerimientos arquitectónicos.
+
+=== Resumen Ejecutivo
+
+Los siguientes drivers se consideran críticos para el éxito del Sistema de Gestión Hotelera:
+
+* *Desempeño (QAS-02):*  
+  La confirmación de reserva y la consulta de disponibilidad deben mantenerse en límites
+  estrictos de latencia bajo cargas de hasta 300 QPS y picos de 10 TPS.
+
+* *Escalabilidad (QAS-04):*  
+  El sistema debe absorber picos de tráfico con degradación controlada.
+
+* *Seguridad (QAS-05) y Privacidad (CRN-01):*  
+  Requiere uso obligatorio de canales cifrados y protección de datos personales y de pago.
+
+* *Disponibilidad (QAS-06, QAS-07):*  
+  El sistema debe recuperarse ante fallos y permitir failover automático.
+
+* *Fiabilidad (QAS-09):*  
+  La reserva, el pago y el inventario deben comportarse como un proceso transaccional
+  distribuido consistente.
+
+* *Preocupaciones Operacionales (CRN-02, CRN-05):*  
+  Evitar dobles pagos y dobles reservas es indispensable para la confianza del cliente.
+
+* *Restricciones Técnicas (CON-03, CON-04):*  
+  La solución debe soportar web/móvil y utilizar un RDBMS transaccional como base de datos.
+
+Las decisiones arquitectónicas clave incluyen:
+
+* Patrones: *Saga*, *Repositorio*, *API Gateway*, *Message Broker*, *Balanceo de carga*.
+* Tácticas: *Idempotencia*, *Concurrencia*, *Redundancia*, *Cifrado TLS*.
+* Estructuras: Servicios *stateless*, modulares y escalables.
+
+Estas decisiones garantizan que la arquitectura sea robusta, confiable, segura y alineada con
+los requisitos del negocio hotelero.
+
+=== Matriz de Trazabilidad del Diseño Arquitectónico
+
+[.table]
+[cols="2,3,3,1"]
+|===
+| Driver (ID y Tipo)
+| Decisión de Diseño (Táctica / Patrón)
+| Artefactos Afectados (Vistas / Elementos)
+| Estado
+
+| QAS-02 (Desempeño) – Latencia en confirmación de reserva (P95 ≤ 2.5 s)
+| Message Broker + Comunicación asíncrona + Workers
+| Vista de Procesos (flujo de reserva), Paquete *Mensajería*, Workers de confirmación
+| Cumple
+
+| QAS-02 (Desempeño) – Consultas P95 ≤ 500 ms a 300 QPS
+| Flujos sin bloqueo + Optimización del ServicioDeInventario
+| ServicioDeInventario, Vista Lógica, Vista de Procesos
+| Cumple
+
+| QAS-04 (Escalabilidad) – Manejo de picos de 10 TPS
+| Balanceador de carga + Servicios stateless
+| Vista Física (cluster), Nodos Front-End, Servicios distribuidos
+| Cumple
+
+| QAS-06 (Disponibilidad) – Failover automático y continuidad
+| Redundancia de servicios (clustering)
+| Vista Física (nodos replicados), Servicios de Reservas/Inventario/Pagos
+| Cumple
+
+| QAS-07 (Disponibilidad / Seguridad) – Evitar pagos dobles
+| Idempotency-Key (táctica de idempotencia)
+| ServicioDePago, Registro de transacciones
+| Cumple
+
+| QAS-08 (Portabilidad) & CON-03 – Soporte web/móvil
+| Arquitectura en capas + API REST
+| Vista Lógica (Capas: Presentación, Servicios, Datos)
+| Cumple
+
+| QAS-09 (Fiabilidad) – Atomicidad de reserva y pago
+| Patrón Saga para transacciones distribuidas
+| ServicioDeReservas (Orquestador), ServicioDeInventario, ServicioDePagos
+| Cumple
+
+| CON-04 – Uso obligatorio de RDBMS
+| Repositorio + MySQL
+| Acceso a Datos; Vista Física (DB MySQL)
+| Cumple
+
+| CRN-01 – Protección de PII y datos sensibles
+| API Gateway + Cifrado TLS
+| Vista Física (API Gateway), Certificados SSL
+| Cumple
+
+| CRN-02 – Prevenir pagos múltiples por reintentos
+| Idempotencia de transacciones
+| ServicioDePago
+| Cumple
+
+| CRN-05 – Evitar dobles reservas bajo alta concurrencia
+| Exclusión mutua + Gestión de concurrencia
+| ServicioDeInventario; Vista de Procesos (reservas simultáneas)
+| Cumple
+
+| CU-02 – Consultar disponibilidad mínima
+| Optimización del ServicioDeInventario + Arquitectura en capas
+| Vista Funcional, Vista Lógica
+| Cumple
+
+| Política de Overbooking del 10%
+| Control de concurrencia + Regla de negocio en inventario
+| ServicioDeInventario (módulo de overbooking)
+| Cumple
+
 |===
