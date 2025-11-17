@@ -1281,10 +1281,10 @@ image::HacerPagoConPayPal.png[width=700,alt=Diagrama de comunicación de Hacer p
 image::HacerPagoConOtroMétodo.png[width=700,alt=Diagrama de comunicación de Hacer pago con otro método]
 
 .Diagrama de comunicación: CU-06 Hacer check-in
-image::HacerCheckIn.png[width=700,alt=Diagrama de comunicación de Hacer check-in]
+image::Communication-CU-07 HacerCheck-In.png[width=700,alt=Diagrama de comunicación de Hacer check-in]
 
 .Diagrama de comunicación: CU-07 Hacer check-out
-image::HacerCheckOut.png[width=700,alt=Diagrama de comunicación de Hacer check-out]
+image::CommunicationCU-08 HacerCheck-Out.png[width=700,alt=Diagrama de comunicación de Hacer check-out]
 
 .Diagrama de comunicación: CU-08 Cancelar reservación
 image::CancelarReservación.png[width=700,alt=Diagrama de comunicación de Cancelar reservación]
@@ -1369,4 +1369,4 @@ image::RegistrarRecepcionista.png[width=700,alt=Diagrama de comunicación de Reg
 image::ConsultarRecepcionista.png[width=700,alt=Diagrama de comunicación de Consultar Recepcionista]
 
 .Diagrama de comunicación: CU-35 Dar de baja Recepcionista
-image::DarDeBajaRecepcionistas.png[width=700,alt=Diagrama de comunicación de Dar de baja Recepcionista]
+image::DarDeBajaRecepcionista.png[width=700,alt=Diagrama de comunicación de Dar de baja Recepcionista]
