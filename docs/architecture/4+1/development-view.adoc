@@ -435,6 +435,7 @@ image::IActualizarPolítica.png[width=600,alt=Diagrama de interfaces de Actualiz
     politicaActualizada.descripcion = politica.descripcion and
     politicaActualizada.vigencia = politica.vigencia
 |===
+
 .Diagrama de interfaces: Registrar tarifa
 image::InterfacesDiaCU-13 Registrar tarifa.png[width=600,alt=Diagrama de interfaces de Registrar tarifa]
 |===
@@ -442,12 +443,12 @@ image::InterfacesDiaCU-13 Registrar tarifa.png[width=600,alt=Diagrama de interfa
 | context IRegistrarTarifa::registrarTarifa(tarifa: Tarifa): void
   pre:
     -- El tipo de habitación asociado debe existir.
-    tiposDeHabitacion->exists(t | t.idTipoHabitacion = tarifa.tipo.idTipoHabitacion) and
+    tiposDeHabitacion->exists(t \| t.idTipoHabitacion = tarifa.tipo.idTipoHabitacion) and
     -- El monto de la tarifa debe ser mayor que cero.
     tarifa.monto > 0 and
     -- No debe existir otra tarifa activa para el mismo tipo de habitación y periodo.
-    tarifas->forAll(t | t.tipo.idTipoHabitacion <> tarifa.tipo.idTipoHabitacion or t.vigencia <> tarifa.vigencia)
-  context IRegistrarTarifa::registrarTarifa(tarifa: Tarifa): void
+    tarifas->forAll(t \| t.tipo.idTipoHabitacion <> tarifa.tipo.idTipoHabitacion or t.vigencia <> tarifa.vigencia)
+|  context IRegistrarTarifa::registrarTarifa(tarifa: Tarifa): void
   post:
     -- Se crea una nueva tarifa activa en el sistema.
     tarifas->size = tarifas@pre->size + 1 and
@@ -464,15 +465,15 @@ image::InterfacesDiaCU-14 Actualizar tarifa.png[width=600,alt=Diagrama de interf
 | context IActualizarTarifa::actualizarTarifa(tarifa: Tarifa, idTarifa: int): void
   pre:
     -- La tarifa a actualizar debe existir.
-    tarifas->exists(t | t.idTarifa = idTarifa) and
+    tarifas->exists(t \| t.idTarifa = idTarifa) and
     -- El nuevo monto debe ser válido.
     tarifa.monto > 0
-  context IActualizarTarifa::actualizarTarifa(tarifa: Tarifa, idTarifa: int): void
+|  context IActualizarTarifa::actualizarTarifa(tarifa: Tarifa, idTarifa: int): void
   post:
     -- El número total de tarifas no cambia.
     tarifas->size = tarifas@pre->size and
     -- Los valores de la tarifa actualizada coinciden con los nuevos datos.
-    let tarifaAct : Tarifa = tarifas->any(t | t.idTarifa = idTarifa) in
+    let tarifaAct : Tarifa = tarifas->any(t \| t.idTarifa = idTarifa) in
     tarifaAct.monto = tarifa.monto and
     tarifaAct.vigencia = tarifa.vigencia
 |===
@@ -484,14 +485,14 @@ image::InterfacesDiaCU-15 Actualizar tarifa de cuota.png[width=600,alt=Diagrama 
 | context IActualizarTarifaDeCuota::actualizarTarifaDeCuota(cuota: TarifaCuota): void
   pre:
     -- La cuota debe existir en el sistema.
-    tarifasCuota->exists(c | c.id = cuota.id) and
+    tarifasCuota->exists(c \| c.id = cuota.id) and
     -- El nuevo porcentaje debe ser mayor que cero.
     cuota.porcentaje > 0
-  context IActualizarTarifaDeCuota::actualizarTarifaDeCuota(cuota: TarifaCuota): void
+|  context IActualizarTarifaDeCuota::actualizarTarifaDeCuota(cuota: TarifaCuota): void
   post:
     -- La cuota se actualiza manteniendo la integridad del conjunto.
     tarifasCuota->size = tarifasCuota@pre->size and
-    let cuotaAct : TarifaCuota = tarifasCuota->any(c | c.id = cuota.id) in
+    let cuotaAct : TarifaCuota = tarifasCuota->any(c \| c.id = cuota.id) in
     cuotaAct.porcentaje = cuota.porcentaje and
     cuotaAct.vigencia = cuota.vigencia
 |===
@@ -503,15 +504,15 @@ image::InterfacesDiaCU-16 Actualizar tarifa de insumo.png[width=600,alt=Diagrama
 | context IActualizarTarifaDeInsumo::actualizarTarifaDeInsumo(insumo: TarifaInsumo): void
   pre:
     -- El insumo debe existir.
-    insumos->exists(i | i.id = insumo.id) and
+    insumos->exists(i \| i.id = insumo.id) and
     -- El precio debe ser positivo.
     insumo.precio > 0
-  context IActualizarTarifaDeInsumo::actualizarTarifaDeInsumo(insumo: TarifaInsumo): void
+|  context IActualizarTarifaDeInsumo::actualizarTarifaDeInsumo(insumo: TarifaInsumo): void
   post:
     -- Se mantiene el número total de insumos.
     insumos->size = insumos@pre->size and
     -- Los datos del insumo se actualizan correctamente.
-    let insumoAct : TarifaInsumo = insumos->any(i | i.id = insumo.id) in
+    let insumoAct : TarifaInsumo = insumos->any(i \| i.id = insumo.id) in
     insumoAct.precio = insumo.precio and
     insumoAct.vigencia = insumo.vigencia
 |===
@@ -525,8 +526,8 @@ image::InterfacesDiaCU-17 Registrar hotel.png[width=600,alt=Diagrama de interfac
     -- El nombre del hotel no debe estar vacío.
     hotel.nombre.oclIsNotEmpty() and
     -- No debe existir otro hotel con el mismo nombre y dirección.
-    hoteles->forAll(h | h.nombre <> hotel.nombre or h.direccion <> hotel.direccion)
-  context IRegistrarHotel::registrarHotel(hotel: Hotel): void
+    hoteles->forAll(h \| h.nombre <> hotel.nombre or h.direccion <> hotel.direccion)
+|  context IRegistrarHotel::registrarHotel(hotel: Hotel): void
   post:
     -- Se ha creado un nuevo hotel en el sistema.
     hoteles->size = hoteles@pre->size + 1 and
@@ -543,10 +544,10 @@ image::InterfacesDiaCU-18 Consultar hotel.png[width=600,alt=Diagrama de interfac
   pre:
     -- Debe existir al menos un hotel registrado.
     hoteles->notEmpty()
-  context IConsultarHotel::consultarHotel(filtro: Hotel): Hotel[]
+|  context IConsultarHotel::consultarHotel(filtro: Hotel): Hotel[]
   post:
     -- El resultado contiene únicamente hoteles válidos y no altera el estado.
-    result->forAll(h | h.oclIsTypeOf(Hotel)) and
+    result->forAll(h \| h.oclIsTypeOf(Hotel)) and
     hoteles = hoteles@pre
 |===
 
@@ -557,13 +558,13 @@ image::InterfacesDiaCU-19 Actualizar hotel.png[width=600,alt=Diagrama de interfa
 | context IActualizarHotel::actualizarHotel(hotel: Hotel): void
   pre:
     -- El hotel debe existir.
-    hoteles->exists(h | h.idHotel = hotel.idHotel)
-  context IActualizarHotel::actualizarHotel(hotel: Hotel): void
+    hoteles->exists(h \| h.idHotel = hotel.idHotel)
+|  context IActualizarHotel::actualizarHotel(hotel: Hotel): void
   post:
     -- El número total de hoteles no cambia.
     hoteles->size = hoteles@pre->size and
     -- El hotel se actualiza con los nuevos datos.
-    let hotelAct : Hotel = hoteles->any(h | h.idHotel = hotel.idHotel) in
+    let hotelAct : Hotel = hoteles->any(h \| h.idHotel = hotel.idHotel) in
     hotelAct.nombre = hotel.nombre and
     hotelAct.direccion = hotel.direccion
 |===
@@ -575,13 +576,13 @@ image::InterfacesDiaCU-20 Dar de baja hotel.png[width=600,alt=Diagrama de interf
 | context IDarDeBajaHotel::darDeBajaHotel(idHotel: int): void
   pre:
     -- El hotel debe existir y no tener reservas activas.
-    hoteles->exists(h | h.idHotel = idHotel) and
-    reservas->forAll(r | r.hotel.idHotel <> idHotel or r.estado = 'CANCELADA')
-  context IDarDeBajaHotel::darDeBajaHotel(idHotel: int): void
+    hoteles->exists(h \| h.idHotel = idHotel) and
+    reservas->forAll(r \| r.hotel.idHotel <> idHotel or r.estado = 'CANCELADA')
+|  context IDarDeBajaHotel::darDeBajaHotel(idHotel: int): void
   post:
     -- El hotel es eliminado del sistema.
     hoteles->size = hoteles@pre->size - 1 and
-    hoteles->forAll(h | h.idHotel <> idHotel)
+    hoteles->forAll(h \| h.idHotel <> idHotel)
 |===
 
 .Diagrama de interfaces: Registrar tipo de habitación
@@ -614,15 +615,15 @@ image::InterfacesDiaCU-22 Actualizar tipo de habitación.png[width=600,alt=Diagr
 | context IActualizarTipoHabitacion::actualizarTipoHabitacion(tipo: TipoHabitacion): void
   pre:
     -- El tipo de habitación debe existir.
-    tiposDeHabitacion->exists(t | t.idTipoHabitacion = tipo.idTipoHabitacion) and
+    tiposDeHabitacion->exists(t \| t.idTipoHabitacion = tipo.idTipoHabitacion) and
     -- La capacidad y descripción deben ser válidas.
     tipo.capacidad > 0 and tipo.descripcion.oclIsNotEmpty()
-  context IActualizarTipoHabitacion::actualizarTipoHabitacion(tipo: TipoHabitacion): void
+|  context IActualizarTipoHabitacion::actualizarTipoHabitacion(tipo: TipoHabitacion): void
   post:
     -- El número de tipos de habitación no cambia.
     tiposDeHabitacion->size = tiposDeHabitacion@pre->size and
     -- Se actualizan los valores de la categoría.
-    let tipoAct : TipoHabitacion = tiposDeHabitacion->any(t | t.idTipoHabitacion = tipo.idTipoHabitacion) in
+    let tipoAct : TipoHabitacion = tiposDeHabitacion->any(t \| t.idTipoHabitacion = tipo.idTipoHabitacion) in
     tipoAct.capacidad = tipo.capacidad and
     tipoAct.descripcion = tipo.descripcion
 |===
