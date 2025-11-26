@@ -1,0 +1,45 @@
+==== Process View
+
+==== Diagramas de Secuencia
+
+
+=== Diagrama de Secuencia Crítico: Confirmación de Reserva con Saga y Broker
+
+Este diagrama detalla el flujo crítico de creación y confirmación de una reserva, ilustrando la separación arquitectónica entre la recepción de la solicitud y su procesamiento de negocio para garantizar alto desempeño y consistencia transaccional.
+
+image::SecuenceDiagramConfirmarReserva.png[title="Flujo de Confirmación de Reserva con Saga", align="center"]
+
+==== Descripción de la Estructura y Modelo de Concurrencia
+
+La estructura del diagrama refleja un modelo de **concurrencia asíncrona basada en eventos**, dividiendo la transacción de negocio en dos fases temporales desacopladas:
+
+. **Fase 1: Recepción Síncrona (Cliente-Servidor)**
+* **Interacción:** El `Huésped` interactúa con el `API Gateway` y el `ServicioDeReservas`.
+* **Modelo de Ejecución:** Se realizan validaciones ligeras (formato, autenticación) y la persistencia inicial de la reserva en estado `PENDIENTE`.
+* **Patrón:** Se aplica _Fire-and-Forget_ al publicar el evento en el `Message Broker`.
+* **Tiempo Objetivo:** Esta fase está diseñada para completarse en **< 500ms**, retornando un `HTTP 202 Accepted` para liberar el hilo del cliente inmediatamente.
+
+. **Fase 2: Procesamiento Asíncrono (Orquestación de Saga)**
+* **Interacción:** El `Reservation Worker` actúa como **Orquestador de la Saga**, consumiendo mensajes del Broker de forma desacoplada.
+* **Coordinación:** El Worker ejecuta llamadas RPC síncronas hacia los servicios de dominio (`ServicioDeInventario` y `ServicioDePago`) para asegurar la confirmación inmediata de cada paso lógico.
+* **Política de Consistencia:** Se utiliza **Consistencia Eventual**. El sistema asegura que todos los servicios convergerán a un estado consistente (Confirmado o Cancelado), aunque no ocurra en el mismo instante exacto.
+
+==== Justificación del Estilo Arquitectónico
+
+El diseño presentado materializa el estilo **Orientado a Servicios (SOA) con Arquitectura Basada en Eventos (EDA)**. La decisión de introducir un _Message Broker_ como frontera y un _Worker_ como controlador de la lógica compleja justifica la necesidad de aislar el núcleo del negocio de la latencia inherente a servicios externos (como pasarelas de pago) y operaciones intensivas de base de datos.
+
+==== Cumplimiento de Escenarios de Atributos de Calidad
+
+La estructura y los patrones de interacción demostrados en el diagrama satisfacen los siguientes drivers arquitectónicos:
+
+* **Desempeño y Latencia (QAS-02, QAS-03):**
+Al desacoplar el procesamiento pesado de la fase síncrona, el sistema cumple con la métrica de respuesta al usuario (< 2.5s) incluso bajo carga. La cola de mensajes actúa como un amortiguador (_load leveling_) que protege a los servicios backend de picos de tráfico repentinos.
+
+* **Fiabilidad y Atomicidad (QAS-09, CRN-02):**
+El uso del patrón **Saga** garantiza la atomicidad de la transacción distribuida sin bloqueos de base de datos. El diagrama muestra explícitamente el flujo de **Compensación** (bloque `alt` de fallo): si el pago es rechazado, el orquestador revierte los cambios previos (`liberarHabitación`), asegurando que no existan inconsistencias de datos (habitaciones bloqueadas sin pago).
+
+* **Escalabilidad (QAS-04):**
+El componente `Reservation Worker` es _stateless_. Esto permite escalar horizontalmente añadiendo más instancias de workers para aumentar la velocidad de procesamiento de la cola durante eventos de alta demanda, sin afectar la disponibilidad de la API pública.
+
+* **Disponibilidad y Tolerancia a Fallos (QAS-06):**
+La persistencia del mensaje en el `Broker` asegura que, ante una caída temporal del `ServicioDePago` o `Inventario`, la solicitud del usuario no se pierde. El Worker puede reintentar el procesamiento posteriormente, garantizando la continuidad del servicio.
