@@ -46,6 +46,7 @@ La persistencia del mensaje en el `Broker` asegura que, ante una caída temporal
 
 === Diagrama de Secuencia de Alto Valor: Proceso de Pago con Idempotency-Key
 Este diagrama detalla el flujo crítico de procesamiento de pagos, ilustrando los mecanismos de seguridad y consistencia de datos necesarios para garantizar la integridad financiera del sistema, evitando duplicidades y manejando fallos externos de manera resiliente.
+
 image::DiagramaSecuenciaProcesoPago.png[title="Proceso de Pago Seguro con Idempotency-Key", align="center"]
 
 ==== Descripción de la Estructura y Modelo de Concurrencia
