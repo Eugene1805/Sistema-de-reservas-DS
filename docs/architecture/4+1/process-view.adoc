@@ -43,3 +43,43 @@ El componente `Reservation Worker` es _stateless_. Esto permite escalar horizont
 
 * **Disponibilidad y Tolerancia a Fallos (QAS-06):**
 La persistencia del mensaje en el `Broker` asegura que, ante una caída temporal del `ServicioDePago` o `Inventario`, la solicitud del usuario no se pierde. El Worker puede reintentar el procesamiento posteriormente, garantizando la continuidad del servicio.
+
+=== Diagrama de Secuencia de Alto Valor: Proceso de Pago con Idempotency-Key
+Este diagrama detalla el flujo crítico de procesamiento de pagos, ilustrando los mecanismos de seguridad y consistencia de datos necesarios para garantizar la integridad financiera del sistema, evitando duplicidades y manejando fallos externos de manera resiliente.
+image::DiagramaSecuenciaProcesoPago.png[title="Proceso de Pago Seguro con Idempotency-Key", align="center"]
+
+==== Descripción de la Estructura y Modelo de Concurrencia
+
+La estructura del diagrama refleja un modelo de concurrencia híbrida, diseñada para priorizar la consistencia fuerte en la fase financiera y el desempeño en la fase de notificación. La transacción se divide en tres fases lógicas:
+
+. **Fase 1: Validación y Bloqueo Optimista (Síncrona)**
+* **Interacción:** El Huésped inicia la solicitud a través del API Gateway, el cual delega al ServicioDePago.
+* **Modelo de Ejecución:** Se aplica una política de Consistencia Fuerte. Antes de cualquier interacción externa, el servicio consulta y escribe en el RepositorioPagos.
+* **Patrón:** Se utiliza el patrón Idempotency Key. La inserción del estado PENDIENTE actúa como un bloqueo lógico (lock) para prevenir condiciones de carrera ante clics dobles del usuario.
+* **Tiempo Objetivo:** Esta fase de validación interna debe completarse en milisegundos para proceder rápidamente al cobro.
+
+. **Fase 2: Ejecución Financiera y Compensación (Síncrona con Timeout)**
+* **Interacción:** El ServicioDePago invoca a la PasarelaExterna. Esta es una llamada bloqueante crítica.
+* **Manejo de Fallos:** Se definen bloques de excepciones para manejar Timeouts (> 4 segundos según QAS-02 ). Si la pasarela no responde o falla, se dispara inmediatamente una lógica de compensación (revertirCargo) para garantizar la atomicidad de la operación.
+* **Política de Consistencia:** Se mantiene la consistencia transaccional del estado financiero. Si falla la pasarela, el sistema revierte su estado interno a FALLIDO.
+
+. **Fase 3: Notificación y Desacoplamiento (Asíncrona)**
+* **Interacción:** Una vez confirmado el pago, el ServicioDePago publica el evento en el Message Broker.
+* **Patrón:** Se aplica Fire-and-Forget. El servicio no espera a que los consumidores (Reservas, Inventario) procesen el evento.
+* **Política de Consistencia:** Transición a Consistencia Eventual para el resto del ecosistema. El usuario recibe su confirmación (200 OK) inmediatamente, mientras que la actualización de inventario ocurre en segundo plano.
+
+==== Justificación del Estilo Arquitectónico
+
+El diseño materializa la arquitectura en capas con orientación a servicios (SOA), integrando patrones de resiliencia. La inclusión del API Gateway como punto de entrada único aísla la lógica de pago de la complejidad de seguridad perimetral. El uso del patrón Repository para la gestión del estado (RepositorioPagos) permite desacoplar la lógica de negocio de la tecnología de persistencia, facilitando la auditoría de transacciones. Finalmente, la integración del Message Broker  evita que la latencia de subsistemas secundarios degrade la experiencia de pago del usuario.
+
+==== Cumplimiento de Escenarios de Atributos de Calidad
+
+La estructura y los patrones de interacción demostrados en el diagrama satisfacen los siguientes drivers arquitectónicos:
+
+* **Disponibilidad e Idempotencia (QAS-07, CRN-02):** El bloque alt inicial implementa la táctica de Idempotencia. Al verificar la existencia de la transacción ([transacción != null]) antes de procesar, el sistema garantiza que los reintentos automáticos por fallos de red no generen cobros duplicados, cumpliendo estrictamente con la preocupación crítica de integridad financiera.
+
+* **Fiabilidad y Tolerancia a Fallos (QAS-09):** El diagrama modela explícitamente la Tolerancia a fallos en transacciones. Mediante el fragmento de ruptura (bloque de error/timeout), el sistema asegura que ante una falta de respuesta de la PasarelaExterna, se ejecute una reversión activa (revertirCargo) y se actualice el estado local, evitando inconsistencias entre el dinero descontado al usuario y el registro del sistema.
+
+* **Desempeño (QAS-02):** La publicación asíncrona del evento PagoAprobado hacia el Message Broker al final del flujo exitoso contribuye a mantener los tiempos de respuesta bajo control (< 4s en el 99% de los casos ). Esto libera los recursos del ServicioDePago inmediatamente después de la confirmación financiera, sin bloquearse por la lógica de negocio de otros servicios.
+
+* **Seguridad (CRN-01):** Aunque implícito en el flujo, la mediación del API Gateway asegura que los datos sensibles de pago (DatosDePago) viajen a través de un canal cifrado y autenticado antes de llegar al servicio interno, protegiendo la información personal del huésped.
