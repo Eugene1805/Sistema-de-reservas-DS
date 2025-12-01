@@ -1,5 +1,3 @@
-==== Vista funcional
-
 === Casos de uso
 
 ==== Lista de casos de uso

@@ -36,8 +36,6 @@ include::architecture/4+1/process-view.adoc[]
 === Vista Física
 include::architecture/4+1/physical-view.adoc[]
 
-=== Vista de Escenarios
-include::architecture/4+1/scenarios-view.adoc[]
 
 == Requisitos
 
