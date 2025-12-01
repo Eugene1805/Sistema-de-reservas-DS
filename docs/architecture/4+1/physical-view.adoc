@@ -1,0 +1,197 @@
+[[physical-view]]
+== Vista de Despliegue
+
+image::DeploymentDiagram.png[title="Arquitectura Física – Vista de Despliegue del SGH", align="center"]
+
+La Vista de Despliegue del Sistema de Gestión Hotelera (SGH) describe cómo los componentes
+software se asignan a la infraestructura física y virtual que permite satisfacer los escenarios de
+Desempeño, Disponibilidad, Seguridad y Escalabilidad definidos en los ASRs. Esta vista se centra
+en mostrar la topología final del sistema, sus nodos principales, los mecanismos de comunicación
+entre capas, y las tácticas arquitectónicas que maximizan la robustez del sistema en producción.
+
+El despliegue se estructura en cuatro niveles principales: Cliente, Zona Desmilitarizada (DMZ),
+Capa de Aplicación y Capa de Datos. Cada nivel cumple una función específica dentro del modelo
+operativo y está diseñado para soportar un estilo arquitectónico orientado a servicios,
+complementado con un patrón API Gateway y una infraestructura distribuida basada en contenedores.
+
+=== Nivel de Cliente
+
+El nivel de cliente incluye dos tipos de consumidores: un navegador web que ejecuta la interfaz
+SGH Web (SPA) y la aplicación móvil SGH App/PWA. Ambos clientes se comunican exclusivamente
+a través de conexiones seguras por HTTPS (TLS 1.3/JSON), garantizando la confidencialidad
+y la integridad de los datos transmitidos (QAS-05, CRN-01). Este nivel no requiere instalación de
+componentes adicionales ni mantiene estado, lo que permite un despliegue ligero y portabilidad
+total para cumplir con los requisitos de CON-03 y QAS-08.
+
+=== Zona Desmilitarizada (DMZ)
+
+La DMZ aloja un Load Balancer integrado con el API Gateway del SGH. Este componente
+centraliza toda la entrada al sistema, filtra tráfico malicioso, aplica políticas de autorización,
+rate limiting y terminación de certificados SSL/TLS. El API Gateway constituye la primera línea
+de defensa del sistema (QAS-05), reduce acoplamiento entre clientes y servicios, y habilita
+la implementación del estilo SOA expuesto en la Vista Lógica. Además, el Load Balancer
+permite distribuir el tráfico entre múltiples instancias de la capa de aplicación,
+lo que habilita escalabilidad horizontal (QAS-04) y failover sin interrupciones (QAS-06).
+
+=== Nivel de Aplicación – Cluster SGH
+
+La capa de aplicación está desplegada en un cluster de contenedores (por ejemplo,
+Kubernetes o un orquestador equivalente). El cluster ejecuta servicios *stateless*, siguiendo las
+decisiones arquitectónicas xref:dec-12[dec-12] y xref:dec-16[dec-16], lo cual simplifica la recuperación ante fallos
+y favorece escalamiento dinámico.
+
+Dentro del cluster se despliegan cinco Pods principales:
+
+* *Pod Reservas*: aloja `servicio-reservas.jar`, incluyendo el Orquestador Saga
+  (decisión xref:dec-6[dec-6]). Gestiona la lógica de reserva, interacciones con pagos e inventario,
+  y coordina operaciones compensatorias para garantizar atomicidad distribuida (QAS-09).
+
+* *Pod Inventario*: contiene `servicio-inventario.jar` y ejecuta la lógica de disponibilidad,
+  verificación de cupos y manejo de sobreventa (overbooking del 10%). Su modelo de concurrencia
+  se basa en exclusión mutua y mecanismos de sincronización especificados en xref:dec-10[dec-10].
+
+* *Pod Pagos*: responsable de la integración con la pasarela de pagos externa mediante HTTPS,
+  aplicando la táctica de Idempotency-Key (xref:dec-7[dec-7]) para evitar pagos duplicados bajo errores
+  de red o reintentos de cliente (CRN-02, QAS-07).
+
+* *Pod Gestión Hotelera*: proporciona funcionalidades administrativas de backoffice para la
+  gestión de hoteles, roles y configuraciones.
+
+* *Pod Asíncrono (Workers)*: procesa colas provenientes del Message Broker (xref:dec-8[dec-8]),
+  permitiendo desacoplar tareas pesadas del flujo principal. Esto reduce latencia percibida por
+  el usuario (QAS-02) y mejora throughput bajo cargas altas (QAS-04).
+
+Los Pods se comunican entre sí mediante HTTP interno (REST/JSON), mientras que las operaciones
+asíncronas se realizan mediante AMQP/Kafka. Esta mezcla de comunicaciones refleja la necesidad
+de soportar consistencia eventual en ciertos flujos y consistencia fuerte en otros, según lo
+determinado en la Vista de Procesos.
+
+=== Nivel de Datos
+
+El Nivel de Datos está compuesto por tres elementos principales: la base de datos relacional
+MySQL (Master), el servicio de Caché Redis y el sistema de logs/observabilidad del SGH.
+
+* *Base de Datos Master (MySQL)*: es el repositorio transaccional principal que persiste
+  información de reservas, estado de transacciones Saga, disponibilidad de inventario,
+  registros de pago e información administrativa. El uso de MySQL responde directamente
+  a la restricción CON-04 y a la necesidad de contar con operaciones ACID. Todos los
+  servicios del cluster se conectan a este nodo mediante JDBC (Read/Write), en coherencia
+  con el patrón Repositorio (xref:dec-14[dec-14]).
+
+* *Redis Cache*: se integra como una capa de caché en memoria para acelerar las consultas
+  frecuentes de disponibilidad realizadas por el Servicio de Inventario. Su uso se justifica en
+  dos dimensiones:
+
+  1. **Rendimiento:** Redis permite responder consultas en microsegundos, reduciendo la
+     latencia total de respuesta para cumplir el objetivo de QAS-02 (consultas <500 ms).
+  2. **Escalabilidad:** al aliviar carga de lectura sobre MySQL, Redis permite absorber picos
+     de hasta 300 QPS sin saturar la base de datos (QAS-04).
+
+  Redis se usa bajo el patrón *Cache Aside*: el Servicio de Inventario consulta primero en
+  Redis y, si no existe la clave, obtiene la información desde MySQL y la almacena nuevamente
+  en caché. Esto mantiene sincronización adecuada sin comprometer consistencia lógica del
+  sistema.
+
+* *Observabilidad*: el SGH registra eventos, trazas e indicadores de rendimiento mediante
+  el subsistema de logs (xref:dec-15[dec-15]). Esta información se envía desde los Pods usando
+  protocolos ligeros y se utiliza para auditoría operativa (CRN-01), diagnóstico y monitoreo
+  continuo.
+
+En conjunto, esta topología permite satisfacer los requisitos más críticos del sistema:
+alta disponibilidad mediante replicación por clustering, desempeño mediante Redis y
+procesamiento asíncrono, seguridad mediante cifrado de extremo a extremo, y fiabilidad
+mediante la coordinación de transacciones distribuidas. La separación clara de responsabilidades
+entre niveles, junto con la redundancia y la escalabilidad horizontal, garantiza que el SGH pueda
+operar de manera eficiente y segura incluso bajo escenarios de alta concurrencia.
+
+== Aspectos Transversales (Cross-Cutting Concerns)
+
+Los aspectos transversales del Sistema de Gestión Hotelera (SGH) representan mecanismos y
+estrategias que afectan simultáneamente a múltiples componentes arquitectónicos, sin pertenecer
+de forma exclusiva a una sola vista. Su objetivo es otorgar cualidades globales al sistema tales como
+seguridad, auditabilidad, coherencia operativa, confiabilidad y manejo adecuado de transacciones.
+En esta sección se describen tres concerns transversales clave que influyen ampliamente en la
+implementación y el comportamiento del SGH: Seguridad, Observabilidad y Gestión de
+Transacciones Distribuidas.
+
+=== Seguridad y Protección de Datos
+
+La seguridad constituye uno de los aspectos más críticos del SGH debido a la naturaleza sensible de
+la información manejada: datos personales, información de pagos y registros de reservas. Este
+aspecto transversal abarca todas las interacciones entre clientes, servicios internos y sistemas
+externos. Su diseño se apoya principalmente en dos elementos: el API Gateway como punto central
+de gobernanza de tráfico y la aplicación estricta de cifrado de extremo a extremo mediante TLS
+(TLS 1.3).
+
+El API Gateway desempeña un rol fundamental al aplicar políticas de autenticación y autorización
+antes de permitir el acceso a los servicios internos. La autenticación se realiza mediante tokens JWT,
+los cuales contienen información firmada digitalmente sobre el usuario y su nivel de permisos. Este
+mecanismo evita la necesidad de implementar autenticación en cada microservicio, reduciendo
+riesgos de inconsistencias y garantizando homogeneidad en las políticas de acceso.
+
+Asimismo, toda comunicación entre clientes, el API Gateway y los servicios del SGH se realiza
+exclusivamente a través de HTTPS. Esto evita ataques de intermediarios (MITM) y garantiza la
+protección de datos en tránsito, satisfaciendo el requisito QAS-05 y la preocupación CRN-01 sobre la
+protección de información personal y financiera. El API Gateway también permite aplicar medidas
+como throttling, rate limiting y detección de tráfico anómalo, mitigando ataques de denegación de
+servicio (DoS).
+
+Finalmente, la arquitectura aplica prácticas de seguridad a nivel de servicios internos, tales como la
+validación de entradas, protección contra SQL Injection a través del uso del patrón Repositorio y
+gestión segura de secretos mediante variables de entorno o servicios especializados (por ejemplo,
+Secret Manager).
+
+=== Observabilidad: Logs, Métricas y Trazas Distribuidas
+
+La observabilidad está presente en todas las capas del SGH y permite comprender el estado del
+sistema, diagnosticar comportamientos inesperados y garantizar un funcionamiento confiable bajo
+alta concurrencia. Este aspecto transversal incluye tres mecanismos complementarios: logging
+estructurado, monitoreo de métricas y trazas distribuidas.
+
+El logging estructurado se implementa en todos los servicios mediante una capa unificada de
+observabilidad (decisión xref:dec-15[dec-15]). Los servicios registran eventos importantes tales como creación de
+reservas, errores transaccionales, fallos de comunicación, eventos de compensación Saga,
+reintentos de pagos e inconsistencias detectadas por el Servicio de Inventario. Estos logs se envían a
+un sistema centralizado de almacenamiento y análisis, lo que permite rastrear eventos ocurridos en
+distintos contenedores de forma correlacionada.
+
+Las métricas operativas incluyen indicadores de rendimiento (tiempo de respuesta P95 y P99),
+métricas de throughput, uso de CPU y memoria por Pod, métricas del broker de mensajería y
+estado de la base de datos MySQL. Estas métricas alimentan paneles de monitoreo que permiten
+detectar anomalías en tiempo real y sirven como retroalimentación para estrategias de escalado
+automático del cluster (Horizontal Pod Autoscaler).
+
+Las trazas distribuidas completan el modelo de observabilidad, permitiendo visualizar el recorrido
+de una solicitud a través de diferentes microservicios. El caso de uso más crítico es la confirmación
+de reservas, la cual involucra al API Gateway, ServicioDeReservas, ServicioDeInventario, ServicioDePago,
+Workers y la base de datos. Las trazas permiten detectar rápidamente demoras localizadas,
+evaluar cuellos de botella y mantener integridad operativa de los procesos coordinados mediante
+Saga. Estos mecanismos son indispensables para satisfacer los requisitos de fiabilidad (QAS-09),
+disponibilidad (QAS-06) y auditoría operativa (CRN-01).
+
+=== Gestión de Transacciones Distribuidas: Saga, Idempotencia y Mensajería
+
+El SGH opera bajo un modelo distribuido donde múltiples operaciones independientes deben
+coordinarse para garantizar consistencia del sistema, especialmente en los procesos de reservas,
+pagos y actualizaciones de inventario. Para ello, la arquitectura implementa tres mecanismos
+transversales: el patrón Saga, la táctica de idempotencia y la comunicación asíncrona mediante
+Message Broker.
+
+El patrón Saga (xref:dec-6[dec-6]) permite dividir una transacción compleja –como reservar una habitación y
+procesar un pago– en una serie de transacciones locales manejadas por distintos servicios. Cada
+servicio realiza su operación de forma independiente y, en caso de fallo, ejecuta una operación de
+compensación. Esto garantiza que el sistema mantenga consistencia sin depender de transacciones
+distribuidas bloqueantes, alineándose con los requisitos de Fiabilidad (QAS-09).
+
+La táctica de idempotencia (xref:dec-7[dec-7]) garantiza que múltiples solicitudes idénticas –común en pagos externos o
+reintentos automáticos– no produzcan efectos duplicados. Esto es fundamental para evitar pagos
+dobles (CRN-02) y para mantener exactitud en las reservas coordinadas por Saga.
+
+La mensajería asíncrona (xref:dec-8[dec-8] y xref:dec-9[dec-9]) complementa el modelo distribuyendo el procesamiento de tareas
+pesadas hacia los Pods Workers, permitiendo desacoplamiento, tolerancia a fallos y reducción de
+latencia. Las colas del Message Broker actúan como un buffer que absorbe picos de carga, lo que
+permite sostener tasas de tráfico de hasta 300 QPS sin degradar el rendimiento global (QAS-04).
+
+En conjunto, estos tres mecanismos forman el núcleo transversal que garantiza que el SGH opere
+de forma coherente y confiable bajo condiciones de alta concurrencia, manteniendo la integridad
+de las operaciones críticas del negocio.

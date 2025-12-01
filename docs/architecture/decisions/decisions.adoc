@@ -241,81 +241,101 @@ los requisitos del negocio hotelero.
 | xref:dec-8[Message Broker] +
   xref:dec-9[Workers asíncronos] +
   xref:dec-2[Arquitectura en capas]
-| Vista de Procesos (flujo de reserva), Paquete *Mensajería*, Workers de confirmación
+| xref:process-view[Vista de Procesos], Paquete *Mensajería*, Pod Workers, ServicioDeReservas (flujo asíncrono)
 | Cumple
 
 | QAS-02 (Desempeño) – Consultas P95 ≤ 500 ms a 300 QPS
 | xref:dec-17[Flujos sin bloqueo] +
   xref:dec-2[Arquitectura en capas]
-| ServicioDeInventario, Vista Lógica, Vista de Procesos
+| ServicioDeInventario, xref:logical-view[Vista Lógica], xref:process-view[Vista de Procesos]
 | Cumple
 
 // ---------------- QAS-04 ----------------
 | QAS-04 (Escalabilidad) – Manejo de picos de tráfico (10 TPS)
 | xref:dec-12[Balanceador de carga] +
   xref:dec-16[Servicios stateless]
-| Vista Física (cluster), Nodos Front-End, Servicios distribuidos
+| xref:physical-view[Vista Física] (Cluster SGH), Nodos Front-End, Pods distribuidos
 | Cumple
 
 // ---------------- QAS-05 / CRN-01 ----------------
 | QAS-05 (Seguridad) & CRN-01 (Privacidad de PII)
 | xref:dec-4[API Gateway] +
   xref:dec-5[Cifrado TLS]
-| Vista Física (API Gateway), Certificados SSL, Capa de borde
+| xref:physical-view[Vista Física] (API Gateway en DMZ), Certificados SSL/TLS, Política de acceso
 | Cumple
 
 // ---------------- QAS-06 ----------------
 | QAS-06 (Disponibilidad) – Failover y tolerancia a fallos
 | xref:dec-11[Redundancia por clustering] +
   xref:dec-16[Servicios stateless]
-| Vista Física (nodos replicados)
+| xref:physical-view[Vista Física] (Pods replicados, cluster activo-activo)
 | Cumple
 
 // ---------------- QAS-07 / CRN-02 ----------------
 | QAS-07 (Disponibilidad) & CRN-02 (Evitar pagos dobles)
 | xref:dec-7[Idempotencia en pagos]
-| ServicioDePago, Registro de transacciones
+| ServicioDePago, Registro de transacciones, xref:logical-view[Vista Lógica]
 | Cumple
 
 // ---------------- QAS-08 / CON-03 ----------------
 | QAS-08 (Portabilidad) & CON-03 – Soporte web/móvil
 | xref:dec-2[Arquitectura en capas] +
   xref:dec-3[API RESTful]
-| Vista Lógica (Presentación, Servicios, Datos)
+| xref:logical-view[Vista Lógica] (Presentación/Servicios/Datos)
 | Cumple
 
 // ---------------- QAS-09 / CRN-05 ----------------
 | QAS-09 (Fiabilidad) – Atomicidad reserva–pago–inventario
 | xref:dec-6[Patrón Saga] +
   xref:dec-10[Exclusión mutua en inventario]
-| ServicioDeReservas (Orquestador Saga), ServicioDeInventario, ServicioDePagos
+| ServicioDeReservas (Orquestador Saga), ServicioDeInventario (bloqueos), ServicioDePagos; xref:process-view[Vista de Procesos]
 | Cumple
 
 // ---------------- CON-04 ----------------
 | CON-04 – Uso obligatorio de RDBMS
-| xref:dec-1[MySQL] +
+| xref:dec-1[MySQL (RDBMS)] +
   xref:dec-14[Patrón Repositorio]
-| Componente Acceso a Datos; Vista Física (DB MySQL)
+| Componente Acceso a Datos, ServicioDeReservas, ServicioDeInventario, ServicioDePagos; xref:physical-view[Vista Física] (MySQL Master)
 | Cumple
 
 // ---------------- CRN-05 ----------------
 | CRN-05 – Evitar dobles reservas bajo alta concurrencia
-| xref:dec-10[Exclusión mutua] +
+| xref:dec-10[Exclusión mutua en inventario] +
   xref:dec-6[Saga]
-| ServicioDeInventario, Vista de Procesos (reservas simultáneas)
+| ServicioDeInventario (locks), ServicioDeReservas (coordinación), xref:process-view[Vista de Procesos]
 | Cumple
 
 // ---------------- CU-02 ----------------
 | CU-02 – Consultar disponibilidad mínima
 | xref:dec-17[Optimización de consultas] +
   xref:dec-2[Arquitectura en capas]
-| Vista Funcional, Vista Lógica, ServicioDeInventario
+| xref:functional-view[Vista Funcional], xref:logical-view[Vista Lógica], ServicioDeInventario
 | Cumple
 
 // ---------------- Overbooking ----------------
 | Política de Overbooking del 10%
 | xref:dec-10[Control de concurrencia en inventario]
-| ServicioDeInventario (módulo de overbooking)
+| ServicioDeInventario (regla de negocio), xref:logical-view[Vista Lógica]
+| Cumple
+
+// ---------------- Redis (rendimiento) ----------------
+| QAS-02 (Desempeño) – Aceleración de lectura de disponibilidad
+| xref:dec-17[Optimización de consultas] +
+  Uso de Redis como caché (patrón Cache Aside)
+| ServicioDeInventario, xref:physical-view[Vista Física] (Redis Cache), xref:logical-view[Vista Lógica]
+| Cumple
+
+// ---------------- Auditoría ----------------
+| CRN-01 (Privacidad) + Necesidad de trazabilidad operativa
+| xref:dec-15[Observabilidad: logs, métricas, trazas]
+| Paquete Auditoría, Logs distribuidos, xref:process-view[Vista de Procesos]
+| Cumple
+
+// ---------------- Workers ----------------
+| QAS-02 (Desempeño) – Desacoplar procesamiento lento
+| xref:dec-9[Workers asíncronos] +
+  xref:dec-8[Message Broker]
+| Pod Workers, Broker, xref:process-view[Vista de Procesos]
 | Cumple
 
 |===
